@@ -1,0 +1,33 @@
+<html>
+<body>
+<script>
+    window.opener.openFB.oauthCallback(window.location.href);
+    window.close();
+</script>
+<script>
+    function ExchangeCodeForAccessToken(code,callback)
+    {
+        console.log("ExchangeCodeForAccessToken(" + code + ")");
+        var strUrl = "https://www.linkedin.com/uas/oauth2/accessToken?"
+            strUrl += "grant_type=authorization_code";
+        strUrl += "&code=" + code;
+        strUrl += "&redirect_uri=http://http://localhost:8100/oauthcallback.html";
+        strUrl += "&client_id=77nayor82qqip3";
+        strUrl += "&client_secret=UJOUycxP5UgdD3da";
+        $.get(strUrl,function(data){
+            console.log("ExchangeCodeForAccessToken() " + data);
+            if (typeof(data)=="string")
+            {
+                data = eval("(" + data + ")");
+            }
+//            OAUTH_Access_token = data.access_token;
+//            var currentDate = new Date();
+//            OAUTH_Expiry = new Date(currentDate.getTime() + 60*24*60*60*1000);
+//            localStorage.setItem("OAUTH_Access_token",OAUTH_Access_token);
+//            localStorage.setItem("OAUTH_Expiry",OAUTH_Expiry);
+            callback();
+        });
+    }
+</script>
+</body>
+</html>
