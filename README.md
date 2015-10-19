@@ -1,5 +1,5 @@
 # obtuse-octo-prune
-Walk through Spring-boot with ElasticSearch
+Walk through Spring-boot with ElasticSearch Restful.
 
 1.How to install?
 
