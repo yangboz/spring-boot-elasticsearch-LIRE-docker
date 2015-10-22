@@ -1,19 +1,23 @@
 # obtuse-octo-prune
 Walk through Spring-boot with ElasticSearch Restful.
 
-1.How to install?
+1.How to install ElasticSearch?
 
-brew install elasticsearch
+    brew install elasticsearch
 
-2.How to start up?
+2.How to start up ElasticSearch?
 
-elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml
+    elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml
 
-mvn spring-boot:run
+3.How to start up Spring-boot?
 
-3.Where is the Restful result?
+    git clone https://github.com/yangboz/obtuse-octo-prune
+    cd obtuse-octo-prune
+    mvn spring-boot:run
 
-http://localhost:8084/api/static/index.html
+4.Where is the RESTful result?
+
+    http://localhost:8084/api/static/index.html
 
 # References:
 http://www.javacodegeeks.com/2015/03/head-first-elastic-search-on-java-with-spring-boot-and-data-features.html
