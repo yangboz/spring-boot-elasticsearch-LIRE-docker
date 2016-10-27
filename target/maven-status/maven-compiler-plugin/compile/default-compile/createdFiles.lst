@@ -4,6 +4,6 @@ info/smartkit/eip/obtuse_octo_prune/domains/Genre.class
 info/smartkit/eip/obtuse_octo_prune/configs/StaticResourceConfiguration.class
 info/smartkit/eip/obtuse_octo_prune/controllers/MovieController.class
 info/smartkit/eip/obtuse_octo_prune/services/impls/MovieServiceImpl.class
-info/smartkit/eip/obtuse_octo_prune/domains/Movie.class
 info/smartkit/eip/obtuse_octo_prune/daos/MovieRepository.class
+info/smartkit/eip/obtuse_octo_prune/domains/Movie.class
 info/smartkit/eip/obtuse_octo_prune/BootElastic.class

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>info.smartkit.eip</groupId>
-    <artifactId>obtuse-octo-prune</artifactId>
+    <artifactId>spring-boot-elasticsearch-LIRE-docker</artifactId>
     <version>0.0.1</version>
 
     <parent>
@@ -22,6 +22,10 @@
         <version.spring-social>1.1.2.RELEASE</version.spring-social>
         <version.spring-data-mongodb>1.2.3.RELEASE</version.spring-data-mongodb>
         <version.spring-security>3.2.7.RELEASE</version.spring-security>
+
+        <docker.image.prefix>${env.USER}</docker.image.prefix>
+        <java.version>1.8</java.version>
+
     </properties>
 
     <dependencies>
@@ -73,7 +77,6 @@
 
     </dependencies>
 
-
     <build>
         <plugins>
             <plugin>
@@ -87,6 +90,24 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+            <!-- tag::plugin[] -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.9</version>
+                <configuration>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+            <!-- end::plugin[] -->
         </plugins>
 
     </build>
