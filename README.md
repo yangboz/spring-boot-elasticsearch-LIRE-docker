@@ -11,15 +11,15 @@ Walk through Spring-boot with ElasticSearch Restful.
 
 3.How to start up Spring-boot?
 
-    git clone https://github.com/yangboz/obtuse-octo-prune
+    git clone https://github.com/yangboz/spring-boot-elasticsearch-LIRE-docker
     cd obtuse-octo-prune
     mvn spring-boot:run
 
-4.Containerize it
+4.Docker containerize it
 
     mvn package && java -jar target/spring-boot-elasticsearch-LIRE-docker-0.0.1.jar
 
-    mvn package docker -DpushImage
+    mvn package docker:build -DpushImage
 
 
 5.Where is the RESTful result?

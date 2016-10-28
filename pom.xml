@@ -98,6 +98,7 @@
                 <configuration>
                     <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                     <dockerDirectory>src/main/docker</dockerDirectory>
+                    <dockerHost>https://192.168.99.100:2376</dockerHost>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>
