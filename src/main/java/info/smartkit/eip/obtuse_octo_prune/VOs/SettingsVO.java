@@ -1,10 +1,10 @@
-package info.smartkit.eip.obtuse_octo_prune.domains;
+package info.smartkit.eip.obtuse_octo_prune.VOs;
 
 /**
  * Created by smartkit on 2016/10/29.
  * @see: https://github.com/yangboz/elasticsearch-image
  */
-public class Settings {
+public class SettingsVO {
     private int numberOfShards=5;
     private int numberOfReplicas=1;
     private double indexVersionCreated=1070499;
@@ -35,7 +35,7 @@ public class Settings {
 
     @Override
     public String toString() {
-        return "Settings{" +
+        return "SettingsVO{" +
                 "numberOfShards=" + numberOfShards +
                 ", numberOfReplicas=" + numberOfReplicas +
                 ", indexVersionCreated=" + indexVersionCreated +
