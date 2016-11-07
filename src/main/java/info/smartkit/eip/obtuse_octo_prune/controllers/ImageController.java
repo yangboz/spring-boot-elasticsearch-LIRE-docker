@@ -1,8 +1,11 @@
 package info.smartkit.eip.obtuse_octo_prune.controllers;
 
 import com.wordnik.swagger.annotations.ApiOperation;
+import info.smartkit.eip.obtuse_octo_prune.VOs.MappingVO;
+import info.smartkit.eip.obtuse_octo_prune.VOs.SettingsVO;
 import info.smartkit.eip.obtuse_octo_prune.daos.MovieRepository;
 import info.smartkit.eip.obtuse_octo_prune.domains.Movie;
+import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
 import info.smartkit.eip.obtuse_octo_prune.services.MovieServiceItf;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -21,48 +24,28 @@ import javax.ws.rs.core.MediaType;
 public class ImageController {
 
     @Autowired
-    private MovieServiceItf movieServiceItf;
-
-    @Autowired
-    private MovieRepository movieRepository;
+private ImageService imageService;
 
     private static Logger LOG = LogManager.getLogger(MovieController.class);
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
     @ApiOperation(httpMethod = "POST", value = "Response a string describing if the Movie info is successfully created or not.")
 //    public Map<String, Float> create(@RequestBody @Valid Map<String, Float> value) {
-    public Movie create(@RequestBody Movie value) {
-        //
-        return movieRepository.save(value);
-    }
+    public void search(@RequestBody Movie value) {
 
-    @RequestMapping(method = RequestMethod.GET)
-    @ApiOperation(httpMethod = "GET", value = "Response a list describing all of Movie that is successfully get or not.")
-    public Iterable<Movie> list() {
-        return movieRepository.findAll();
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ApiOperation(httpMethod = "GET", value = "Response a string describing if the Movie related value is successfully get or not.")
-    public Movie get(@PathVariable("id") long id) {
-        return movieRepository.findOne(id);
     }
 
     //
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "index/{index}", method = RequestMethod.PUT)
     @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the  Movie item  is successfully updated or not.")
-    public Movie update(@PathVariable("id") long id, @RequestBody Movie value) {
-//		Movie find = movieRepository.findOne(id);
-        return movieRepository.save(value);
+    public void setting(@PathVariable("index") String index, @RequestBody SettingsVO value) {
+        imageService.setting(index,value);
+
     }
 
-
-    //
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ApiOperation(httpMethod = "DELETE", value = "Response a string describing if the Movie item is successfully delete or not.")
-    public ResponseEntity<Boolean> delete(@PathVariable("id") long id) {
-        //
-        movieRepository.delete(id);
-        return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
+    @RequestMapping(value = "index/{index}/item/{item}", method = RequestMethod.PUT)
+    @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the  el_image item  is successfully updated or not.")
+    public void mapping(@PathVariable("index") String index,@PathVariable("item") String item, @RequestBody MappingVO value) {
+        imageService.mapping(index,item,value);
     }
 }

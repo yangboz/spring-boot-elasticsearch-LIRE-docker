@@ -38,7 +38,7 @@ public class BootElastic implements CommandLineRunner {
 
     private Movie getSecondMovie() {
         Movie secondMovie = new Movie();
-        secondMovie.setId("2");
+        secondMovie.setId(2);
         secondMovie.setRating(8.4d);
         secondMovie.setName("The Princess Bride");
 
@@ -53,7 +53,7 @@ public class BootElastic implements CommandLineRunner {
 
     private Movie getFirstMovie() {
         Movie firstMovie = new Movie();
-        firstMovie.setId("1");
+        firstMovie.setId(1);
         firstMovie.setRating(9.6d);
         firstMovie.setName("Star Wars");
 

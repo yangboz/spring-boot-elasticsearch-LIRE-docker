@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * Created by smartkit on 2016/10/28.
  */
-@Document(indexName = "elastic_image", type = "image")
+@Document(indexName = "el_image", type = "image")
 public class Image {
 
     @Id
-    private String id;
+    private  int id;
 
     private String name;
 
@@ -31,7 +31,7 @@ public class Image {
         this.rating = rating;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -43,7 +43,7 @@ public class Image {
         this.genre = genre;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

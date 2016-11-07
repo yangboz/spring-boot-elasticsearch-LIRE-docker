@@ -32,8 +32,18 @@ ElasticSearch: https://www.elastic.co/
 
 LIRE: https://github.com/dermotte/lire
 
-Spring-boot-elasticsearch: http://www.javacodegeeks.com/2015/03/head-first-elastic-search-on-java-with-spring-boot-and-data-features.html
+Spring-boot-elasticsearch 1.0: http://www.javacodegeeks.com/2015/03/head-first-elastic-search-on-java-with-spring-boot-and-data-features.html
+
+Upgrade to Elasticsearch 2.0: https://jira.spring.io/browse/DATAES-211
 
 ElasticSearch-LIRE: https://github.com/yangboz/elasticsearch-image
 
 Spring-boot-docker: https://spring.io/guides/gs/spring-boot-docker/
+
+# Troubleshoots
+
+https://github.com/spring-projects/spring-data-elasticsearch/wiki/Spring-Data-Elasticsearch---Spring-Boot---version-matrix
+
+http://stackoverflow.com/questions/35157642/nosuchmethoderror-com-google-common-util-concurrent-moreexecutors-directexecuto
+
+http://stackoverflow.com/questions/33544863/java-elasticsearch-client-always-null

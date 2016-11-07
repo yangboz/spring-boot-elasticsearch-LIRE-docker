@@ -14,7 +14,7 @@ import java.util.List;
 public class Movie {
 
     @Id
-    private String id;
+    private  int id;
 
     private String name;
 
@@ -31,7 +31,7 @@ public class Movie {
         this.rating = rating;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -43,7 +43,7 @@ public class Movie {
         this.genre = genre;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

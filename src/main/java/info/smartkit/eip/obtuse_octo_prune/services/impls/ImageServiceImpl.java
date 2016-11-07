@@ -1,10 +1,12 @@
 package info.smartkit.eip.obtuse_octo_prune.services.impls;
 
 import info.smartkit.eip.obtuse_octo_prune.VOs.MappingVO;
+import info.smartkit.eip.obtuse_octo_prune.VOs.SearchVO;
 import info.smartkit.eip.obtuse_octo_prune.domains.Image;
 import info.smartkit.eip.obtuse_octo_prune.domains.LireImage;
 import info.smartkit.eip.obtuse_octo_prune.VOs.SettingsVO;
 import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
+import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -24,9 +26,8 @@ public class ImageServiceImpl implements ImageService {
 //                "index.version.created": 1070499
 //    }
 //  }'
-    @Override
-    public void setting(SettingsVO settingsVO) {
-
+@Override
+public void setting(String index, SettingsVO settingsVO) {
         final String uri = "http://localhost:9200/{index}";
         Map<String, String> params = new HashMap<String, String>();
         params.put("index", "my_index");
@@ -63,7 +64,7 @@ public class ImageServiceImpl implements ImageService {
 //}'
 
     @Override
-    public void mapping(MappingVO mappingVO) {
+    public void mapping(String index, String item, MappingVO mappingVO) {
         final String uri = "localhost:9200/{index}/{item}/_mapping";
         Map<String, String> params = new HashMap<String, String>();
         params.put("index", "my_index");
@@ -78,7 +79,8 @@ public class ImageServiceImpl implements ImageService {
 //}'
 
     @Override
-    public void index(String imageStr) {
+    public void index(String table, String imageStr) {
+
         final String uri = "http://localhost:9200/{table}";
         Map<String, String> params = new HashMap<String, String>();
         params.put("table", "test/test");
@@ -104,7 +106,14 @@ public class ImageServiceImpl implements ImageService {
 //}'
 
     @Override
-    public void search(LireImage lireImage, int index) {
+    public void search(String table, SearchVO searchVO) {
+
+        final String uri = "http://localhost:9200/{table}/_search";
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("table", "test/test");
+//        SearchVO searchVO = new SearchVO();
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.postForLocation( uri, searchVO, params);
 
     }
 
@@ -123,7 +132,7 @@ public class ImageServiceImpl implements ImageService {
 //}'
 
     @Override
-    public void searchExisted(LireImage lireImage, int index) {
+    public void searchExisted(SearchRequestBuilder queryBuilder) {
 
     }
 }
