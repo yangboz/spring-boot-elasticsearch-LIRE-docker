@@ -12,6 +12,9 @@ public class JpegImageVO {
         this.store = store;
     }
 
+    public JpegImageVO() {
+    }
+
     public String getType() {
         return type;
     }

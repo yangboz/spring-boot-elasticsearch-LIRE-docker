@@ -9,12 +9,14 @@ import java.util.List;
  * Created by smartkit on 2016/11/6.
  */
 public class Feature_JCD {
-    private List<String> hash = Arrays.asList(LireFeatures.JCD.getHash(),
-            LireFeatures.LSH.getHash());
+    private List<String> hash = Arrays.asList(LireFeatures.JCD);
 
     public Feature_JCD(List<String> hash) {
 
         this.hash = hash;
+    }
+
+    public Feature_JCD() {
     }
 
     public List<String> getHash() {

@@ -1,20 +1,17 @@
 package info.smartkit.eip.obtuse_octo_prune.services.impls;
 
-import info.smartkit.eip.obtuse_octo_prune.BootElastic;
 import info.smartkit.eip.obtuse_octo_prune.VOs.MappingVO;
 import info.smartkit.eip.obtuse_octo_prune.VOs.SearchVO;
-import info.smartkit.eip.obtuse_octo_prune.domains.Image;
-import info.smartkit.eip.obtuse_octo_prune.domains.LireImage;
 import info.smartkit.eip.obtuse_octo_prune.VOs.SettingsVO;
 import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.LogManager;
 
 /**
  * Created by smartkit on 2016/10/28.
@@ -23,7 +20,10 @@ import java.util.logging.LogManager;
 @Service
 public class ImageServiceImpl implements ImageService {
 
+    @Value("${spring.data.elasticsearch.cluster-url}")
+    private String clusterUrl;
     private static Logger LOG = org.apache.log4j.LogManager.getLogger(ImageServiceImpl.class);
+
 //    curl -XPUT 'localhost:9200/my_index' -d '{
 //            "settings": {
 //        "number_of_shards": 5,
@@ -71,12 +71,13 @@ public void setting(String index, SettingsVO settingsVO) {
 
     @Override
     public void mapping(String index, String item, MappingVO mappingVO) {
-        final String uri = "localhost:9200/{index}/{item}/_mapping";
+        final String uri = clusterUrl+"/{index}/{item}/_mapping";
         Map<String, String> params = new HashMap<String, String>();
         params.put("index", index);//my_index
         params.put("item", item);//my_image_item
 //        MappingVO mappingVO = new MappingVO();
         RestTemplate restTemplate = new RestTemplate();
+        LOG.info("PUT mappingVO:"+mappingVO.toString());
         restTemplate.put ( uri, mappingVO, params);
     }
 

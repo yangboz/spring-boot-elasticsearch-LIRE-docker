@@ -1,9 +1,14 @@
 package info.smartkit.eip.obtuse_octo_prune.VOs;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 /**
  * Created by smartkit on 2016/11/6.
  */
+//@JsonPropertyOrder({ "type", "feature","metadata"})
 public class MappingImageVO {
+
     private String type="image";
     private FeatureVO feature;
     private MetaDataVO metaData;
@@ -14,10 +19,14 @@ public class MappingImageVO {
         this.metaData = metaData;
     }
 
+    public MappingImageVO() {
+    }
+
     public String getType() {
         return type;
     }
 
+//    @JsonProperty("type")
     public void setType(String type) {
         this.type = type;
     }

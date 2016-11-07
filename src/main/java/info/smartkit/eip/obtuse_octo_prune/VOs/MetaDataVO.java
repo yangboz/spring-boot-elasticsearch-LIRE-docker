@@ -14,6 +14,9 @@ public class MetaDataVO {
         this.getJpegImageHeight = getJpegImageHeight;
     }
 
+    public MetaDataVO() {
+    }
+
     public JpegImageVO getJpegImageWidth() {
 
         return jpegImageWidth;

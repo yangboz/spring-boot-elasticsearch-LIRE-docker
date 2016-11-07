@@ -2,8 +2,6 @@ package info.smartkit.eip.obtuse_octo_prune.services;
 
 import info.smartkit.eip.obtuse_octo_prune.VOs.MappingVO;
 import info.smartkit.eip.obtuse_octo_prune.VOs.SearchVO;
-import info.smartkit.eip.obtuse_octo_prune.domains.Image;
-import info.smartkit.eip.obtuse_octo_prune.domains.LireImage;
 import info.smartkit.eip.obtuse_octo_prune.VOs.SettingsVO;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 

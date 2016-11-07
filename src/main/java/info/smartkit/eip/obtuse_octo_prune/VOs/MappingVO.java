@@ -5,4 +5,7 @@ package info.smartkit.eip.obtuse_octo_prune.VOs;
  */
 public class MappingVO {
     public MappingPropertiesVO properties;
+
+    public MappingVO() {
+    }
 }

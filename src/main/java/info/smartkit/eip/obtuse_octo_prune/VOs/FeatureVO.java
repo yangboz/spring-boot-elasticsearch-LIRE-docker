@@ -6,27 +6,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by smartkit on 2016/11/6.
  */
 public class FeatureVO {
-    public FeatureVO(Feature_CCED CCED, Feature_JCD JCD) {
-        this.cced = CCED;
-        this.jcd = JCD;
+
+    private Feature_CCED cced;
+    private Feature_JCD jcd;
+
+    public FeatureVO(Feature_CCED cced, Feature_JCD jcd) {
+        this.cced = cced;
+        this.jcd = jcd;
     }
 
-    private Feature_CCED cced= new Feature_CCED(null);
-    private Feature_JCD jcd = new Feature_JCD(null);
+    public FeatureVO() {
+    }
 
-    public Feature_CCED getCCED() {
+    public Feature_CCED getCced() {
         return cced;
     }
     @JsonProperty("CCED")
-    public void setCCED(Feature_CCED CCED) {
-        this.cced = CCED;
+    public void setCced(Feature_CCED cced) {
+        this.cced = cced;
     }
 
-    public Feature_JCD getJCD() {
+    public Feature_JCD getJcd() {
         return jcd;
     }
-    @JsonProperty("jJCD")
-    public void setJCD(Feature_JCD JCD) {
-        this.jcd = JCD;
+    @JsonProperty("JCD")
+    public void setJcd(Feature_JCD jcd) {
+        this.jcd = jcd;
     }
 }

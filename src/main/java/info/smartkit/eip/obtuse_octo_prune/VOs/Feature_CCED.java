@@ -2,6 +2,7 @@ package info.smartkit.eip.obtuse_octo_prune.VOs;
 
 import info.smartkit.eip.obtuse_octo_prune.utils.LireFeatures;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,10 +10,13 @@ import java.util.List;
  * Created by smartkit on 2016/11/6.
  */
 public class Feature_CCED {
-    private List<String> hash = Arrays.asList(LireFeatures.CCED.getHash());
+    private List<String> hash = Arrays.asList(LireFeatures.CCED);
 
     public Feature_CCED(List<String> hash) {
         this.hash = hash;
+    }
+
+    public Feature_CCED() {
     }
 
     public List<String> getHash() {
