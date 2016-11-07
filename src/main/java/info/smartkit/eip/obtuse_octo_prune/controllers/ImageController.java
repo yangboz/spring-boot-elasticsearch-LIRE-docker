@@ -36,14 +36,14 @@ private ImageService imageService;
     }
 
     //
-    @RequestMapping(value = "index/{index}", method = RequestMethod.PUT)
+    @RequestMapping(value = "setting/{index}", method = RequestMethod.PUT)
     @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the  Movie item  is successfully updated or not.")
     public void setting(@PathVariable("index") String index, @RequestBody SettingsVO value) {
         imageService.setting(index,value);
 
     }
 
-    @RequestMapping(value = "index/{index}/item/{item}", method = RequestMethod.PUT)
+    @RequestMapping(value = "mapping/{index}/item/{item}", method = RequestMethod.PUT)
     @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the  el_image item  is successfully updated or not.")
     public void mapping(@PathVariable("index") String index,@PathVariable("item") String item, @RequestBody MappingVO value) {
         imageService.mapping(index,item,value);

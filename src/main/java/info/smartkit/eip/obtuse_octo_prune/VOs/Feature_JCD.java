@@ -11,4 +11,18 @@ import java.util.List;
 public class Feature_JCD {
     private List<String> hash = Arrays.asList(LireFeatures.JCD.getHash(),
             LireFeatures.LSH.getHash());
+
+    public Feature_JCD(List<String> hash) {
+
+        this.hash = hash;
+    }
+
+    public List<String> getHash() {
+        return hash;
+    }
+
+    public void setHash(List<String> hash) {
+        this.hash = hash;
+    }
+
 }

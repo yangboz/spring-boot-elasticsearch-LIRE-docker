@@ -11,4 +11,15 @@ import java.util.List;
 public class Feature_CCED {
     private List<String> hash = Arrays.asList(LireFeatures.CCED.getHash());
 
+    public Feature_CCED(List<String> hash) {
+        this.hash = hash;
+    }
+
+    public List<String> getHash() {
+        return hash;
+    }
+
+    public void setHash(List<String> hash) {
+        this.hash = hash;
+    }
 }

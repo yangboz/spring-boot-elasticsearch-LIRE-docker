@@ -1,17 +1,20 @@
 package info.smartkit.eip.obtuse_octo_prune.services.impls;
 
+import info.smartkit.eip.obtuse_octo_prune.BootElastic;
 import info.smartkit.eip.obtuse_octo_prune.VOs.MappingVO;
 import info.smartkit.eip.obtuse_octo_prune.VOs.SearchVO;
 import info.smartkit.eip.obtuse_octo_prune.domains.Image;
 import info.smartkit.eip.obtuse_octo_prune.domains.LireImage;
 import info.smartkit.eip.obtuse_octo_prune.VOs.SettingsVO;
 import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
+import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.LogManager;
 
 /**
  * Created by smartkit on 2016/10/28.
@@ -19,6 +22,8 @@ import java.util.Map;
  */
 @Service
 public class ImageServiceImpl implements ImageService {
+
+    private static Logger LOG = org.apache.log4j.LogManager.getLogger(ImageServiceImpl.class);
 //    curl -XPUT 'localhost:9200/my_index' -d '{
 //            "settings": {
 //        "number_of_shards": 5,
@@ -30,10 +35,11 @@ public class ImageServiceImpl implements ImageService {
 public void setting(String index, SettingsVO settingsVO) {
         final String uri = "http://localhost:9200/{index}";
         Map<String, String> params = new HashMap<String, String>();
-        params.put("index", "my_index");
-        SettingsVO updatedSettings = new SettingsVO();
+        params.put("index", index);//my_index
+//        SettingsVO settingsVO = new SettingsVO();
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.put ( uri, updatedSettings, params);
+        LOG.info("PUT settingsVO:"+settingsVO.toString());
+        restTemplate.put ( uri, settingsVO, params);
     }
 //    curl -XPUT 'localhost:9200/my_index/my_image_item/_mapping' -d '{
 //            "my_image_item": {
@@ -67,11 +73,11 @@ public void setting(String index, SettingsVO settingsVO) {
     public void mapping(String index, String item, MappingVO mappingVO) {
         final String uri = "localhost:9200/{index}/{item}/_mapping";
         Map<String, String> params = new HashMap<String, String>();
-        params.put("index", "my_index");
-        params.put("item", "my_image_item");
-        MappingVO updateMapping = new MappingVO();
+        params.put("index", index);//my_index
+        params.put("item", item);//my_image_item
+//        MappingVO mappingVO = new MappingVO();
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.put ( uri, updateMapping, params);
+        restTemplate.put ( uri, mappingVO, params);
     }
 
 //    curl -XPOST 'localhost:9200/test/test' -d '{
@@ -83,10 +89,10 @@ public void setting(String index, SettingsVO settingsVO) {
 
         final String uri = "http://localhost:9200/{table}";
         Map<String, String> params = new HashMap<String, String>();
-        params.put("table", "test/test");
-        SettingsVO updatedSettings = new SettingsVO();
+        params.put("table", table);//test/test
+        SettingsVO settingsVO = new SettingsVO();
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.put ( uri, updatedSettings, params);
+        restTemplate.put ( uri, settingsVO, params);
     }
 
 //    curl -XPOST 'localhost:9200/test/test/_search' -d '{
@@ -110,7 +116,7 @@ public void setting(String index, SettingsVO settingsVO) {
 
         final String uri = "http://localhost:9200/{table}/_search";
         Map<String, String> params = new HashMap<String, String>();
-        params.put("table", "test/test");
+        params.put("table", table);//test/test
 //        SearchVO searchVO = new SearchVO();
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForLocation( uri, searchVO, params);
