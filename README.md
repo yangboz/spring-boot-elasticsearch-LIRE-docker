@@ -1,7 +1,7 @@
 # spring-boot-elasticsearch-LIRE-docker
 Walk through Spring-boot with ElasticSearch Restful.
 
-1.How to install ElasticSearch?
+1.How to install ElasticSearch-2.4.1?
 
     brew install elasticsearch
 
@@ -41,6 +41,8 @@ ElasticSearch-LIRE: https://github.com/yangboz/elasticsearch-image
 Spring-boot-docker: https://spring.io/guides/gs/spring-boot-docker/
 
 # Troubleshoots
+
+http://ignaciosuay.com/how-to-connect-spring-boot-to-elasticsearch-2-x-x/
 
 https://github.com/spring-projects/spring-data-elasticsearch/wiki/Spring-Data-Elasticsearch---Spring-Boot---version-matrix
 
