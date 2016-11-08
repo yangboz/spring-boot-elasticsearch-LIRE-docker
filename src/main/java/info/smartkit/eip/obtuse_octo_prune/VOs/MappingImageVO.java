@@ -46,4 +46,13 @@ public class MappingImageVO {
     public void setMetaData(MetaDataVO metaData) {
         this.metaData = metaData;
     }
+
+    @Override
+    public String toString() {
+        return "MappingImageVO{" +
+                "type='" + type + '\'' +
+                ", feature=" + feature +
+                ", metaData=" + metaData +
+                '}';
+    }
 }

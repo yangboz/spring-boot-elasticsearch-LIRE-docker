@@ -6,11 +6,26 @@ package info.smartkit.eip.obtuse_octo_prune.VOs;
 public class IndexImageVO {
     private String el_image="... base64 encoded image ...";
 
+    public IndexImageVO() {
+    }
+
+    public IndexImageVO(String el_image) {
+
+        this.el_image = el_image;
+    }
+
     public String getEl_image() {
         return el_image;
     }
 
     public void setEl_image(String el_image) {
         this.el_image = el_image;
+    }
+
+    @Override
+    public String toString() {
+        return "IndexImageVO{" +
+                "el_image='" + el_image + '\'' +
+                '}';
     }
 }

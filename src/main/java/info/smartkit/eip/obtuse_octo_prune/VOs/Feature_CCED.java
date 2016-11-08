@@ -26,4 +26,11 @@ public class Feature_CCED {
     public void setHash(List<String> hash) {
         this.hash = hash;
     }
+
+    @Override
+    public String toString() {
+        return "Feature_CCED{" +
+                "hash=" + hash +
+                '}';
+    }
 }

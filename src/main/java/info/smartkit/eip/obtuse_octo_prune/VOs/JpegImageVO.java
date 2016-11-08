@@ -30,4 +30,12 @@ public class JpegImageVO {
     public void setStore(String store) {
         this.store = store;
     }
+
+    @Override
+    public String toString() {
+        return "JpegImageVO{" +
+                "type='" + type + '\'' +
+                ", store='" + store + '\'' +
+                '}';
+    }
 }

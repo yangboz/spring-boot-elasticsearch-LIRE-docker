@@ -27,4 +27,10 @@ public class Feature_JCD {
         this.hash = hash;
     }
 
+    @Override
+    public String toString() {
+        return "Feature_JCD{" +
+                "hash=" + hash +
+                '}';
+    }
 }

@@ -21,4 +21,11 @@ public class MappingPropertiesVO {
     public void setEl_image(MappingImageVO el_image) {
         this.el_image = el_image;
     }
+
+    @Override
+    public String toString() {
+        return "MappingPropertiesVO{" +
+                "el_image=" + el_image +
+                '}';
+    }
 }

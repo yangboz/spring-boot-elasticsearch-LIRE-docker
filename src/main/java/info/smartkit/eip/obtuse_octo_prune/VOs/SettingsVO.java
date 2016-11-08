@@ -9,6 +9,9 @@ public class SettingsVO {
     private int numberOfReplicas=1;
     private double indexVersionCreated=1070499;
 
+    public SettingsVO() {
+    }
+
     public int getNumberOfShards() {
         return numberOfShards;
     }
@@ -33,6 +36,12 @@ public class SettingsVO {
         this.indexVersionCreated = indexVersionCreated;
     }
 
+    public SettingsVO(int numberOfShards, int numberOfReplicas, double indexVersionCreated) {
+        this.numberOfShards = numberOfShards;
+        this.numberOfReplicas = numberOfReplicas;
+        this.indexVersionCreated = indexVersionCreated;
+    }
+
     @Override
     public String toString() {
         return "SettingsVO{" +
@@ -40,5 +49,6 @@ public class SettingsVO {
                 ", numberOfReplicas=" + numberOfReplicas +
                 ", indexVersionCreated=" + indexVersionCreated +
                 '}';
+
     }
 }

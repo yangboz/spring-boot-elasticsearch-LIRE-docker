@@ -33,4 +33,12 @@ public class FeatureVO {
     public void setJcd(Feature_JCD jcd) {
         this.jcd = jcd;
     }
+
+    @Override
+    public String toString() {
+        return "FeatureVO{" +
+                "cced=" + cced +
+                ", jcd=" + jcd +
+                '}';
+    }
 }

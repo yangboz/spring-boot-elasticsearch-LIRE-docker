@@ -33,4 +33,12 @@ public class MetaDataVO {
     public void setGetJpegImageHeight(JpegImageVO getJpegImageHeight) {
         this.getJpegImageHeight = getJpegImageHeight;
     }
+
+    @Override
+    public String toString() {
+        return "MetaDataVO{" +
+                "jpegImageWidth=" + jpegImageWidth +
+                ", getJpegImageHeight=" + getJpegImageHeight +
+                '}';
+    }
 }

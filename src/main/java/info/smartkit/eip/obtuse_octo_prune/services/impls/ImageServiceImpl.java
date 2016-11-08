@@ -1,13 +1,18 @@
 package info.smartkit.eip.obtuse_octo_prune.services.impls;
 
+import info.smartkit.eip.obtuse_octo_prune.VOs.IndexImageVO;
 import info.smartkit.eip.obtuse_octo_prune.VOs.MappingVO;
 import info.smartkit.eip.obtuse_octo_prune.VOs.SearchVO;
 import info.smartkit.eip.obtuse_octo_prune.VOs.SettingsVO;
+import info.smartkit.eip.obtuse_octo_prune.configs.ElasticSearchBean;
 import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -20,8 +25,9 @@ import java.util.Map;
 @Service
 public class ImageServiceImpl implements ImageService {
 
-    @Value("${spring.data.elasticsearch.cluster-url}")
-    private String clusterUrl;
+@Autowired
+    ElasticSearchBean elasticSearchBean;
+
     private static Logger LOG = org.apache.log4j.LogManager.getLogger(ImageServiceImpl.class);
 
 //    curl -XPUT 'localhost:9200/my_index' -d '{
@@ -32,14 +38,22 @@ public class ImageServiceImpl implements ImageService {
 //    }
 //  }'
 @Override
-public void setting(String index, SettingsVO settingsVO) {
-        final String uri = "http://localhost:9200/{index}";
+public HttpStatus setting(String index, SettingsVO settingsVO) {
+    LOG.info("elasticSearchBean.getClusterUrl():"+elasticSearchBean.getClusterUrl());
+        final String uri = elasticSearchBean.getClusterUrl()+"/{index}";
         Map<String, String> params = new HashMap<String, String>();
         params.put("index", index);//my_index
 //        SettingsVO settingsVO = new SettingsVO();
         RestTemplate restTemplate = new RestTemplate();
         LOG.info("PUT settingsVO:"+settingsVO.toString());
-        restTemplate.put ( uri, settingsVO, params);
+        HttpStatus result = HttpStatus.OK;
+        try {
+            restTemplate.put ( uri, settingsVO, params);
+        } catch (HttpStatusCodeException exception) {
+            result = exception.getStatusCode();
+            LOG.error(exception.toString());
+        }
+        return result;
     }
 //    curl -XPUT 'localhost:9200/my_index/my_image_item/_mapping' -d '{
 //            "my_image_item": {
@@ -70,15 +84,23 @@ public void setting(String index, SettingsVO settingsVO) {
 //}'
 
     @Override
-    public void mapping(String index, String item, MappingVO mappingVO) {
-        final String uri = clusterUrl+"/{index}/{item}/_mapping";
+    public HttpStatus mapping(String index, String item, MappingVO mappingVO) {
+        final String uri = elasticSearchBean.getClusterUrl()+"/{index}/{item}/_mapping";
         Map<String, String> params = new HashMap<String, String>();
-        params.put("index", index);//my_index
-        params.put("item", item);//my_image_item
+        params.put("index", index);//el_index
+        params.put("item", item);//el_image_item
 //        MappingVO mappingVO = new MappingVO();
         RestTemplate restTemplate = new RestTemplate();
         LOG.info("PUT mappingVO:"+mappingVO.toString());
-        restTemplate.put ( uri, mappingVO, params);
+        //
+        HttpStatus result = HttpStatus.OK;
+        try {
+            restTemplate.put ( uri, mappingVO, params);
+        } catch (HttpStatusCodeException exception) {
+            result = exception.getStatusCode();
+            LOG.error(exception.toString());
+        }
+        return result;
     }
 
 //    curl -XPOST 'localhost:9200/test/test' -d '{
@@ -86,14 +108,23 @@ public void setting(String index, SettingsVO settingsVO) {
 //}'
 
     @Override
-    public void index(String table, String imageStr) {
+    public HttpStatus index(String database, String table, IndexImageVO indexImageVO) {
 
-        final String uri = "http://localhost:9200/{table}";
+        final String uri = elasticSearchBean.getClusterUrl()+"/{database}/{table}";
         Map<String, String> params = new HashMap<String, String>();
-        params.put("table", table);//test/test
-        SettingsVO settingsVO = new SettingsVO();
+        params.put("database", database);//test
+        params.put("table", table);///test
+//        SettingsVO settingsVO = new SettingsVO();
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.put ( uri, settingsVO, params);
+
+        HttpStatus result = HttpStatus.OK;
+        try {
+            restTemplate.put ( uri, indexImageVO, params);
+        } catch (HttpStatusCodeException exception) {
+            result = exception.getStatusCode();
+            LOG.error(exception.toString());
+        }
+        return result;
     }
 
 //    curl -XPOST 'localhost:9200/test/test/_search' -d '{
@@ -113,11 +144,12 @@ public void setting(String index, SettingsVO settingsVO) {
 //}'
 
     @Override
-    public void search(String table, SearchVO searchVO) {
+    public void search(String database,String table, SearchVO searchVO) {
 
-        final String uri = "http://localhost:9200/{table}/_search";
+        final String uri = elasticSearchBean.getClusterUrl()+"/{database}/{table}/_search";
         Map<String, String> params = new HashMap<String, String>();
-        params.put("table", table);//test/test
+        params.put("database", database);//test
+        params.put("table", table);///test
 //        SearchVO searchVO = new SearchVO();
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForLocation( uri, searchVO, params);

@@ -19,8 +19,8 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/**").addResourceLocations(
                 CLASSPATH_RESOURCE_LOCATIONS);
         //
-        // Activiti repository resources(diagram picture,process BPM files).
-        // registry.addResourceHandler("/repository/**").addResourceLocations("classpath:/repository/");
+        registry.addResourceHandler("/uploads/**").addResourceLocations(
+                "classpath:/uploads/");
         // Jasper report
         registry.addResourceHandler("/static/**").addResourceLocations(
                 "classpath:/static/");

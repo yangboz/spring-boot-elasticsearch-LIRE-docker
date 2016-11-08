@@ -8,4 +8,11 @@ public class MappingVO {
 
     public MappingVO() {
     }
+
+    @Override
+    public String toString() {
+        return "MappingVO{" +
+                "properties=" + properties +
+                '}';
+    }
 }
