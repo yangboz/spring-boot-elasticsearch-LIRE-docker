@@ -50,10 +50,10 @@ private ImageService imageService;
 //         return imageService.index(database,table,value);
 //    }
 
-    @RequestMapping(value = "search/{database}/{table}",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
+    @RequestMapping(value = "search/{database}/{table}/",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
     @ApiOperation(httpMethod = "POST", value = "Response a string describing if the SearchVO is successfully created or not.",notes = "e.g. database: test,table: test")
-    public void search(@PathVariable("database") String database,@PathVariable("table") String table, @RequestBody IndexImageVO value) {
-        imageService.index(database,table,value);
+    public SearchResponseVO search(@PathVariable("database") String database,@PathVariable("table") String table, @RequestBody SearchVO value) {
+        return imageService.search(database,table,value);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "index/{database}/{table}/", consumes = MediaType.MULTIPART_FORM_DATA)

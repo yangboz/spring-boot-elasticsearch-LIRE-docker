@@ -13,6 +13,6 @@ public interface ImageService {
     public HttpStatus setting(String index, SettingsVO settingsVO);
     public HttpStatus mapping(String index,String item,MappingVO mappingVO);
     public IndexResponseVO index(String database, String table, IndexImageVO indexImageVO);
-    public void search(String database,String table, SearchVO searchVO);
-    public void searchExisted(SearchRequestBuilder queryBuilder);
+    public SearchResponseVO search(String database,String table, SearchVO searchVO);
+    public SearchResponseVO searchExisted(SearchRequestBuilder queryBuilder);
 }

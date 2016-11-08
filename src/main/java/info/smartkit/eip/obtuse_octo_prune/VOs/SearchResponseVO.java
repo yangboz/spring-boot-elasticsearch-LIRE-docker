@@ -1,0 +1,55 @@
+package info.smartkit.eip.obtuse_octo_prune.VOs;
+
+import net.semanticmetadata.lire.ImageSearchHits;
+
+/**
+ * Created by smartkit on 2016/11/8.
+ */
+public class SearchResponseVO {
+    private float took;
+    private String time_out;
+    private ResponseShardVO _shards;
+    private ImageSearchHits hits;
+
+    public SearchResponseVO(float took, String time_out, ResponseShardVO _shards, ImageSearchHits hits) {
+        this.took = took;
+        this.time_out = time_out;
+        this._shards = _shards;
+        this.hits = hits;
+    }
+
+    public SearchResponseVO() {
+    }
+
+    public float getTook() {
+        return took;
+    }
+
+    public void setTook(float took) {
+        this.took = took;
+    }
+
+    public String getTime_out() {
+        return time_out;
+    }
+
+    public void setTime_out(String time_out) {
+        this.time_out = time_out;
+    }
+
+    public ResponseShardVO get_shards() {
+        return _shards;
+    }
+
+    public void set_shards(ResponseShardVO _shards) {
+        this._shards = _shards;
+    }
+
+    public ImageSearchHits getHits() {
+        return hits;
+    }
+
+    public void setHits(ImageSearchHits hits) {
+        this.hits = hits;
+    }
+}

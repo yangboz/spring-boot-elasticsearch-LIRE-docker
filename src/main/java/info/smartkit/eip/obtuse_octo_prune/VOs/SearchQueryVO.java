@@ -3,7 +3,7 @@ package info.smartkit.eip.obtuse_octo_prune.VOs;
 /**
  * Created by smartkit on 2016/11/6.
  */
-public class SearchImageVO {
+public class SearchQueryVO {
     private String feature = "CCED";
     private String image = "... base64 encoded image to search ...";
     private String hash = "BIT_SAMPLING";
@@ -52,7 +52,7 @@ public class SearchImageVO {
 
     @Override
     public String toString() {
-        return "SearchImageVO{" +
+        return "SearchQueryVO{" +
                 "feature='" + feature + '\'' +
                 ", image='" + image + '\'' +
                 ", hash='" + hash + '\'' +

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.kzwang:lire:0.9.4-kzwang-beta1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/kzwang/lire/0.9.4-kzwang-beta1/lire-0.9.4-kzwang-beta1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/kzwang/lire/0.9.4-kzwang-beta1/lire-0.9.4-kzwang-beta1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/kzwang/lire/0.9.4-kzwang-beta1/lire-0.9.4-kzwang-beta1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

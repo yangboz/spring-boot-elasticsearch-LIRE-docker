@@ -142,7 +142,7 @@ public HttpStatus setting(String index, SettingsVO settingsVO) {
 //}'
 
     @Override
-    public void search(String database,String table, SearchVO searchVO) {
+    public SearchResponseVO search(String database,String table, SearchVO searchVO) {
 
         final String uri = elasticSearchBean.getClusterUrl()+"/{database}/{table}/_search";
         Map<String, String> params = new HashMap<String, String>();
@@ -150,7 +150,16 @@ public HttpStatus setting(String index, SettingsVO settingsVO) {
         params.put("table", table);///test
 //        SearchVO searchVO = new SearchVO();
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.postForLocation( uri, searchVO, params);
+        SearchResponseVO result = new SearchResponseVO();
+        try {
+            result = restTemplate.postForObject( uri, searchVO,SearchResponseVO.class, params);
+            LOG.info("restTemplate:"+restTemplate.toString());
+        } catch (HttpStatusCodeException exception) {
+//            result = exception.getStatusCode();
+            LOG.error(exception.toString());
+        }
+        return result;
+
 
     }
 
@@ -169,7 +178,19 @@ public HttpStatus setting(String index, SettingsVO settingsVO) {
 //}'
 
     @Override
-    public void searchExisted(SearchRequestBuilder queryBuilder) {
+    public SearchResponseVO searchExisted(SearchRequestBuilder queryBuilder) {
+//        SearchRequestBuilder queryBuilder = searchClient.prepareSearch(INDEX)
+//                .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+//                .setTypes("Image")
+//                .setFrom(from)
+//                .setSize(size);
+//        ImageQueryBuilder query = new ImageQueryBuilder("img");  //image field
+//        query.feature(feature);
+//        query.hash(hash);
+//        query.lookupIndex(INDEX);
+//        query.lookupType("Image");
+//        query.lookupId(itemId);
+        return null;
 
     }
 }

@@ -49,3 +49,7 @@ https://github.com/spring-projects/spring-data-elasticsearch/wiki/Spring-Data-El
 http://stackoverflow.com/questions/35157642/nosuchmethoderror-com-google-common-util-concurrent-moreexecutors-directexecuto
 
 http://stackoverflow.com/questions/33544863/java-elasticsearch-client-always-null
+
+# TODO
+
+##1.Using SearchRequestBuilder(ElasticSearch API)/ImageQueryBuilder(ElasticSearch-image plugin) to re-factory.

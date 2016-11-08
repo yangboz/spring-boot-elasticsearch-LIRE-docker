@@ -155,6 +155,13 @@
             <artifactId>guava</artifactId>
             <version>18.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.kzwang/lire -->
+        <dependency>
+            <groupId>com.github.kzwang</groupId>
+            <artifactId>lire</artifactId>
+            <version>0.9.4-kzwang-beta1</version>
+        </dependency>
+
 
     </dependencies>
 

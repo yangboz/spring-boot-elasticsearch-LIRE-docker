@@ -1,12 +1,24 @@
 package info.smartkit.eip.obtuse_octo_prune.VOs;
 
+import org.apache.lucene.queryparser.flexible.core.builders.QueryBuilder;
+import org.elasticsearch.action.search.SearchRequestBuilder;
+
 /**
  * Created by smartkit on 2016/11/6.
  */
 public class SearchVO {
     private int from = 0;
     private int size = 3;
-    private Object query;
+    private SearchQueryVO query;
+
+    public SearchVO() {
+    }
+
+    public SearchVO(int from, int size, SearchQueryVO query) {
+        this.from = from;
+        this.size = size;
+        this.query = query;
+    }
 
     @Override
     public String toString() {
@@ -33,11 +45,11 @@ public class SearchVO {
         this.size = size;
     }
 
-    public Object getQuery() {
+    public SearchQueryVO getQuery() {
         return query;
     }
 
-    public void setQuery(Object query) {
+    public void setQuery(SearchQueryVO query) {
         this.query = query;
     }
 }

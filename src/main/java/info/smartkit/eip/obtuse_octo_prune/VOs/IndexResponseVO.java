@@ -9,10 +9,10 @@ public class IndexResponseVO {
     private String _type;
     private String _id;
     private String _version;
-    private String created;
-    private Object _shards;
+    private boolean created;
+    private ResponseShardVO _shards;
 
-    public IndexResponseVO(String _index, String _type, String _id, String _version, String created, Object _shards) {
+    public IndexResponseVO(String _index, String _type, String _id, String _version, boolean created, ResponseShardVO _shards) {
         this._index = _index;
         this._type = _type;
         this._id = _id;
@@ -56,19 +56,19 @@ public class IndexResponseVO {
         this._version = _version;
     }
 
-    public String getCreated() {
+    public boolean getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(boolean created) {
         this.created = created;
     }
 
-    public Object get_shards() {
+    public ResponseShardVO get_shards() {
         return _shards;
     }
 
-    public void set_shards(Object _shards) {
+    public void set_shards(ResponseShardVO _shards) {
         this._shards = _shards;
     }
 }
