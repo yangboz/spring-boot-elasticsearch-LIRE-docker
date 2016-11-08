@@ -1,10 +1,7 @@
 package info.smartkit.eip.obtuse_octo_prune.controllers;
 
 import com.wordnik.swagger.annotations.ApiOperation;
-import info.smartkit.eip.obtuse_octo_prune.VOs.IndexImageVO;
-import info.smartkit.eip.obtuse_octo_prune.VOs.MappingVO;
-import info.smartkit.eip.obtuse_octo_prune.VOs.SearchVO;
-import info.smartkit.eip.obtuse_octo_prune.VOs.SettingsVO;
+import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
 import info.smartkit.eip.obtuse_octo_prune.utils.ImageUtils;
 import org.apache.log4j.LogManager;
@@ -59,12 +56,12 @@ private ImageService imageService;
         imageService.index(database,table,value);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "index/{database}/{table}/{key}", consumes = MediaType.MULTIPART_FORM_DATA)
+    @RequestMapping(method = RequestMethod.POST, value = "index/{database}/{table}/", consumes = MediaType.MULTIPART_FORM_DATA)
     @ApiOperation(httpMethod = "POST", value = "Response a string describing picture is successfully uploaded or not with face detect option."
             ,notes = "e.g. database: test,table: test,key(fixed): el_image")
     public
     @ResponseBody
-    HttpStatus index(
+    IndexResponseVO index(
             @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file,
             @PathVariable("database") String database,@PathVariable("table") String table)  {
         if (!file.isEmpty()) {
@@ -82,6 +79,7 @@ private ImageService imageService;
                 String imageDataString = ImageUtils.encodeImage(imageData);
                 LOG.info("Image Successfully Manipulated!base64:"+imageDataString);
                 IndexImageVO indexImageVO = new IndexImageVO(imageDataString);
+                LOG.info("indexImageVO:"+indexImageVO.toString());
                 return imageService.index(database,table,indexImageVO);
             } catch (FileNotFoundException e) {
                 LOG.error("Image not found" + e);
@@ -92,7 +90,7 @@ private ImageService imageService;
             LOG.error("You failed to upload " + file.getName() + " because the file was empty.");
             //
         }
-        return HttpStatus.CREATED;
+        return new IndexResponseVO();
     }
 
     // @see: https://spring.io/guides/gs/uploading-files/

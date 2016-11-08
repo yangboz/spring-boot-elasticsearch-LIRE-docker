@@ -1,9 +1,6 @@
 package info.smartkit.eip.obtuse_octo_prune.services.impls;
 
-import info.smartkit.eip.obtuse_octo_prune.VOs.IndexImageVO;
-import info.smartkit.eip.obtuse_octo_prune.VOs.MappingVO;
-import info.smartkit.eip.obtuse_octo_prune.VOs.SearchVO;
-import info.smartkit.eip.obtuse_octo_prune.VOs.SettingsVO;
+import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 import info.smartkit.eip.obtuse_octo_prune.configs.ElasticSearchBean;
 import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
 import org.apache.log4j.Logger;
@@ -108,7 +105,7 @@ public HttpStatus setting(String index, SettingsVO settingsVO) {
 //}'
 
     @Override
-    public HttpStatus index(String database, String table, IndexImageVO indexImageVO) {
+    public IndexResponseVO index(String database, String table, IndexImageVO indexImageVO) {
 
         final String uri = elasticSearchBean.getClusterUrl()+"/{database}/{table}";
         Map<String, String> params = new HashMap<String, String>();
@@ -117,11 +114,12 @@ public HttpStatus setting(String index, SettingsVO settingsVO) {
 //        SettingsVO settingsVO = new SettingsVO();
         RestTemplate restTemplate = new RestTemplate();
 
-        HttpStatus result = HttpStatus.OK;
+        IndexResponseVO result = new IndexResponseVO();
         try {
-            restTemplate.put ( uri, indexImageVO, params);
+            result = restTemplate.postForObject( uri, indexImageVO,IndexResponseVO.class, params);
+            LOG.info("restTemplate:"+restTemplate.toString());
         } catch (HttpStatusCodeException exception) {
-            result = exception.getStatusCode();
+//            result = exception.getStatusCode();
             LOG.error(exception.toString());
         }
         return result;
