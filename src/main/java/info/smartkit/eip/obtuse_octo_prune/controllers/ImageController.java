@@ -56,6 +56,12 @@ private ImageService imageService;
         return imageService.search(database,table,value);
     }
 
+    @RequestMapping(value = "searchExisted/{database}/{table}/",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
+    @ApiOperation(httpMethod = "POST", value = "Response a string describing if the SearchQueryVO is successfully created or not.",notes = "e.g. database: test,table: test")
+    public SearchResponseVO searchExisted(@PathVariable("database") String database,@PathVariable("table") String table, @RequestBody SearchExistedVO value) {
+        return imageService.searchExisted(database,table,value);
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "index/{database}/{table}/", consumes = MediaType.MULTIPART_FORM_DATA)
     @ApiOperation(httpMethod = "POST", value = "Response a string describing picture is successfully uploaded or not with face detect option."
             ,notes = "e.g. database: test,table: test,key(fixed): el_image")

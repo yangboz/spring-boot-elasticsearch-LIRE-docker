@@ -1,0 +1,23 @@
+package info.smartkit.eip.obtuse_octo_prune.VOs;
+
+/**
+ * Created by smartkit on 2016/11/10.
+ */
+public class SearchExistedVO {
+    private SearchExistedQueryVO query;
+
+    public SearchExistedVO(SearchExistedQueryVO query) {
+        this.query = query;
+    }
+
+    public SearchExistedVO() {
+    }
+
+    public SearchExistedQueryVO getQuery() {
+        return query;
+    }
+
+    public void setQuery(SearchExistedQueryVO query) {
+        this.query = query;
+    }
+}

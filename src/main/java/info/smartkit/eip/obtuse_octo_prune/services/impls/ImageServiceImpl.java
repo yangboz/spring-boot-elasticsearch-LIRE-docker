@@ -178,7 +178,7 @@ public HttpStatus setting(String index, SettingsVO settingsVO) {
 //}'
 
     @Override
-    public SearchResponseVO searchExisted(SearchRequestBuilder queryBuilder) {
+    public SearchResponseVO searchExisted(String database,String table,SearchExistedVO searchExistedVO) {
 //        SearchRequestBuilder queryBuilder = searchClient.prepareSearch(INDEX)
 //                .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
 //                .setTypes("Image")
@@ -190,7 +190,21 @@ public HttpStatus setting(String index, SettingsVO settingsVO) {
 //        query.lookupIndex(INDEX);
 //        query.lookupType("Image");
 //        query.lookupId(itemId);
-        return null;
+        final String uri = elasticSearchBean.getClusterUrl()+"/{database}/{table}/_search";
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("database", database);//test
+        params.put("table", table);///test
+//        SearchVO searchVO = new SearchVO();
+        RestTemplate restTemplate = new RestTemplate();
+        SearchResponseVO result = new SearchResponseVO();
+        try {
+            result = restTemplate.postForObject( uri, searchExistedVO,SearchResponseVO.class, params);
+            LOG.info("restTemplate:"+restTemplate.toString());
+        } catch (HttpStatusCodeException exception) {
+//            result = exception.getStatusCode();
+            LOG.error(exception.toString());
+        }
+        return result;
 
     }
 }

@@ -14,5 +14,5 @@ public interface ImageService {
     public HttpStatus mapping(String index,String item,MappingVO mappingVO);
     public IndexResponseVO index(String database, String table, IndexImageVO indexImageVO);
     public SearchResponseVO search(String database,String table, SearchVO searchVO);
-    public SearchResponseVO searchExisted(SearchRequestBuilder queryBuilder);
+    public SearchResponseVO searchExisted(String database,String table,SearchExistedVO searchExistedVOVO);
 }
