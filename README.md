@@ -1,6 +1,8 @@
 # spring-boot-elasticsearch-LIRE-docker
 Walk through Spring-boot with ElasticSearch Restful.
 
+![Image of Architecture](https://github.com/yangboz/road-to-data-science/blob/master/es-hadoop-diagram.svg?raw=true)
+
 1.How to install ElasticSearch-2.4.1?
 
     brew install elasticsearch
@@ -40,6 +42,8 @@ ElasticSearch-LIRE: https://github.com/yangboz/elasticsearch-image
 
 Spring-boot-docker: https://spring.io/guides/gs/spring-boot-docker/
 
+ElasticSearch with Hadoop: https://www.elastic.co/products/hadoop
+
 # Troubleshoots
 
 http://ignaciosuay.com/how-to-connect-spring-boot-to-elasticsearch-2-x-x/
@@ -52,4 +56,4 @@ http://stackoverflow.com/questions/33544863/java-elasticsearch-client-always-nul
 
 # TODO
 
-##1.Using SearchRequestBuilder(ElasticSearch API)/ImageQueryBuilder(ElasticSearch-image plugin) to re-factory.
+####1.Using SearchRequestBuilder(ElasticSearch API)/ImageQueryBuilder(ElasticSearch-image plugin) to re-factory.
