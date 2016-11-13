@@ -35,7 +35,7 @@ public class ImageServiceImpl implements ImageService {
 //    }
 //  }'
 @Override
-public HttpStatus setting(String index, SettingsVO settingsVO) {
+public HttpResponseVO setting(String index, SettingsVO settingsVO) {
     LOG.info("elasticSearchBean.getClusterUrl():"+elasticSearchBean.getClusterUrl());
         final String uri = elasticSearchBean.getClusterUrl()+"/{index}";
         Map<String, String> params = new HashMap<String, String>();
@@ -43,12 +43,13 @@ public HttpStatus setting(String index, SettingsVO settingsVO) {
 //        SettingsVO settingsVO = new SettingsVO();
         RestTemplate restTemplate = new RestTemplate();
         LOG.info("PUT settingsVO:"+settingsVO.toString());
-        HttpStatus result = HttpStatus.OK;
+         HttpResponseVO result = new HttpResponseVO();
         try {
             restTemplate.put ( uri, settingsVO, params);
         } catch (HttpStatusCodeException exception) {
-            result = exception.getStatusCode();
-            LOG.error(exception.toString());
+            result.setStatusCode(exception.getStatusCode().value());
+            result.setBody(exception.getResponseBodyAsString());
+            LOG.error(exception.getResponseBodyAsString());
         }
         return result;
     }
@@ -81,7 +82,7 @@ public HttpStatus setting(String index, SettingsVO settingsVO) {
 //}'
 
     @Override
-    public HttpStatus mapping(String index, String item, MappingVO mappingVO) {
+    public HttpResponseVO mapping(String index, String item, MappingVO mappingVO) {
         final String uri = elasticSearchBean.getClusterUrl()+"/{index}/{item}/_mapping";
         Map<String, String> params = new HashMap<String, String>();
         params.put("index", index);//el_index
@@ -90,12 +91,12 @@ public HttpStatus setting(String index, SettingsVO settingsVO) {
         RestTemplate restTemplate = new RestTemplate();
         LOG.info("PUT mappingVO:"+mappingVO.toString());
         //
-        HttpStatus result = HttpStatus.OK;
+        HttpResponseVO result = new HttpResponseVO();
         try {
             restTemplate.put ( uri, mappingVO, params);
         } catch (HttpStatusCodeException exception) {
-            result = exception.getStatusCode();
-            LOG.error(exception.toString());
+            result.setStatusCode(exception.getStatusCode().value());
+            result.setBody(exception.getResponseBodyAsString());
         }
         return result;
     }

@@ -12,14 +12,14 @@ public class SearchQueryELImageVO {
     private String image = "...base64...";
     private String hash = LireHashs.CEDD;
     private double boost = 2.1;
-    private int limit = 100;
+//    private int limit = 100;
 
     public SearchQueryELImageVO(String feature, String image, String hash, double boost, int limit) {
         this.feature = feature;
         this.image = image;
         this.hash = hash;
         this.boost = boost;
-        this.limit = limit;
+//        this.limit = limit;
     }
 
     public SearchQueryELImageVO() {
@@ -57,11 +57,11 @@ public class SearchQueryELImageVO {
         this.boost = boost;
     }
 
-    public int getLimit() {
-        return limit;
-    }
-
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
+//    public int getLimit() {
+//        return limit;
+//    }
+//
+//    public void setLimit(int limit) {
+//        this.limit = limit;
+//    }
 }

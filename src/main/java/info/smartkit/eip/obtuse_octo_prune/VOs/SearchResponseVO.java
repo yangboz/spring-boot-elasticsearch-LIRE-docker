@@ -9,9 +9,9 @@ public class SearchResponseVO {
     private float took;
     private String time_out;
     private ResponseShardVO _shards;
-    private ImageSearchHits hits;
+    private ImageSearchHitsVO hits;
 
-    public SearchResponseVO(float took, String time_out, ResponseShardVO _shards, ImageSearchHits hits) {
+    public SearchResponseVO(float took, String time_out, ResponseShardVO _shards, ImageSearchHitsVO hits) {
         this.took = took;
         this.time_out = time_out;
         this._shards = _shards;
@@ -45,11 +45,11 @@ public class SearchResponseVO {
         this._shards = _shards;
     }
 
-    public ImageSearchHits getHits() {
+    public ImageSearchHitsVO getHits() {
         return hits;
     }
 
-    public void setHits(ImageSearchHits hits) {
+    public void setHits(ImageSearchHitsVO hits) {
         this.hits = hits;
     }
 }

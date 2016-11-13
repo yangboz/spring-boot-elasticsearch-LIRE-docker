@@ -31,25 +31,20 @@ private ImageService imageService;
     private static Logger LOG = LogManager.getLogger(MovieController.class);
 
     //
-    @RequestMapping(value = "setting/{index}", method = RequestMethod.PUT)
+    @RequestMapping(value = "setting/{index}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON)
     @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the el_index  is successfully updated or not.",notes = "e.g. el_index")
-    public HttpStatus setting(@PathVariable("index") String index, @RequestBody SettingsVO value) {
+    public HttpResponseVO setting(@PathVariable("index") String index, @RequestBody SettingsVO value) {
          return imageService.setting(index,value);
 
     }
 
-    @RequestMapping(value = "mapping/{index}/item/{item}", method = RequestMethod.PUT)
+    @RequestMapping(value = "mapping/{index}/item/{item}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON)
     @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the el_index/el_image_item  is successfully updated or not.",
             notes = "e.g.index: el_index,item: el_image_item,type: image,hash: BIT_SAMPLING,LSH,store: yes")
-    public HttpStatus mapping(@PathVariable("index") String index,@PathVariable("item") String item, @RequestBody MappingVO value) {
+    public HttpResponseVO mapping(@PathVariable("index") String index,@PathVariable("item") String item, @RequestBody MappingVO value) {
          return imageService.mapping(index,item,value);
     }
 
-//    @RequestMapping(value = "index/{database}/{table}",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
-//    @ApiOperation(httpMethod = "POST", value = "Response a string describing if the index image is successfully created or not.",notes = "e.g. database: test,table: test")
-//    public HttpStatus index(@PathVariable("database") String database,@PathVariable("table") String table, @RequestBody IndexImageVO value) {
-//         return imageService.index(database,table,value);
-//    }
 
     @RequestMapping(value = "search/{database}/{table}/",method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA)
     @ApiOperation(httpMethod = "POST", value = "Response a string describing if the SearchVO is successfully created or not.",notes = "e.g. database: test,table: test")
@@ -113,7 +108,7 @@ private ImageService imageService;
 
     // @see: https://spring.io/guides/gs/uploading-files/
     @RequestMapping(method = RequestMethod.POST, value = "/upload/{face}", consumes = MediaType.MULTIPART_FORM_DATA)
-    @ApiOperation(httpMethod = "POST", value = "Response a string describing picture is successfully uploaded or not with face detect option.")
+    @ApiOperation(httpMethod = "POST", value = "Response a string describing picture is successfully uploaded or not with face feature option.")
     public
     @ResponseBody
     String singleImageFileUploadToBase64String(

@@ -10,8 +10,8 @@ import org.springframework.http.HttpStatus;
  * @see:https://github.com/yangboz/elasticsearch-image
  */
 public interface ImageService {
-    public HttpStatus setting(String index, SettingsVO settingsVO);
-    public HttpStatus mapping(String index,String item,MappingVO mappingVO);
+    public HttpResponseVO setting(String index, SettingsVO settingsVO);
+    public HttpResponseVO mapping(String index,String item,MappingVO mappingVO);
     public IndexResponseVO index(String database, String table, IndexImageVO indexImageVO);
     public SearchResponseVO search(String database,String table, SearchVO searchVO);
     public SearchResponseVO searchExisted(String database,String table,SearchExistedVO searchExistedVOVO);
