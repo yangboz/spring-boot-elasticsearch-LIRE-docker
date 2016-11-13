@@ -156,7 +156,7 @@ public HttpStatus setting(String index, SettingsVO settingsVO) {
             LOG.info("restTemplate:"+restTemplate.toString());
         } catch (HttpStatusCodeException exception) {
 //            result = exception.getStatusCode();
-            LOG.error(exception.toString());
+            LOG.error(exception.getResponseBodyAsString());
         }
         return result;
 
@@ -202,7 +202,7 @@ public HttpStatus setting(String index, SettingsVO settingsVO) {
             LOG.info("restTemplate:"+restTemplate.toString());
         } catch (HttpStatusCodeException exception) {
 //            result = exception.getStatusCode();
-            LOG.error(exception.toString());
+            LOG.error(exception.getResponseBodyAsString());
         }
         return result;
 

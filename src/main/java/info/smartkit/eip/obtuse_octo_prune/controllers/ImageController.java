@@ -4,6 +4,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
 import info.smartkit.eip.obtuse_octo_prune.utils.ImageUtils;
+import info.smartkit.eip.obtuse_octo_prune.utils.LireFeatures;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.NotBlank;
@@ -50,10 +51,14 @@ private ImageService imageService;
 //         return imageService.index(database,table,value);
 //    }
 
-    @RequestMapping(value = "search/{database}/{table}/",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
+    @RequestMapping(value = "search/{database}/{table}/",method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA)
     @ApiOperation(httpMethod = "POST", value = "Response a string describing if the SearchVO is successfully created or not.",notes = "e.g. database: test,table: test")
-    public SearchResponseVO search(@PathVariable("database") String database,@PathVariable("table") String table, @RequestBody SearchVO value) {
-        return imageService.search(database,table,value);
+    public SearchResponseVO search(@PathVariable("database") String database,@PathVariable("table") String table,
+                                   @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file) {
+        SearchVO searchVO = new SearchVO();
+        searchVO.getQuery().getImage().getEl_image().setFeature(LireFeatures.CEDD);
+        searchVO.getQuery().getImage().getEl_image().setImage(this.getImageDataString(file));
+        return imageService.search(database,table,searchVO);
     }
 
     @RequestMapping(value = "searchExisted/{database}/{table}/",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
@@ -70,6 +75,14 @@ private ImageService imageService;
     IndexResponseVO index(
             @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file,
             @PathVariable("database") String database,@PathVariable("table") String table)  {
+        IndexImageVO indexImageVO = new IndexImageVO();
+        indexImageVO.setEl_image(this.getImageDataString(file));
+        IndexResponseVO indexResponseVO = imageService.index(database,table,indexImageVO);
+        return indexResponseVO;
+    }
+
+    private String getImageDataString(@RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file) {
+        String imageDataString = null;
         if (!file.isEmpty()) {
             LOG.info("uploaded file:"+file.toString());
             try{
@@ -82,11 +95,10 @@ private ImageService imageService;
                 imageInFile.read(imageData);
 
                 // Converting Image byte array into Base64 String
-                String imageDataString = ImageUtils.encodeImage(imageData);
+                imageDataString = ImageUtils.encodeImage(imageData);
                 LOG.info("Image Successfully Manipulated!base64:"+imageDataString);
                 IndexImageVO indexImageVO = new IndexImageVO(imageDataString);
                 LOG.info("indexImageVO:"+indexImageVO.toString());
-                return imageService.index(database,table,indexImageVO);
             } catch (FileNotFoundException e) {
                 LOG.error("Image not found" + e);
             } catch (IOException ioe) {
@@ -96,7 +108,7 @@ private ImageService imageService;
             LOG.error("You failed to upload " + file.getName() + " because the file was empty.");
             //
         }
-        return new IndexResponseVO();
+        return imageDataString;
     }
 
     // @see: https://spring.io/guides/gs/uploading-files/

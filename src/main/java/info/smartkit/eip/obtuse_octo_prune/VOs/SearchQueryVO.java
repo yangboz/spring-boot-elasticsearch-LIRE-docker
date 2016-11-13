@@ -4,7 +4,7 @@ package info.smartkit.eip.obtuse_octo_prune.VOs;
  * Created by smartkit on 2016/11/10.
  */
 public class SearchQueryVO {
-    private SearchQueryImageVO image;
+    private SearchQueryImageVO image = new SearchQueryImageVO();
 
     public SearchQueryVO(SearchQueryImageVO image) {
         this.image = image;

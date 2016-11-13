@@ -1,16 +1,20 @@
 package info.smartkit.eip.obtuse_octo_prune.VOs;
 
+import info.smartkit.eip.obtuse_octo_prune.utils.LireFeatures;
+import info.smartkit.eip.obtuse_octo_prune.utils.LireHashs;
+import net.semanticmetadata.lire.imageanalysis.LireFeature;
+
 /**
  * Created by smartkit on 2016/11/10.
  */
 public class SearchQueryELImageVO {
-    private String feature;
-    private String image;
-    private String hash;
-    private float boost;
-    private int limit;
+    private String feature= LireFeatures.CEDD;
+    private String image = "...base64...";
+    private String hash = LireHashs.CEDD;
+    private double boost = 2.1;
+    private int limit = 100;
 
-    public SearchQueryELImageVO(String feature, String image, String hash, float boost, int limit) {
+    public SearchQueryELImageVO(String feature, String image, String hash, double boost, int limit) {
         this.feature = feature;
         this.image = image;
         this.hash = hash;
@@ -45,11 +49,11 @@ public class SearchQueryELImageVO {
         this.hash = hash;
     }
 
-    public float getBoost() {
+    public double getBoost() {
         return boost;
     }
 
-    public void setBoost(float boost) {
+    public void setBoost(double boost) {
         this.boost = boost;
     }
 

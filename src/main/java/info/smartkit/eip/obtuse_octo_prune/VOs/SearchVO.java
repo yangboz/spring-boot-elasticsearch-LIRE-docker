@@ -9,7 +9,7 @@ import org.elasticsearch.action.search.SearchRequestBuilder;
 public class SearchVO {
     private int from = 0;
     private int size = 3;
-    private SearchQueryVO query;
+    private SearchQueryVO query = new SearchQueryVO();
 
     public SearchVO() {
     }
