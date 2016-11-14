@@ -14,11 +14,11 @@ public class SearchQueryImageVO {
 
     }
 
-    public SearchQueryELImageVO getEl_image() {
+    public SearchQueryELImageVO getMy_img() {
         return my_img;
     }
 
-    public void setEl_image(SearchQueryELImageVO my_img) {
+    public void setMy_img(SearchQueryELImageVO my_img) {
         this.my_img = my_img;
     }
 }

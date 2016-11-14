@@ -4,10 +4,7 @@ import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 import info.smartkit.eip.obtuse_octo_prune.configs.ElasticSearchBean;
 import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
 import org.apache.log4j.Logger;
-import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
@@ -85,9 +82,9 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
     public HttpResponseVO mapping(String index, String item, MappingVO mappingVO) {
         final String uri = elasticSearchBean.getClusterUrl()+"/{index}/{item}/_mapping";
         Map<String, String> params = new HashMap<String, String>();
-        params.put("index", index);//el_index
-        params.put("item", item);//el_image_item
-//        MappingVO mappingVO = new MappingVO();
+        params.put("index", index);//my_index
+        params.put("item", item);//my_image_item
+//        MappingItemVO mappingVO = new MappingItemVO();
         RestTemplate restTemplate = new RestTemplate();
         LOG.info("PUT mappingVO:"+mappingVO.toString());
         //

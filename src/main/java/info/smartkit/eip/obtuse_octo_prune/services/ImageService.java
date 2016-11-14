@@ -1,8 +1,6 @@
 package info.smartkit.eip.obtuse_octo_prune.services;
 
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
-import org.elasticsearch.action.search.SearchRequestBuilder;
-import org.springframework.http.HttpStatus;
 
 
 /**

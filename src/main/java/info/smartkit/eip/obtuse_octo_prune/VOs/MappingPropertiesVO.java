@@ -13,19 +13,19 @@ public class MappingPropertiesVO {
     public MappingPropertiesVO() {
     }
 
-    public MappingImageVO getEl_image() {
+    public MappingImageVO getmy_image() {
 
         return my_img;
     }
 
-    public void setEl_image(MappingImageVO el_image) {
-        this.my_img = el_image;
+    public void setmy_image(MappingImageVO my_image) {
+        this.my_img = my_image;
     }
 
     @Override
     public String toString() {
         return "MappingPropertiesVO{" +
-                "el_image=" + my_img +
+                "my_image=" + my_img +
                 '}';
     }
 }

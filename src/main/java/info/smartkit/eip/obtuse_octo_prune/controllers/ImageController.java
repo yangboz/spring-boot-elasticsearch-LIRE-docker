@@ -9,7 +9,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,15 +31,15 @@ private ImageService imageService;
 
     //
     @RequestMapping(value = "setting/{index}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON)
-    @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the el_index  is successfully updated or not.",notes = "e.g. el_index")
+    @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the my_index  is successfully updated or not.",notes = "e.g. my_index")
     public HttpResponseVO setting(@PathVariable("index") String index, @RequestBody SettingsVO value) {
          return imageService.setting(index,value);
 
     }
 
     @RequestMapping(value = "mapping/{index}/item/{item}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON)
-    @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the el_index/el_image_item  is successfully updated or not.",
-            notes = "e.g.index: el_index,item: el_image_item,type: image,hash: BIT_SAMPLING,LSH,store: yes")
+    @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the my_index/my_image_item  is successfully updated or not.",
+            notes = "e.g.index: my_index,item: my_image_item,type: image,hash: BIT_SAMPLING,LSH,store: yes")
     public HttpResponseVO mapping(@PathVariable("index") String index,@PathVariable("item") String item, @RequestBody MappingVO value) {
          return imageService.mapping(index,item,value);
     }
@@ -51,27 +50,28 @@ private ImageService imageService;
     public SearchResponseVO search(@PathVariable("database") String database,@PathVariable("table") String table,
                                    @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file) {
         SearchVO searchVO = new SearchVO();
-        searchVO.getQuery().getImage().getEl_image().setFeature(LireFeatures.CEDD);
-        searchVO.getQuery().getImage().getEl_image().setImage(this.getImageDataString(file));
+        searchVO.getQuery().getImage().getMy_img().setFeature(LireFeatures.CEDD);
+        searchVO.getQuery().getImage().getMy_img().setImage(this.getImageDataString(file));
         return imageService.search(database,table,searchVO);
     }
 
     @RequestMapping(value = "searchExisted/{database}/{table}/",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
-    @ApiOperation(httpMethod = "POST", value = "Response a string describing if the SearchQueryVO is successfully created or not.",notes = "e.g. database: test,table: test")
+    @ApiOperation(httpMethod = "POST", value = "Response a string describing if the SearchQueryVO is successfully created or not.",
+            notes = "e.g. database: test,table: test,index: AVhgkCmlo6Smc5eMO6E2 ,index: test ,type: test ,hash: BIT_SAMPLING")
     public SearchResponseVO searchExisted(@PathVariable("database") String database,@PathVariable("table") String table, @RequestBody SearchExistedVO value) {
         return imageService.searchExisted(database,table,value);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "index/{database}/{table}/", consumes = MediaType.MULTIPART_FORM_DATA)
     @ApiOperation(httpMethod = "POST", value = "Response a string describing picture is successfully uploaded or not with face detect option."
-            ,notes = "e.g. database: test,table: test,key(fixed): el_image")
+            ,notes = "e.g. database: test,table: test,key(fixed): my_image")
     public
     @ResponseBody
     IndexResponseVO index(
             @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file,
             @PathVariable("database") String database,@PathVariable("table") String table)  {
         IndexImageVO indexImageVO = new IndexImageVO();
-        indexImageVO.setEl_image(this.getImageDataString(file));
+        indexImageVO.setMy_img(this.getImageDataString(file));
         IndexResponseVO indexResponseVO = imageService.index(database,table,indexImageVO);
         return indexResponseVO;
     }

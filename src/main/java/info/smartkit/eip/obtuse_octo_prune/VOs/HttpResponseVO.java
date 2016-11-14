@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
  */
 public class HttpResponseVO {
     private int  statusCode = 200;
-    private String body="";
+    private String body="SUCCESS";
 
     public HttpResponseVO(int httpStatus, String body) {
         this.statusCode = httpStatus;
