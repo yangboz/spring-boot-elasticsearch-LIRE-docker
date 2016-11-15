@@ -56,4 +56,4 @@ http://stackoverflow.com/questions/33544863/java-elasticsearch-client-always-nul
 
 # TODO
 
-####1.Using SearchRequestBuilder(ElasticSearch API)/ImageQueryBuilder(ElasticSearch-image plugin) to re-factory.
+1.Using Index/Mapping/SearchRequestBuilder(ElasticSearch API)/ImageQueryBuilder(ElasticSearch-image plugin) to re-factory.

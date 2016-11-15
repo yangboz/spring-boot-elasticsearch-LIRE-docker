@@ -9,8 +9,9 @@ import info.smartkit.eip.obtuse_octo_prune.VOs.*;
  */
 public interface ImageService {
     public HttpResponseVO setting(String index, SettingsVO settingsVO);
-    public HttpResponseVO mapping(String index,String item,MappingVO mappingVO);
-    public IndexResponseVO index(String database, String table, IndexImageVO indexImageVO);
-    public SearchResponseVO search(String database,String table, SearchVO searchVO);
-    public SearchResponseVO searchExisted(String database,String table,SearchExistedVO searchExistedVOVO);
+//    public HttpResponseVO mapping(String index,String item,MappingVO mappingVO);
+    public HttpResponseVO mapping(String index,String item);
+    public IndexResponseVO index(String name, String item, IndexImageVO indexImageVO);
+    public SearchResponseVO search(String index,String item, SearchVO searchVO);
+    public SearchResponseVO searchExisted(String index,String item,SearchExistedVO searchExistedVOVO);
 }

@@ -5,21 +5,18 @@ package info.smartkit.eip.obtuse_octo_prune.VOs;
  */
 public class MappingPropertiesVO {
     public MappingImageVO my_img;
+//    public String my_img = "";
 
-    public MappingPropertiesVO(MappingImageVO my_img) {
-        this.my_img = my_img;
-    }
 
     public MappingPropertiesVO() {
     }
 
-    public MappingImageVO getmy_image() {
-
+    public MappingImageVO getMy_img() {
         return my_img;
     }
 
-    public void setmy_image(MappingImageVO my_image) {
-        this.my_img = my_image;
+    public void setMy_img(MappingImageVO my_img) {
+        this.my_img = my_img;
     }
 
     @Override

@@ -32,47 +32,54 @@ private ImageService imageService;
     //
     @RequestMapping(value = "setting/{index}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON)
     @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the my_index  is successfully updated or not.",notes = "e.g. my_index")
-    public HttpResponseVO setting(@PathVariable("index") String index, @RequestBody SettingsVO value) {
+    public HttpResponseVO setting(@PathVariable("index") String index , @RequestBody SettingsVO value) {
          return imageService.setting(index,value);
 
     }
 
+//    @RequestMapping(value = "mapping/{index}/item/{item}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON)
+//    @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the my_index/my_image_item  is successfully updated or not.",
+//            notes = "e.g.index: my_index,item: my_image_item,type: image,hash: BIT_SAMPLING,LSH,store: yes")
+//    public HttpResponseVO mapping(@PathVariable("index") String index,@PathVariable("item") String item, @RequestBody MappingVO value) {
+//         return imageService.mapping(index,item,value);
+//    }
+
     @RequestMapping(value = "mapping/{index}/item/{item}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON)
     @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the my_index/my_image_item  is successfully updated or not.",
             notes = "e.g.index: my_index,item: my_image_item,type: image,hash: BIT_SAMPLING,LSH,store: yes")
-    public HttpResponseVO mapping(@PathVariable("index") String index,@PathVariable("item") String item, @RequestBody MappingVO value) {
-         return imageService.mapping(index,item,value);
+    public HttpResponseVO mapping(@PathVariable("index") String index,@PathVariable("item") String item) {
+        return imageService.mapping(index,item);
     }
 
 
-    @RequestMapping(value = "search/{database}/{table}/",method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA)
-    @ApiOperation(httpMethod = "POST", value = "Response a string describing if the SearchVO is successfully created or not.",notes = "e.g. database: test,table: test")
-    public SearchResponseVO search(@PathVariable("database") String database,@PathVariable("table") String table,
+    @RequestMapping(value = "search/{index}/{item}/",method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA)
+    @ApiOperation(httpMethod = "POST", value = "Response a string describing if the SearchVO is successfully created or not.",notes = "e.g. index: my_index,item: my_image_Item")
+    public SearchResponseVO search(@PathVariable("index") String index,@PathVariable("item") String item,
                                    @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file) {
         SearchVO searchVO = new SearchVO();
         searchVO.getQuery().getImage().getMy_img().setFeature(LireFeatures.CEDD);
         searchVO.getQuery().getImage().getMy_img().setImage(this.getImageDataString(file));
-        return imageService.search(database,table,searchVO);
+        return imageService.search(index,item,searchVO);
     }
 
-    @RequestMapping(value = "searchExisted/{database}/{table}/",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
+    @RequestMapping(value = "searchExisted/{index}/{item}/",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
     @ApiOperation(httpMethod = "POST", value = "Response a string describing if the SearchQueryVO is successfully created or not.",
             notes = "e.g. database: test,table: test,index: AVhgkCmlo6Smc5eMO6E2 ,index: test ,type: test ,hash: BIT_SAMPLING")
-    public SearchResponseVO searchExisted(@PathVariable("database") String database,@PathVariable("table") String table, @RequestBody SearchExistedVO value) {
-        return imageService.searchExisted(database,table,value);
+    public SearchResponseVO searchExisted(@PathVariable("index") String index,@PathVariable("item") String item, @RequestBody SearchExistedVO value) {
+        return imageService.searchExisted(index,item,value);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "index/{database}/{table}/", consumes = MediaType.MULTIPART_FORM_DATA)
+    @RequestMapping(method = RequestMethod.POST, value = "index/{name}/{item}/", consumes = MediaType.MULTIPART_FORM_DATA)
     @ApiOperation(httpMethod = "POST", value = "Response a string describing picture is successfully uploaded or not with face detect option."
-            ,notes = "e.g. database: test,table: test,key(fixed): my_image")
+            ,notes = "e.g. index: my_index,item: my_image_item,key(fixed): my_img")
     public
     @ResponseBody
     IndexResponseVO index(
             @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file,
-            @PathVariable("database") String database,@PathVariable("table") String table)  {
+            @PathVariable("name") String name,@PathVariable("item") String item)  {
         IndexImageVO indexImageVO = new IndexImageVO();
         indexImageVO.setMy_img(this.getImageDataString(file));
-        IndexResponseVO indexResponseVO = imageService.index(database,table,indexImageVO);
+        IndexResponseVO indexResponseVO = imageService.index(name,item,indexImageVO);
         return indexResponseVO;
     }
 

@@ -161,6 +161,12 @@
             <artifactId>lire</artifactId>
             <version>0.9.4-kzwang-beta1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-json -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-json</artifactId>
+            <version>2.4.7</version>
+        </dependency>
 
 
     </dependencies>

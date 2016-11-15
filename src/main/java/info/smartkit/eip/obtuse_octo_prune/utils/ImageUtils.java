@@ -25,7 +25,11 @@ public class ImageUtils {
      */
     public static String encodeImage(byte[] imageByteArray) {
 //        return Base64.encodeBase64URLSafeString(imageByteArray);
-        return Base64.encodeBase64String(imageByteArray);
+//        return Base64.encodeBase64String(imageByteArray);
+        String imageString = null;
+        BASE64Encoder encoder = new BASE64Encoder();
+        imageString = encoder.encode(imageByteArray);
+        return imageString;
     }
 
     /**

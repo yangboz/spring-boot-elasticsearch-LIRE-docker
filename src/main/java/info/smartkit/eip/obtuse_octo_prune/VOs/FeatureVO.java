@@ -7,38 +7,38 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class FeatureVO {
 
-    private Feature_CCED cced;
-    private Feature_JCD jcd;
+    private Feature_CEDD CEDD;
+    private Feature_JCD JCD;
 
-    public FeatureVO(Feature_CCED cced, Feature_JCD jcd) {
-        this.cced = cced;
-        this.jcd = jcd;
+    public FeatureVO(Feature_CEDD cced, Feature_JCD jcd) {
+        this.CEDD = cced;
+        this.JCD = jcd;
     }
 
     public FeatureVO() {
     }
 
-    public Feature_CCED getCced() {
-        return cced;
+    public Feature_CEDD getCced() {
+        return CEDD;
     }
-    @JsonProperty("CCED")
-    public void setCced(Feature_CCED cced) {
-        this.cced = cced;
+    @JsonProperty("CEDD")
+    public void setCced(Feature_CEDD cced) {
+        this.CEDD = cced;
     }
 
     public Feature_JCD getJcd() {
-        return jcd;
+        return JCD;
     }
     @JsonProperty("JCD")
-    public void setJcd(Feature_JCD jcd) {
-        this.jcd = jcd;
+    public void setJcd(Feature_JCD JCD) {
+        this.JCD = JCD;
     }
 
     @Override
     public String toString() {
         return "FeatureVO{" +
-                "cced=" + cced +
-                ", jcd=" + jcd +
+                "CEDD=" + CEDD +
+                ", JCD=" + JCD +
                 '}';
     }
 }

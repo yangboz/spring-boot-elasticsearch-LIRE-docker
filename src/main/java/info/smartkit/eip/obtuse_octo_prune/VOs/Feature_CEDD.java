@@ -9,14 +9,14 @@ import java.util.List;
 /**
  * Created by smartkit on 2016/11/6.
  */
-public class Feature_CCED {
+public class Feature_CEDD {
     private List<String> hash = Arrays.asList(LireFeatures.CEDD);
 
-    public Feature_CCED(List<String> hash) {
+    public Feature_CEDD(List<String> hash) {
         this.hash = hash;
     }
 
-    public Feature_CCED() {
+    public Feature_CEDD() {
     }
 
     public List<String> getHash() {
@@ -29,7 +29,7 @@ public class Feature_CCED {
 
     @Override
     public String toString() {
-        return "Feature_CCED{" +
+        return "Feature_CEDD{" +
                 "hash=" + hash +
                 '}';
     }

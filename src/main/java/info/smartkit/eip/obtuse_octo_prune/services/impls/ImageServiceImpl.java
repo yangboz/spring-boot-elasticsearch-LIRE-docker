@@ -1,16 +1,31 @@
 package info.smartkit.eip.obtuse_octo_prune.services.impls;
 
+import groovy.json.JsonBuilder;
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 import info.smartkit.eip.obtuse_octo_prune.configs.ElasticSearchBean;
 import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.elasticsearch.client.Client;
+import org.elasticsearch.common.settings.Settings;
+
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 /**
  * Created by smartkit on 2016/10/28.
@@ -21,6 +36,16 @@ public class ImageServiceImpl implements ImageService {
 
 @Autowired
     ElasticSearchBean elasticSearchBean;
+
+    //@see: http://stackoverflow.com/questions/22071198/adding-mapping-to-a-type-from-java-how-do-i-do-it
+//    private  Client getClient() {
+//        final Settings.Builder settings = Settings.settingsBuilder();
+//        try (TransportClient transportClient = new TransportClient(settings)) {
+//            transportClient = transportClient.addTransportAddress(new InetSocketTransportAddress("localhost", 9200));
+//            LOG.info("ES client:"+transportClient);
+//            return transportClient;
+//        }
+//    }
 
     private static Logger LOG = org.apache.log4j.LogManager.getLogger(ImageServiceImpl.class);
 
@@ -79,23 +104,62 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
 //}'
 
     @Override
-    public HttpResponseVO mapping(String index, String item, MappingVO mappingVO) {
+    public HttpResponseVO mapping(String index, String item) {
         final String uri = elasticSearchBean.getClusterUrl()+"/{index}/{item}/_mapping";
         Map<String, String> params = new HashMap<String, String>();
         params.put("index", index);//my_index
         params.put("item", item);//my_image_item
 //        MappingItemVO mappingVO = new MappingItemVO();
         RestTemplate restTemplate = new RestTemplate();
-        LOG.info("PUT mappingVO:"+mappingVO.toString());
+//        LOG.info("PUT mappingVO:"+mappingVO.toString());
         //
         HttpResponseVO result = new HttpResponseVO();
+//        try {
+//            restTemplate.put ( uri, mappingVO, params);
+//        } catch (HttpStatusCodeException exception) {
+//            result.setStatusCode(exception.getStatusCode().value());
+//            result.setBody(exception.getResponseBodyAsString());
+//        }
+//        return result;
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String requestJson = "{\"my_image_item\": {\"properties\": {\"my_img\": {\"type\": \"image\", \"feature\": {\"CEDD\": {\"hash\": [\"BIT_SAMPLING\"] }, \"JCD\": {\"hash\": [\"BIT_SAMPLING\", \"LSH\"] } }, \"metadata\": {\"jpeg.image_width\": {\"type\": \"string\", \"store\": true}, \"jpeg.image_height\": {\"type\": \"string\", \"store\": true} } } } } }";
+        HttpEntity<String> entity = new HttpEntity<String>(requestJson,headers);
+
         try {
-            restTemplate.put ( uri, mappingVO, params);
+            restTemplate.put(uri, entity,params);
         } catch (HttpStatusCodeException exception) {
             result.setStatusCode(exception.getStatusCode().value());
             result.setBody(exception.getResponseBodyAsString());
         }
         return result;
+
+//        Client client = this.getClient();
+//
+//        XContentBuilder mapping = null;
+//        try {
+//            mapping = XContentFactory.jsonBuilder()
+//                    .startObject()
+//                    .startObject("my_image_item")
+//                    .startObject("properties")
+//                    .startObject("my_img")
+//                    .field("type", "image")
+//                    .field("feature", "not_analyzed")
+//                    .field("metadata", "not_analyzed")
+//                    .endObject()
+//                    .startObject("source")
+//                    .field("type","string")
+//                    .endObject();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        PutMappingResponse putMappingResponse = client.admin().indices()
+//                .preparePutMapping("my_index")
+//                .setType("my_image_item")
+//                .setSource(mapping)
+//                .execute().actionGet();
     }
 
 //    curl -XPOST 'localhost:9200/test/test' -d '{
@@ -103,12 +167,12 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
 //}'
 
     @Override
-    public IndexResponseVO index(String database, String table, IndexImageVO indexImageVO) {
+    public IndexResponseVO index(String name, String item, IndexImageVO indexImageVO) {
 
-        final String uri = elasticSearchBean.getClusterUrl()+"/{database}/{table}";
+        final String uri = elasticSearchBean.getClusterUrl()+"/{name}/{item}";
         Map<String, String> params = new HashMap<String, String>();
-        params.put("database", database);//test
-        params.put("table", table);///test
+        params.put("name", name);//my_index
+        params.put("item", item);///my_image_item
 //        SettingsVO settingsVO = new SettingsVO();
         RestTemplate restTemplate = new RestTemplate();
 
@@ -140,12 +204,12 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
 //}'
 
     @Override
-    public SearchResponseVO search(String database,String table, SearchVO searchVO) {
+    public SearchResponseVO search(String index,String item, SearchVO searchVO) {
 
-        final String uri = elasticSearchBean.getClusterUrl()+"/{database}/{table}/_search";
+        final String uri = elasticSearchBean.getClusterUrl()+"/{index}/{item}/_search";
         Map<String, String> params = new HashMap<String, String>();
-        params.put("database", database);//test
-        params.put("table", table);///test
+        params.put("index", index);//my_index
+        params.put("item", item);///my_image_item
 //        SearchVO searchVO = new SearchVO();
         RestTemplate restTemplate = new RestTemplate();
         SearchResponseVO result = new SearchResponseVO();
@@ -176,7 +240,7 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
 //}'
 
     @Override
-    public SearchResponseVO searchExisted(String database,String table,SearchExistedVO searchExistedVO) {
+    public SearchResponseVO searchExisted(String index,String item,SearchExistedVO searchExistedVO) {
 //        SearchRequestBuilder queryBuilder = searchClient.prepareSearch(INDEX)
 //                .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
 //                .setTypes("Image")
@@ -188,10 +252,10 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
 //        query.lookupIndex(INDEX);
 //        query.lookupType("Image");
 //        query.lookupId(itemId);
-        final String uri = elasticSearchBean.getClusterUrl()+"/{database}/{table}/_search";
+        final String uri = elasticSearchBean.getClusterUrl()+"/{index}/{item}/_search";
         Map<String, String> params = new HashMap<String, String>();
-        params.put("database", database);//test
-        params.put("table", table);///test
+        params.put("index", index);//my_index
+        params.put("item", item);///my_image_item
 //        SearchVO searchVO = new SearchVO();
         RestTemplate restTemplate = new RestTemplate();
         SearchResponseVO result = new SearchResponseVO();
