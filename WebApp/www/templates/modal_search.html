@@ -1,0 +1,83 @@
+<div class="modal" ng-controller="SearchCtrl" ng-init="init()">
+    <ion-header-bar>
+        <h1 class="title">SEARCH</h1>
+
+        <div class="buttons">
+            <button class="button button-clear ion-close-round" ng-click="closeSearch()"></button>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <form ng-submit="doLogin()">
+
+            <div>
+                <label class="item item-input ">
+                    <div class="input-label">
+                        Target
+                    </div>
+                    <div class="row item item-input-inset" ng-controller="SearchImageUploadCtrl">
+                        <div class="col-80">
+                            <label class="item item-input">
+                                <!--
+                                <img ng-show="imageFile.dataUrl!=null" ng-src="{{imageFile.dataUrl}}">
+                                -->
+                                <img ng-show="imgURI !=null" ng-src="{{imgURI}}" style="width: 64px;height: 64px;"/>
+                                <img ng-show="imgURI === undefined" ng-src="img/64x64.png"/>
+                            </label>
+                        </div>
+                        <div class="col-20">
+                            <a class="button button-icon icon ion-ios7-camera" ng-click="takePicture()"></a>
+                            <input style="display: none;"
+                                   id="id_file_search" type="file" placeholder="照片"
+                                   accept="image/*"
+                                   onchange="angular.element(this).scope().onFileChangeHandler()"
+                                   nv-file-select="" uploader="uploader"
+                                    />
+                        </div>
+                    </div>
+                </label>
+
+                <label class="item item-input ">
+                    <div class="input-label">
+                        ES-index
+                    </div>
+                    <div class="row item item-input-inset">
+                        <div class="col-80">
+                            <input type="text" ng-model="$root.newSearch.index"/>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="item item-input ">
+                    <div class="input-label">
+                        ES-item
+                    </div>
+                    <div class="row item item-input-inset">
+                        <div class="col-80">
+                            <input type="text" ng-model="$root.newSearch.item"/>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="item item-input ">
+                    <div class="input-label" >
+                        相似度({{$root.newSearchInfo.threshold}}%)
+                    </div>
+                    <div class="row item item-input-inset">
+                        <div class="col-80">
+                            <div class="range" >
+                                <i class="icon ion-minus-round"></i>
+                                <input type="range" name="volume" ng-model="$root.newSearchInfo.threshold">
+                                <i class="icon ion-plus-round"></i>
+                            </div>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="item">
+                    <button class="button button-block button-positive" type="submit" ng-click="searchBtnClickHandler()">SUBMIT</button>
+                </label>
+            </div>
+        </form>
+    </ion-content>
+</div>
+

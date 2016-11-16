@@ -1,0 +1,57 @@
+<ion-side-menus>
+
+    <ion-side-menu-content>
+        <ion-header-bar class="bar-positive">
+            <button class="button button-icon ion-navicon" ng-click="toggleLeft()"
+                    ng-hide="$exposeAside.active"></button>
+            <button class="button button-icon icon ion-images" ng-click="openSearch()"></button>
+            <button class="button button-icon icon ion-search" ng-click="openSearch()"></button>
+            <h1 class="title">ES-IMAGE</h1>
+            <div class="buttons">
+                <button class="button button-icon ion-plus-round" ng-click="openIndex()"/>
+            </div>
+
+        </ion-header-bar>
+        <ion-content class="padding">
+            <!--
+        <ion-nav-buttons side="left">
+            <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+            <button class="button button-icon icon ion-search" ng-click="login()"></button>
+        </ion-nav-buttons>
+        -->
+            <div class="list" ng-repeat="faceInfoGroup in $root.faceInfoList">
+
+                <div class="item item-divider">
+                    组#{{$index}}
+                </div>
+                <a class="item item-thumbnail-left" href="#" ng-repeat="faceInfo in faceInfoGroup">
+                    <img src="{{faceInfo.imageBase64}}"/>
+
+                    <h2>相似度:{{faceInfo.similarity}}</h2>
+
+                    <p>ID:{{faceInfo.id}}</p>
+                </a>
+
+            </div>
+
+        </ion-content>
+    </ion-side-menu-content>
+
+    <ion-side-menu expose-aside-when="large" ng-controller="SettingCtrl">
+        <ion-header-bar class="bar-royal">
+            <h1 class="title">Gallary</h1>
+        </ion-header-bar>
+        <ion-content>
+            <div class="list" ng-repeat="cameraInfo in cameraInfoList">
+
+                <div class="item item-divider">
+                    {{cameraInfo.locationName}}
+                </div>
+                <ion-radio class="item" href="#" ng-repeat="camera in cameraInfo.cameras">
+                    {{camera.cameraName}}
+                </ion-radio>
+            </div>
+        </ion-content>
+    </ion-side-menu>
+
+</ion-side-menus>

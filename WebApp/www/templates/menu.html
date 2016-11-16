@@ -1,0 +1,40 @@
+<ion-side-menus ng-controller="SettingCtrl">
+
+  <ion-pane ion-side-menu-content>
+    <ion-nav-bar class="bar-stable nav-title-slide-ios7">
+      <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+  </ion-pane>
+
+  <ion-side-menu side="left">
+    <header class="bar bar-header bar-stable">
+      <h1 class="title">搜索设置</h1>
+    </header>
+    <ion-content class="has-header">
+
+      <div class="list" ng-repeat="cameraInfo in cameraInfoList">
+
+        <div class="item item-divider">
+          {{cameraInfo.locationName}}
+        </div>
+        <ion-radio class="item" href="#" ng-repeat="camera in cameraInfo.cameras">
+          {{camera.cameraName}}
+        </ion-radio>
+      </div>
+
+      <ion-list>
+        <label class="item item-input">
+          <div class="input-label" >
+            间隔({{settings.stompInterval}}ms)
+          </div>
+          <div class="range" >
+            <i class="icon ion-ios7-timer"></i>
+            <input type="range" name="volume" ng-model="settings.stompInterval">
+            <i class="icon ion-ios7-timer-outline"></i>
+          </div>
+        </label>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>
