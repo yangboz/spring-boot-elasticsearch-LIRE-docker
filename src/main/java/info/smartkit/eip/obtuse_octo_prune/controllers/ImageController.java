@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.core.MediaType;
+import java.awt.*;
 import java.io.*;
 
 /**
@@ -27,7 +28,7 @@ public class ImageController {
     @Autowired
 private ImageService imageService;
 
-    private static Logger LOG = LogManager.getLogger(MovieController.class);
+    private static Logger LOG = LogManager.getLogger(ImageController.class);
 
     //
     @RequestMapping(value = "setting/{index}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON)

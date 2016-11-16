@@ -6,6 +6,7 @@ import info.smartkit.eip.obtuse_octo_prune.configs.ElasticSearchBean;
 import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.xcontent.XContentBuilder;
@@ -214,8 +215,8 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
         RestTemplate restTemplate = new RestTemplate();
         SearchResponseVO result = new SearchResponseVO();
         try {
-            result = restTemplate.postForObject( uri, searchVO,SearchResponseVO.class, params);
-            LOG.info("restTemplate:"+restTemplate.toString());
+             result = restTemplate.postForObject( uri, searchVO,SearchResponseVO.class, params);
+            LOG.info("restTemplate result:"+result.toString());
         } catch (HttpStatusCodeException exception) {
 //            result = exception.getStatusCode();
             LOG.error(exception.getResponseBodyAsString());
@@ -261,7 +262,7 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
         SearchResponseVO result = new SearchResponseVO();
         try {
             result = restTemplate.postForObject( uri, searchExistedVO,SearchResponseVO.class, params);
-            LOG.info("restTemplate:"+restTemplate.toString());
+            LOG.info("restTemplate result:"+result.toString());
         } catch (HttpStatusCodeException exception) {
 //            result = exception.getStatusCode();
             LOG.error(exception.getResponseBodyAsString());

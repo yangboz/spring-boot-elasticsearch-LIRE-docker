@@ -3,45 +3,48 @@ package info.smartkit.eip.obtuse_octo_prune.VOs;
 import net.semanticmetadata.lire.ImageSearchHits;
 import org.apache.lucene.document.Document;
 
+import java.util.List;
+
 /**
  * Created by smartkit on 2016/11/13.
  */
 public class ImageSearchHitsVO {
 
-    private int length;
-    private float score;
-    private Document doc;
+    private int total;
+    private float max_score;
+    private List<ImageSearchHitsVO> hits;
+
+    public ImageSearchHitsVO(int total, float max_score, List<ImageSearchHitsVO> hits) {
+        this.total = total;
+        this.max_score = max_score;
+        this.hits = hits;
+    }
 
     public ImageSearchHitsVO() {
     }
 
-    public ImageSearchHitsVO(int length, float score, Document doc) {
-        this.length = length;
-        this.score = score;
-        this.doc = doc;
+    public List<ImageSearchHitsVO> getHits() {
+        return hits;
     }
 
-    public int getLength() {
-        return length;
+    public void setHits(List<ImageSearchHitsVO> hits) {
+        this.hits = hits;
     }
 
-    public void setLength(int length) {
-        this.length = length;
+    public int getTotal() {
+
+        return total;
     }
 
-    public float getScore() {
-        return score;
+    public void setTotal(int total) {
+        this.total = total;
     }
 
-    public void setScore(float score) {
-        this.score = score;
+    public float getMax_score() {
+        return max_score;
     }
 
-    public Document getDoc() {
-        return doc;
-    }
-
-    public void setDoc(Document doc) {
-        this.doc = doc;
+    public void setMax_score(float max_score) {
+        this.max_score = max_score;
     }
 }
