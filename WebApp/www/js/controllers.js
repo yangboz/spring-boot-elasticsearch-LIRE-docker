@@ -47,17 +47,6 @@ angular.module('starter.controllers', [])
             $scope.indexModal.hide();
         };
 
-
-        // Perform the login action when the user submits the login form
-        $scope.doLogin = function () {
-            //console.log('Doing login', $scope.loginData);
-
-            // Simulate a login delay. Remove this and replace with your login
-            // code if using a login system
-            $timeout(function () {
-                $scope.closeLogin();
-            }, 1000);
-        };
         // Function testing.
         //
         $rootScope.loadCameraInfos = function () {
@@ -83,7 +72,7 @@ angular.module('starter.controllers', [])
         $scope.searchBtnClickHandler = function () {
             $log.info("$rootScope.newSearchInfo.threshold:", $rootScope.newSearchInfo.threshold);
             //
-            var anewSearch = new SearchService($rootScope.newSearchInfo);
+            var anewSearch = new SearchService($rootScope.newSearch);
             anewSearch.$save(function (response) {
                 $log.info("SearchService POST query success, response:", response.data);
                 $rootScope.faceInfoList = response.data;
@@ -93,22 +82,38 @@ angular.module('starter.controllers', [])
             });
         }
     })
-    .controller('IndexCtrl', function ($rootScope, $scope, $log, $ionicLoading, $http, CONFIG_ENV, IndexService) {
+    .controller('IndexCtrl', function ($rootScope, $scope, $log, $ionicLoading, $http, CONFIG_ENV) {
         $rootScope.newIndex = {};
         $rootScope.newIndex.name = "my_index";
         $rootScope.newIndex.item = "my_image_item";
-
+        //JSON object
+        $rootScope.indexResult = {
+            "_index": "my_index",
+            "_type": "my_image_item",
+            "_id": "AVhwraTmVlbP7cTwXwJg",
+            "_version": "1",
+            "created": true,
+            "_shards": {
+                "total": 2,
+                "failed": 0,
+                "successful": 1
+            }
+        }
         //
         $scope.indexBtnClickHandler = function () {
-            $log.info("$rootScope.newSearchInfo.threshold:", $rootScope.newSearchInfo.threshold);
-            //
-            var anewIndex = new IndexService($rootScope.newIndex);
-            anewIndex.$save(function (response) {
-                $log.info("IndexService POST query success, response:", response.data);
-                $rootScope.indexResul = response.data;
+            var fdata = new FormData();
+            fdata.append("file", $rootScope.imageFile);
+            $log.info("POST formdata:",fdata);
+//TODO:re-factory to stand-alone service;
+            $http.post(CONFIG_ENV.api_endpoint + 'index/'+$rootScope.newIndex.name+'/'+$rootScope.newIndex.item+'/', fdata, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            }).then(function (response) {
+                $rootScope.indexResult = response.data;
+                $log.info("IndexService with file success:",$rootScope.indexResult);
             }, function (error) {
                 // failure handler
-                $log.error("SearchInfoService.put failed:", JSON.stringify(error));
+                $log.error("IndexService failed:", JSON.stringify(error));
             });
         }
     })
@@ -223,7 +228,7 @@ angular.module('starter.controllers', [])
         //
         $scope.takePictureFromComputer = function () {
             //console.log('fire! $scope.takePictureFromComputer()');
-            ionic.trigger('click', {target: document.getElementById('id_file_invoice')});
+            ionic.trigger('click', {target: document.getElementById('id_file_search')});
         };
         //
         var uploader = $scope.uploader = new FileUploader({
@@ -276,7 +281,7 @@ angular.module('starter.controllers', [])
             //$scope.imgURI = $scope.data.uploadFolderURI + response.body;
             $scope.imgURI = $scope.data.uploadFolderURI + response.body;
             //$log.debug("$scope.imgURI:", $scope.imgURI, "id:", response.id);
-            $rootScope.newSearchInfo.fileName = response.body;
+            $rootScope.newSearch.fileName = response.body;
         };
         uploader.onCompleteAll = function () {
             //console.info('onCompleteAll');
@@ -364,18 +369,18 @@ angular.module('starter.controllers', [])
         }
         //@see: http://codepen.io/ajoslin/pen/qwpCB?editors=101
         $scope.fileName = 'nothing';
-        $scope.imageFile;
+        $rootScope.imageFile;
         //@see: http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields
         $scope.onFileChangeHandler = function () {
-            $scope.imageFile = event.target.files[0];
+            $rootScope.imageFile = event.target.files[0];
             $log.debug("openFileDialog->file:", $scope.imageFile);
-            $scope.fileName = $scope.imageFile.name;
+            $scope.fileName = $rootScope.imageFile.name;
             //$scope.$apply();
         }
         //
         $scope.takePictureFromComputer = function () {
             //console.log('fire! $scope.takePictureFromComputer()');
-            ionic.trigger('click', {target: document.getElementById('id_file_invoice')});
+            ionic.trigger('click', {target: document.getElementById('id_file_index')});
         };
         //
         var uploader = $scope.uploader = new FileUploader({
@@ -398,7 +403,7 @@ angular.module('starter.controllers', [])
         uploader.onAfterAddingFile = function (fileItem) {
             //console.info('onAfterAddingFile', fileItem);
             //$log.debug(uploader,uploader.queue);
-            uploader.queue[0].upload();
+            // uploader.queue[0].upload();
         };
         uploader.onAfterAddingAll = function (addedFileItems) {
             //console.info('onAfterAddingAll', addedFileItems);

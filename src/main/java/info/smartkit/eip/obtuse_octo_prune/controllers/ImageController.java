@@ -2,6 +2,7 @@ package info.smartkit.eip.obtuse_octo_prune.controllers;
 
 import com.wordnik.swagger.annotations.ApiOperation;
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
+import info.smartkit.eip.obtuse_octo_prune.domains.Movie;
 import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
 import info.smartkit.eip.obtuse_octo_prune.utils.ImageUtils;
 import info.smartkit.eip.obtuse_octo_prune.utils.LireFeatures;
@@ -168,5 +169,12 @@ private ImageService imageService;
 
         }
         return "Undefined value";
+    }
+
+    @RequestMapping(value = "query/{index}/{from}/{size}/{q}",method = RequestMethod.GET)
+    @ApiOperation(httpMethod = "GET", value = "Response a list describing all of es-image that is successfully get or not.",
+            ,notes = "e.g. index: my_index,from: 0,size: 10,q: *:*")
+    public Object queryIndex(@PathVariable("index") String index,@PathVariable("from") int from,@PathVariable("size") int size,@PathVariable("q") String query) {
+        return imageService.query(index,from,size,query);
     }
 }

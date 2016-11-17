@@ -10,9 +10,9 @@ angular.module('starter.services', [])
         var data = $resource(CONFIG_ENV.api_endpoint + 'camera');
         return data;
     })
-    //SourceService
-    .factory('SourceService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'camera');
+    //QueryService
+    .factory('QueryService', function ($resource, CONFIG_ENV) {
+        var data = $resource(CONFIG_ENV.api_endpoint + 'query/:index/:from/:size/:q',{index:"@index",from:"@from",size:"@size",q:"@q"});
         return data;
     })
 //SearchService
@@ -20,18 +20,14 @@ angular.module('starter.services', [])
         var data = $resource(CONFIG_ENV.api_endpoint + 'search');
         return data;
     })
-//IndexService
-    .factory('IndexService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'index');
-        return data;
-    })
+    //TODO:IndexService
 //SearchInfoService
 //    .factory('SearchService', function ($resource, CONFIG_ENV) {
 //        var data = $resource(CONFIG_ENV.api_endpoint + 'search/',{}, {'query': {method: 'GET', isArray: false }} );
 //        return data;
 //    })
     .factory('MappingService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'search/' +
+        var data = $resource(CONFIG_ENV.api_endpoint + 'mapping/' +
             '', {}, {
             update: {
                 method: 'PUT'
@@ -40,7 +36,7 @@ angular.module('starter.services', [])
         return data;
     })
     .factory('SettingService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'search/' +
+        var data = $resource(CONFIG_ENV.api_endpoint + 'setting/' +
             '', {}, {
             update: {
                 method: 'PUT'
