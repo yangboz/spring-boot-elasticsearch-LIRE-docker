@@ -42,14 +42,12 @@
             <h1 class="title">Gallary</h1>
         </ion-header-bar>
         <ion-content>
-            <div class="list" ng-repeat="cameraInfo in cameraInfoList">
+            <div class="list" ng-repeat="queryAll in queryAllList">
 
                 <div class="item item-divider">
-                    {{cameraInfo.locationName}}
+                    {{queryAll._id}}
                 </div>
-                <ion-radio class="item" href="#" ng-repeat="camera in cameraInfo.cameras">
-                    {{camera.cameraName}}
-                </ion-radio>
+                <img ng-show="queryAll._source.my_img !=null" ng-src="data:image/gif;base64,{{queryAll._source.my_img}}" style="width: 64px;height: 64px;"/>
             </div>
         </ion-content>
     </ion-side-menu>

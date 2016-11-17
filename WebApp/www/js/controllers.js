@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
     .controller('MainCtrl', function ($rootScope, $scope, $ionicModal, $timeout, $http, $log, CONFIG_ENV, $ionicLoading
-        , $ionicSideMenuDelegate, SourceService) {
+        , $ionicSideMenuDelegate, QueryService) {
         //Always open left.
         ionic.Platform.ready(function () {
             $ionicSideMenuDelegate.toggleLeft();
@@ -48,19 +48,20 @@ angular.module('starter.controllers', [])
         };
 
         // Function testing.
-        //
-        $rootScope.loadCameraInfos = function () {
-            SourceService.get({}, function (response) {
-                $log.debug("SourceService.get() success!", response);
-                $scope.cameraInfoList = response.data;
-                $log.info("$scope.cameraInfoList:", $scope.cameraInfoList);
+
+        $rootScope.loadQueryAll = function () {
+            QueryService.get({index:"my_index",from:0,size:10,q:"*:*"}, function (response) {
+                $log.debug("QueryService.get() success!", response);
+                $scope.queryAllList = response.hits.hits;
+                $log.info("$scope.queryAllList:", $scope.queryAllList);
             }, function (error) {
                 // failure handler
-                $log.error("SourceService.get() failed:", JSON.stringify(error));
+                $log.error("QueryService.get() failed:", JSON.stringify(error));
             });
-        }
+        };
+
         //Initialize here.
-        // $rootScope.loadCameraInfos();
+        $rootScope.loadQueryAll();
     })
     .controller('SearchCtrl', function ($rootScope, $scope, $log, $ionicLoading, $http, CONFIG_ENV, CameraService, SearchService) {
         $rootScope.newSearch = {};

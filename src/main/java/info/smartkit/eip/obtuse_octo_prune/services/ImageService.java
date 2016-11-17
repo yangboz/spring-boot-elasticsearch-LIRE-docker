@@ -14,5 +14,5 @@ public interface ImageService {
     public IndexResponseVO index(String name, String item, IndexImageVO indexImageVO);
     public SearchResponseVO search(String index,String item, SearchVO searchVO);
     public SearchResponseVO searchExisted(String index,String item,SearchExistedVO searchExistedVOVO);
-    public Object query(String index,int from,int size,String query);
+    public SearchResponseVO query(String index,int from,int size,String query);
 }

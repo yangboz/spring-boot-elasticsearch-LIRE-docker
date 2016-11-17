@@ -272,7 +272,7 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
     }
 
     @Override
-    public Object query(String index,int from, int size, String query) {
+    public SearchResponseVO query(String index,int from, int size, String query) {
         final String uri = elasticSearchBean.getClusterUrl()+"/{index}/_search";
         Map<String, String> params = new HashMap<String, String>();
         params.put("index", index);//my_index
@@ -281,9 +281,9 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
         params.put("q",query);//"*:*"
 //        SearchVO searchVO = new SearchVO();
         RestTemplate restTemplate = new RestTemplate();
-        Object result = new Object();
+        SearchResponseVO result = new SearchResponseVO();
         try {
-            result = restTemplate.getForObject(uri,Object.class,params);
+            result = restTemplate.getForObject(uri,SearchResponseVO.class,params);
             LOG.info("restTemplate result:"+result.toString());
         } catch (HttpStatusCodeException exception) {
 //            result = exception.getStatusCode();
