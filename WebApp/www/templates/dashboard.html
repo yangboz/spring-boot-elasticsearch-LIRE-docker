@@ -4,7 +4,6 @@
         <ion-header-bar class="bar-positive">
             <button class="button button-icon ion-navicon" ng-click="toggleLeft()"
                     ng-hide="$exposeAside.active"></button>
-            <button class="button button-icon icon ion-images" ng-click="openSearch()"></button>
             <button class="button button-icon icon ion-search" ng-click="openSearch()"></button>
             <h1 class="title">ES-IMAGE</h1>
             <div class="buttons">
@@ -12,24 +11,42 @@
             </div>
 
         </ion-header-bar>
-        <ion-content class="padding">
+        <div class="bar bar-subheader">
+        <label class="item item-input ">
+            <div class="input-label" >
+                SCORE({{$root.newSearch.threshold}}%)
+            </div>
+            <div class="row item item-input-inset">
+                <div class="col-80">
+                    <div class="range" >
+                        <i class="icon ion-minus-round"></i>
+                        <input type="range" name="volume" ng-model="$root.newSearch.threshold">
+                        <i class="icon ion-plus-round"></i>
+                    </div>
+                </div>
+            </div>
+        </label>
+    </div>
+        <ion-content class="padding" class="has-header has-subheader">
             <!--
         <ion-nav-buttons side="left">
             <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
             <button class="button button-icon icon ion-search" ng-click="login()"></button>
         </ion-nav-buttons>
         -->
-            <div class="list" ng-repeat="faceInfoGroup in $root.faceInfoList">
+
+
+            <div class="list" ng-repeat="searchResult in $root.searchResults">
 
                 <div class="item item-divider">
-                    组#{{$index}}
+                    {{$index}}.{{searchResult._id}}
                 </div>
-                <a class="item item-thumbnail-left" href="#" ng-repeat="faceInfo in faceInfoGroup">
-                    <img src="{{faceInfo.imageBase64}}"/>
+                <a class="item item-thumbnail-left" href="#">
+                    <img ng-show="searchResult._source.my_img !=null" ng-src="data:image/gif;base64,{{searchResult._source.my_img}}" style="width: 64px;height: 64px;"/>
 
-                    <h2>相似度:{{faceInfo.similarity}}</h2>
+                    <h2>score:{{searchResult._score}}</h2>
 
-                    <p>ID:{{faceInfo.id}}</p>
+                    <p>FEATURE:CEDD</p>
                 </a>
 
             </div>
@@ -38,8 +55,8 @@
     </ion-side-menu-content>
 
     <ion-side-menu expose-aside-when="large" ng-controller="SettingCtrl">
-        <ion-header-bar class="bar-royal">
-            <h1 class="title">Gallary</h1>
+        <ion-header-bar class="bar-stable">
+            <h1 class="title" >Gallary</h1>
         </ion-header-bar>
         <ion-content>
             <div class="list" ng-repeat="queryAll in queryAllList">
@@ -48,6 +65,7 @@
                     {{queryAll._id}}
                 </div>
                 <img ng-show="queryAll._source.my_img !=null" ng-src="data:image/gif;base64,{{queryAll._source.my_img}}" style="width: 64px;height: 64px;"/>
+                <button class="button button-icon icon ion-link" ng-click="$root.searchExistedBtnClickHandler(queryAll._id)"></button>
             </div>
         </ion-content>
     </ion-side-menu>

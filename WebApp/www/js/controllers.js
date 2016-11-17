@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
     .controller('MainCtrl', function ($rootScope, $scope, $ionicModal, $timeout, $http, $log, CONFIG_ENV, $ionicLoading
-        , $ionicSideMenuDelegate, QueryService) {
+        , $ionicSideMenuDelegate, QueryService,SearchExistedService) {
         //Always open left.
         ionic.Platform.ready(function () {
             $ionicSideMenuDelegate.toggleLeft();
@@ -24,9 +24,8 @@ angular.module('starter.controllers', [])
             $scope.indexModal = modal;
         });
 
-
         // Triggered in the search modal to close it
-        $scope.closeSearch = function () {
+        $rootScope.closeSearch = function () {
             $scope.searchModal.hide();
         };
 
@@ -47,39 +46,76 @@ angular.module('starter.controllers', [])
             $scope.indexModal.hide();
         };
 
-        // Function testing.
-
+        // Common variables.
+        $rootScope.indexedIDs = [];//{id:0,img:"...base64..."}
+        $rootScope.selectedIndexID={};
+        // Common functions.
         $rootScope.loadQueryAll = function () {
-            QueryService.get({index:"my_index",from:0,size:10,q:"*:*"}, function (response) {
+            QueryService.get({index:"my_index",from:0,size:100,q:"*:*"}, function (response) {
                 $log.debug("QueryService.get() success!", response);
                 $scope.queryAllList = response.hits.hits;
                 $log.info("$scope.queryAllList:", $scope.queryAllList);
+                //
+                angular.forEach($scope.queryAllList, function(value, key){
+                    $rootScope.indexedIDs.push({id:value._id,img:value._source.my_img});
+                });
+                $log.info("$rootScope.indexedIDs:",$rootScope.indexedIDs);
             }, function (error) {
                 // failure handler
                 $log.error("QueryService.get() failed:", JSON.stringify(error));
             });
         };
 
+        $rootScope.searchExistedBtnClickHandler = function ($id) {
+            SearchExistedService.save({index:$rootScope.newSearch.index,item:$rootScope.newSearch.item,id:$id}, function (response) {
+                $log.debug("SearchExistedService.save() success!", response);
+                $rootScope.searchResults = response.hits.hits;
+                $log.info("$rootScope.searchResults:", $rootScope.searchResults);
+            }, function (error) {
+                // failure handler
+                $log.error("SearchExistedService.save() failed:", JSON.stringify(error));
+            });
+        }
+
         //Initialize here.
         $rootScope.loadQueryAll();
     })
-    .controller('SearchCtrl', function ($rootScope, $scope, $log, $ionicLoading, $http, CONFIG_ENV, CameraService, SearchService) {
+    .controller('SearchCtrl', function ($rootScope, $scope, $log, $ionicLoading, $http, CONFIG_ENV) {
         $rootScope.newSearch = {};
         $rootScope.newSearch.index = "my_index";
         $rootScope.newSearch.item = "my_image_item";
         $rootScope.newSearch.threshold = 95;
 
+        //JSON object
+        $rootScope.searchResults = {
+            // "_index": "my_index",
+            // "_type": "my_image_item",
+            // "_id": "AVhwraTmVlbP7cTwXwJg",
+            // "_version": "1",
+            // "created": true,
+            // "_shards": {
+            //     "total": 2,
+            //     "failed": 0,
+            //     "successful": 1
+            // }
+        }
         //
         $scope.searchBtnClickHandler = function () {
-            $log.info("$rootScope.newSearchInfo.threshold:", $rootScope.newSearchInfo.threshold);
-            //
-            var anewSearch = new SearchService($rootScope.newSearch);
-            anewSearch.$save(function (response) {
-                $log.info("SearchService POST query success, response:", response.data);
-                $rootScope.faceInfoList = response.data;
+            var fdata = new FormData();
+            fdata.append("file", $rootScope.imageFile);
+            $log.info("POST formdata:",fdata);
+//TODO:re-factory to stand-alone service;
+            $http.post(CONFIG_ENV.api_endpoint + 'search/'+$rootScope.newSearch.index+'/'+$rootScope.newSearch.item+'/', fdata, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            }).then(function (response) {
+                $rootScope.searchResults = response.data.hits.hits;
+                $log.info("SearchService with file success:",$rootScope.searchResults);
+                //
+                $rootScope.closeSearch();
             }, function (error) {
                 // failure handler
-                $log.error("SearchService.post failed:", JSON.stringify(error));
+                $log.error("SearchService failed:", JSON.stringify(error));
             });
         }
     })
@@ -110,8 +146,10 @@ angular.module('starter.controllers', [])
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             }).then(function (response) {
-                $rootScope.indexResult = response.data;
-                $log.info("IndexService with file success:",$rootScope.indexResult);
+                $rootScope.indexResults = response.data;
+                $log.info("IndexService with file success:",$rootScope.indexResults);
+                //
+                $scope.closeIndex();
             }, function (error) {
                 // failure handler
                 $log.error("IndexService failed:", JSON.stringify(error));
@@ -218,11 +256,11 @@ angular.module('starter.controllers', [])
         }
         //@see: http://codepen.io/ajoslin/pen/qwpCB?editors=101
         $scope.fileName = 'nothing';
-        $scope.imageFile;
+        $rootScope.imageFile;
         //@see: http://stackoverflow.com/questions/17922557/angularjs-how-to-check-for-changes-in-file-input-fields
         $scope.onFileChangeHandler = function () {
-            $scope.imageFile = event.target.files[0];
-            $log.debug("openFileDialog->file:", $scope.imageFile);
+            $rootScope.imageFile = event.target.files[0];
+            $log.debug("openFileDialog->file:", $rootScope.imageFile);
             $scope.fileName = $scope.imageFile.name;
             //$scope.$apply();
         }
@@ -252,7 +290,7 @@ angular.module('starter.controllers', [])
         uploader.onAfterAddingFile = function (fileItem) {
             //console.info('onAfterAddingFile', fileItem);
             //$log.debug(uploader,uploader.queue);
-            uploader.queue[0].upload();
+            // uploader.queue[0].upload();
         };
         uploader.onAfterAddingAll = function (addedFileItems) {
             //console.info('onAfterAddingAll', addedFileItems);
@@ -434,7 +472,7 @@ angular.module('starter.controllers', [])
             //$scope.imgURI = $scope.data.uploadFolderURI + response.body;
             $scope.imgURI = $scope.data.uploadFolderURI + response.body;
             //$log.debug("$scope.imgURI:", $scope.imgURI, "id:", response.id);
-            $rootScope.newSearchInfo.fileName = response.body;
+            $rootScope.newSearch.fileName = response.body;
         };
         uploader.onCompleteAll = function () {
             //console.info('onCompleteAll');

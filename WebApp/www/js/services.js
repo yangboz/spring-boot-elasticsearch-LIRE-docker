@@ -16,8 +16,8 @@ angular.module('starter.services', [])
         return data;
     })
 //SearchService
-    .factory('SearchService', function ($resource, CONFIG_ENV) {
-        var data = $resource(CONFIG_ENV.api_endpoint + 'search');
+    .factory('SearchExistedService', function ($resource, CONFIG_ENV) {
+        var data = $resource(CONFIG_ENV.api_endpoint + 'searchExisted/:index/:item/:id',{index:"@index",item:"@item",id:"@id"});
         return data;
     })
     //TODO:IndexService

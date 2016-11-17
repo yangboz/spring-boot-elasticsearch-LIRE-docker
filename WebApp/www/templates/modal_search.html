@@ -3,7 +3,7 @@
         <h1 class="title">SEARCH</h1>
 
         <div class="buttons">
-            <button class="button button-clear ion-close-round" ng-click="closeSearch()"></button>
+            <button class="button button-clear ion-close-round" ng-click="$root.closeSearch()"></button>
         </div>
     </ion-header-bar>
     <ion-content>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="row item item-input-inset">
                         <div class="col-80">
-                            <input type="text" ng-model="$root.newSearch.index"/>
+                            <input type="text" ng-model="$root.newSearch.index" disabled/>
                         </div>
                     </div>
                 </label>
@@ -53,22 +53,7 @@
                     </div>
                     <div class="row item item-input-inset">
                         <div class="col-80">
-                            <input type="text" ng-model="$root.newSearch.item"/>
-                        </div>
-                    </div>
-                </label>
-
-                <label class="item item-input ">
-                    <div class="input-label" >
-                        相似度({{$root.newSearchInfo.threshold}}%)
-                    </div>
-                    <div class="row item item-input-inset">
-                        <div class="col-80">
-                            <div class="range" >
-                                <i class="icon ion-minus-round"></i>
-                                <input type="range" name="volume" ng-model="$root.newSearchInfo.threshold">
-                                <i class="icon ion-plus-round"></i>
-                            </div>
+                            <input type="text" ng-model="$root.newSearch.item" disabled/>
                         </div>
                     </div>
                 </label>

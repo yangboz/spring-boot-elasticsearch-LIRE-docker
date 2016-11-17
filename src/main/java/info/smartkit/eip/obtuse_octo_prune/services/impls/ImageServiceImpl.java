@@ -277,7 +277,7 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("index", index);//my_index
         params.put("from", String.valueOf(from));//0
-        params.put("size", String.valueOf(size));///10
+        params.put("size", String.valueOf(size));//10
         params.put("q",query);//"*:*"
 //        SearchVO searchVO = new SearchVO();
         RestTemplate restTemplate = new RestTemplate();

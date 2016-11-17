@@ -6,6 +6,8 @@ import info.smartkit.eip.obtuse_octo_prune.domains.Movie;
 import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
 import info.smartkit.eip.obtuse_octo_prune.utils.ImageUtils;
 import info.smartkit.eip.obtuse_octo_prune.utils.LireFeatures;
+import info.smartkit.eip.obtuse_octo_prune.utils.LireHashs;
+import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.NotBlank;
@@ -64,11 +66,12 @@ private ImageService imageService;
         return imageService.search(index,item,searchVO);
     }
 
-    @RequestMapping(value = "searchExisted/{index}/{item}/",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
+    @RequestMapping(value = "searchExisted/{index}/{item}/{id}",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
     @ApiOperation(httpMethod = "POST", value = "Response a string describing if the SearchQueryVO is successfully created or not.",
             notes = "e.g. database: test,table: test,index: AVhgkCmlo6Smc5eMO6E2 ,index: test ,type: test ,hash: BIT_SAMPLING")
-    public SearchResponseVO searchExisted(@PathVariable("index") String index,@PathVariable("item") String item, @RequestBody SearchExistedVO value) {
-        return imageService.searchExisted(index,item,value);
+    public SearchResponseVO searchExisted(@PathVariable("index") String index,@PathVariable("item") String item, @PathVariable("id") String id) {
+        SearchExistedVO searchExistedVO = new SearchExistedVO(new SearchExistedQueryVO(new SearchExistedQueryImageVO(new SearchExistedQueryELImageVO(LireFeatures.CEDD,index,item,id, LireHashs.CEDD))));
+        return imageService.searchExisted(index,item,searchExistedVO);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "index/{name}/{item}/", consumes = MediaType.MULTIPART_FORM_DATA)
