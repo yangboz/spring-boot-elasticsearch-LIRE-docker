@@ -38,7 +38,11 @@ Spring-boot-elasticsearch 1.0: http://www.javacodegeeks.com/2015/03/head-first-e
 
 Upgrade to Elasticsearch 2.0: https://jira.spring.io/browse/DATAES-211
 
-ElasticSearch-LIRE: https://github.com/yangboz/elasticsearch-image
+ElasticSearch-LIRE: 
+
+https://www.elastic.co/blog/found-getting-started-with-lire-and-elasticsearch
+
+https://github.com/yangboz/elasticsearch-image
 
 Spring-boot-docker: https://spring.io/guides/gs/spring-boot-docker/
 
