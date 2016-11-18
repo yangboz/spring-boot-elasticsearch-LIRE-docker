@@ -49,7 +49,11 @@ angular.module('starter.controllers', [])
         // Common variables.
         $rootScope.indexedIDs = [];//{id:0,img:"...base64..."}
         $rootScope.selectedIndexID={};
+        $rootScope.similarity = 50;
         // Common functions.
+        // $scope.$watch('ui.max',function(nVal,oVal){
+        //     $rootScope.newSearch.threshold = parseInt(nVal);
+        // })
         $rootScope.loadQueryAll = function () {
             QueryService.get({index:"my_index",from:0,size:100,q:"*:*"}, function (response) {
                 $log.debug("QueryService.get() success!", response);
@@ -84,7 +88,6 @@ angular.module('starter.controllers', [])
         $rootScope.newSearch = {};
         $rootScope.newSearch.index = "my_index";
         $rootScope.newSearch.item = "my_image_item";
-        $rootScope.newSearch.threshold = 95;
 
         //JSON object
         $rootScope.searchResults = {

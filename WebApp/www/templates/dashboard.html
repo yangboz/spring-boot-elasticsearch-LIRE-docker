@@ -1,4 +1,4 @@
-<ion-side-menus>
+<ion-side-menus ng-controller="MainCtrl">
 
     <ion-side-menu-content>
         <ion-header-bar class="bar-positive">
@@ -11,22 +11,22 @@
             </div>
 
         </ion-header-bar>
-        <div class="bar bar-subheader">
-        <label class="item item-input ">
-            <div class="input-label" >
-                SCORE({{$root.newSearch.threshold}}%)
-            </div>
-            <div class="row item item-input-inset">
-                <div class="col-80">
-                    <div class="range" >
-                        <i class="icon ion-minus-round"></i>
-                        <input type="range" name="volume" ng-model="$root.newSearch.threshold">
-                        <i class="icon ion-plus-round"></i>
+        <div class="bar bar-subheader" ng-show="$root.searchResults.length>0">
+            <label class="item item-input ">
+                <div class="input-label" >
+                    SIMILARITY({{$root.similarity}}%)
+                </div>
+                <div class="row item item-input-inset">
+                    <div class="col-80">
+                        <div class="range" >
+                            <i class="icon ion-minus-round"></i>
+                            <input type="range" name="volume" ng-model="$root.similarity">
+                            <i class="icon ion-plus-round"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </label>
-    </div>
+            </label>
+        </div>
         <ion-content class="padding" class="has-header has-subheader">
             <!--
         <ion-nav-buttons side="left">
@@ -36,13 +36,13 @@
         -->
 
 
-            <div class="list" ng-repeat="searchResult in $root.searchResults">
+            <div class="list" ng-repeat="searchResult in $root.searchResults | rangeFilter:'_score':$root.similarity">
 
                 <div class="item item-divider">
                     {{$index}}.{{searchResult._id}}
                 </div>
                 <a class="item item-thumbnail-left" href="#">
-                    <img ng-show="searchResult._source.my_img !=null" ng-src="data:image/gif;base64,{{searchResult._source.my_img}}" style="width: 64px;height: 64px;"/>
+                    <img ng-show="searchResult._source.my_img !=null" ng-src="data:image/gif;base64,{{searchResult._source.my_img}}" style="width: 64px;height: 64px;"  zoom-src="data:image/gif;base64,{{searchResult._source.my_img}}" zoom-view/>
 
                     <h2>score:{{searchResult._score}}</h2>
 
@@ -64,7 +64,7 @@
                 <div class="item item-divider">
                     {{queryAll._id}}
                 </div>
-                <img ng-show="queryAll._source.my_img !=null" ng-src="data:image/gif;base64,{{queryAll._source.my_img}}" style="width: 64px;height: 64px;"/>
+                <img ng-show="queryAll._source.my_img !=null" ng-src="data:image/gif;base64,{{queryAll._source.my_img}}" style="width: 64px;height: 64px;" zoom-src="data:image/gif;base64,{{queryAll._source.my_img}}" zoom-view/>
                 <button class="button button-icon icon ion-link" ng-click="$root.searchExistedBtnClickHandler(queryAll._id)"></button>
             </div>
         </ion-content>

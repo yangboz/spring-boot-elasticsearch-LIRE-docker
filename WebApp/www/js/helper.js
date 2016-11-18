@@ -12,31 +12,31 @@ var _environments = {
             /**
              * Add any config properties you want in here for this environment
              */
-            api_endpoint_base: 'http://localhost:8082/api/'
+            api_endpoint_base: 'http://92.168.0.8:8084/api/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
             ,ldap_partition_base_on:'dc=www'
         }
     },
     dev: {
-        host: 'localhost:8084',
+        host: '192.168.0.8:8084',
         config: {
             /**
              * Add any config properties you want in here for this environment
              */
-            api_endpoint_base: 'http://localhost:8084/api/'
+            api_endpoint_base: 'http://92.168.0.8:8084/api/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
             ,ldap_partition_base_on:'dc=www'
         }
     },
     test: {
-        host: '192.168.1.21:8082',
+        host: '192.168.0.8:8084',
         config: {
             /**
              * Add any config properties you want in here for this environment
              */
-            api_endpoint_base: 'http://192.168.1.21:8082/api/'
+            api_endpoint_base: 'http://192.168.1.21:8084/api/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
             ,ldap_partition_base_on:'dc=123,dc=57,dc=78,dc=65'

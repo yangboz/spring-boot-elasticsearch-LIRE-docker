@@ -4,7 +4,26 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'nvd3', 'ngCordova', 'angularFileUpload','ngResource'])
+angular.module('app.filter.similarity',[])
+    .filter('rangeFilter', function () {
+        return function (items, attr, threshold) {
+            if(items!=undefined) {
+                // console.log("items:"+items);
+                var range = [],
+                    threshold = parseFloat(threshold);
+                // console.log("threshold:" + threshold);
+                for (var i = 0, l = items.length; i < l; ++i) {
+                    var item = items[i];
+                    if (item[attr] >= 2*threshold*0.01) {
+                        range.push(item);
+                    }
+                }
+            }
+            return range;
+        };
+    });
+
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'nvd3', 'ngCordova', 'angularFileUpload','ngResource','ionic-zoom-view','app.filter.similarity'])
     //Support RESTful PATCH
     //@see: http://stackoverflow.com/questions/20305615/configure-angularjs-module-to-send-patch-request
     .config(['$httpProvider', function ($httpProvider) {
@@ -21,8 +40,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }])
 ///ENV_config
     .constant('CONFIG_ENV', {
-        'api_endpoint_base': 'http://localhost:8084/api/',
-        'api_endpoint': 'http://localhost:8084/api/es/image/',
+        'api_endpoint_base': 'http://192.168.0.8:8084/api/',
+        'api_endpoint': 'http://192.168.0.8:8084/api/es/image/',
         'api_version': '0.0.1',
         'debug': false
         , 'UPLOAD_FOLDER': 'uploads/'//for image file upload
@@ -48,7 +67,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 url: "/app",
                 abstract: true,
                 templateUrl: "templates/menu.html",
-                controller: 'MainCtrl'
+                controller: 'SettingCtrl'
             })
 
             .state('app.browse', {
@@ -64,6 +83,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 views: {
                     'menuContent': {
                         templateUrl: "templates/dashboard.html",
+
                     }
                 }
             });
