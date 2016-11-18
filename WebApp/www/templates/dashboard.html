@@ -35,38 +35,38 @@
         </ion-nav-buttons>
         -->
 
+            <ion-list>
+                <ion-item ng-repeat="searchResult in $root.searchResults | rangeFilter:'_score':$root.similarity">
+                    <div class="item item-divider">
+                        {{$index}}.{{searchResult._id}}
+                    </div>
+                    <a class="item item-thumbnail-left" href="#">
+                        <img ng-show="searchResult._source.my_img !=null" ng-src="data:image/gif;base64,{{searchResult._source.my_img}}" style="width: 64px;height: 64px;"  zoom-src="data:image/gif;base64,{{searchResult._source.my_img}}" zoom-view/>
 
-            <div class="list" ng-repeat="searchResult in $root.searchResults | rangeFilter:'_score':$root.similarity">
+                        <h2>score:{{searchResult._score}}</h2>
 
-                <div class="item item-divider">
-                    {{$index}}.{{searchResult._id}}
-                </div>
-                <a class="item item-thumbnail-left" href="#">
-                    <img ng-show="searchResult._source.my_img !=null" ng-src="data:image/gif;base64,{{searchResult._source.my_img}}" style="width: 64px;height: 64px;"  zoom-src="data:image/gif;base64,{{searchResult._source.my_img}}" zoom-view/>
-
-                    <h2>score:{{searchResult._score}}</h2>
-
-                    <p>FEATURE:CEDD</p>
-                </a>
-
-            </div>
+                        <p>FEATURE:CEDD</p>
+                    </a>
+                </ion-item>
+            </ion-list>
 
         </ion-content>
     </ion-side-menu-content>
 
-    <ion-side-menu expose-aside-when="large" ng-controller="SettingCtrl">
+    <ion-side-menu expose-aside-when="large">
         <ion-header-bar class="bar-stable">
-            <h1 class="title" >Gallary</h1>
+            <h1 class="title" >GALLARY</h1>
         </ion-header-bar>
         <ion-content>
-            <div class="list" ng-repeat="queryAll in queryAllList">
-
-                <div class="item item-divider">
-                    {{queryAll._id}}
-                </div>
-                <img ng-show="queryAll._source.my_img !=null" ng-src="data:image/gif;base64,{{queryAll._source.my_img}}" style="width: 64px;height: 64px;" zoom-src="data:image/gif;base64,{{queryAll._source.my_img}}" zoom-view/>
-                <button class="button button-icon icon ion-link" ng-click="$root.searchExistedBtnClickHandler(queryAll._id)"></button>
-            </div>
+            <ion-list>
+                <ion-item ng-repeat="queryAll in queryAllList">
+                    <div class="item item-divider">
+                        {{queryAll._id}}
+                    </div>
+                    <img ng-show="queryAll._source.my_img !=null" ng-src="data:image/gif;base64,{{queryAll._source.my_img}}" style="width: 64px;height: 64px;" zoom-src="data:image/gif;base64,{{queryAll._source.my_img}}" zoom-view/>
+                    <button class="button button-icon icon ion-link" ng-click="$root.searchExistedBtnClickHandler(queryAll._id)"></button>
+                </ion-item>
+            </ion-list>
         </ion-content>
     </ion-side-menu>
 

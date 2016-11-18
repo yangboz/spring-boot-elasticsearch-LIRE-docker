@@ -522,7 +522,8 @@
                     if (item._form) item._form.replaceWith(input); // remove old form
                     item._form = form; // save link to new form
 
-                    that._onBeforeUploadItem(item);
+                    that._onBefore
+                    (item);
 
                     input.prop('name', item.alias);
 

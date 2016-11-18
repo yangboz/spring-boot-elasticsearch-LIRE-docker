@@ -13,37 +13,37 @@ angular.module('starter.controllers', [])
 
         // Create the search modal that we will use later
         $ionicModal.fromTemplateUrl('templates/modal_search.html', {
-            scope: $scope
+            scope: $rootScope
         }).then(function (modal) {
-            $scope.searchModal = modal;
+            $rootScope.searchModal = modal;
         });
         // Create the search modal that we will use later
         $ionicModal.fromTemplateUrl('templates/modal_index.html', {
-            scope: $scope
+            scope: $rootScope
         }).then(function (modal) {
-            $scope.indexModal = modal;
+            $rootScope.indexModal = modal;
         });
 
         // Triggered in the search modal to close it
         $rootScope.closeSearch = function () {
-            $scope.searchModal.hide();
+            $rootScope.searchModal.hide();
         };
 
         // Open the search modal
         $scope.openSearch = function () {
-            $scope.searchModal.show();
+            $rootScope.searchModal.show();
             //Additional call.
 
         };
         // Open the index modal
-        $scope.openIndex = function () {
-            $scope.indexModal.show();
+        $rootScope.openIndex = function () {
+            $rootScope.indexModal.show();
             //Additional call.
 
         };
         // Triggered in the index modal to close it
-        $scope.closeIndex = function () {
-            $scope.indexModal.hide();
+        $rootScope.closeIndex = function () {
+            $rootScope.indexModal.hide();
         };
 
         // Common variables.
@@ -152,7 +152,7 @@ angular.module('starter.controllers', [])
                 $rootScope.indexResults = response.data;
                 $log.info("IndexService with file success:",$rootScope.indexResults);
                 //
-                $scope.closeIndex();
+                $rootScope.closeIndex();
             }, function (error) {
                 // failure handler
                 $log.error("IndexService failed:", JSON.stringify(error));
