@@ -48,6 +48,8 @@ Spring-boot-docker: https://spring.io/guides/gs/spring-boot-docker/
 
 ElasticSearch with Hadoop: https://www.elastic.co/products/hadoop
 
+https://db-blog.web.cern.ch/blog/prasanth-kothuri/2016-03-integrating-hadoop-and-elasticsearch-part-1-loading-and-querying
+
 # Troubleshoots
 
 http://ignaciosuay.com/how-to-connect-spring-boot-to-elasticsearch-2-x-x/
