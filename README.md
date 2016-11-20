@@ -54,6 +54,8 @@ http://stackoverflow.com/questions/35157642/nosuchmethoderror-com-google-common-
 
 http://stackoverflow.com/questions/33544863/java-elasticsearch-client-always-null
 
+https://github.com/spring-projects/spring-boot/issues/4341
+
 # TODO
 
 1.Using Index/Mapping/SearchRequestBuilder(ElasticSearch API)/ImageQueryBuilder(ElasticSearch-image plugin) to re-factory.

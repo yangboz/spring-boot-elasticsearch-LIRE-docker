@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.nativelibs4java:bridj:0.7-20140918">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/nativelibs4java/bridj/0.7-20140918/bridj-0.7-20140918.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/nativelibs4java/bridj/0.7-20140918/bridj-0.7-20140918-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/nativelibs4java/bridj/0.7-20140918/bridj-0.7-20140918-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

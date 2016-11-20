@@ -2,12 +2,10 @@ package info.smartkit.eip.obtuse_octo_prune.controllers;
 
 import com.wordnik.swagger.annotations.ApiOperation;
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
-import info.smartkit.eip.obtuse_octo_prune.domains.Movie;
 import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
 import info.smartkit.eip.obtuse_octo_prune.utils.ImageUtils;
 import info.smartkit.eip.obtuse_octo_prune.utils.LireFeatures;
 import info.smartkit.eip.obtuse_octo_prune.utils.LireHashs;
-import net.semanticmetadata.lire.imageanalysis.LireFeature;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.NotBlank;
@@ -18,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.core.MediaType;
-import java.awt.*;
 import java.io.*;
 
 /**
@@ -119,44 +116,21 @@ private ImageService imageService;
     }
 
     // @see: https://spring.io/guides/gs/uploading-files/
-    @RequestMapping(method = RequestMethod.POST, value = "/upload/{face}", consumes = MediaType.MULTIPART_FORM_DATA)
-    @ApiOperation(httpMethod = "POST", value = "Response a string describing picture is successfully uploaded or not with face feature option.")
+    @RequestMapping(method = RequestMethod.POST, value = "/analysis", consumes = MediaType.MULTIPART_FORM_DATA)
+    @ApiOperation(httpMethod = "POST", value = "Response a AnalysisResponseVO describing picture is successfully uploaded and with face detections.")
     public
     @ResponseBody
-    String singleImageFileUploadToBase64String(
-            @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file,
-            @PathVariable("face") Boolean face
+    AnalysisResVO openIMAJAnalysis(
+            @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file
 
     )  {
+        AnalysisResVO analysisResponseVO = new AnalysisResVO();
         if (!file.isEmpty()) {
             LOG.info("uploaded file:"+file.toString());
             try{
-                // Reading a Image file from file system
-//                MultipartFile  file;
-                byte [] byteArr=file.getBytes();
-                InputStream imageInFile = new ByteArrayInputStream(byteArr);
-//            FileInputStream imageInFile = new FileInputStream(file);
-                byte imageData[] = new byte[byteArr.length];
-                imageInFile.read(imageData);
-
-                // Converting Image byte array into Base64 String
-                String imageDataString = ImageUtils.encodeImage(imageData);
-
-
-//            // Converting a Base64 String into Image byte array
-//            byte[] imageByteArray = ImageUtils.decodeImage(imageDataString);
-//
-//            // Write a image byte array into file system
-//            FileOutputStream imageOutFile = new FileOutputStream(
-//                    "/Users/jeeva/Pictures/wallpapers/water-drop-after-convert.jpg");
-//
-//            imageOutFile.write(imageByteArray);
-//
-//            imageInFile.close();
-//            imageOutFile.close();
-
-                LOG.info("Image Successfully Manipulated!base64:"+imageDataString);
-                return imageDataString;
+                //multipartToFile
+                File imgFile = multipartToFile(file);
+                return imageService.analysis(imgFile);
             } catch (FileNotFoundException e) {
                 LOG.error("Image not found" + e);
             } catch (IOException ioe) {
@@ -167,11 +141,7 @@ private ImageService imageService;
             //
 
         }
-        LOG.info("With image face detect? " + face);
-        if (face) {
-
-        }
-        return "Undefined value";
+        return analysisResponseVO;
     }
 
     @RequestMapping(value = "query/{index}/{from}/{size}/{q}",method = RequestMethod.GET)
@@ -179,5 +149,12 @@ private ImageService imageService;
             ,notes = "e.g. index: my_index,from: 0,size: 10,q: *:*")
     public SearchResponseVO queryIndex(@PathVariable("index") String index,@PathVariable("from") int from,@PathVariable("size") int size,@PathVariable("q") String query) {
         return imageService.query(index,from,size,query);
+    }
+
+    private File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
+        File tmpFile = new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") +
+                multipart.getOriginalFilename());
+        multipart.transferTo(tmpFile);
+        return tmpFile;
     }
 }

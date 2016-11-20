@@ -2,6 +2,9 @@ package info.smartkit.eip.obtuse_octo_prune.services;
 
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 
+import java.io.File;
+import java.io.IOException;
+
 
 /**
  * Created by smartkit on 2016/10/28.
@@ -15,4 +18,5 @@ public interface ImageService {
     public SearchResponseVO search(String index,String item, SearchVO searchVO);
     public SearchResponseVO searchExisted(String index,String item,SearchExistedVO searchExistedVOVO);
     public SearchResponseVO query(String index,int from,int size,String query);
+    public AnalysisResVO analysis(File imgFile) throws IOException;
 }
