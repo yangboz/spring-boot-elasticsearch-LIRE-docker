@@ -29,7 +29,7 @@ public class SwaggerConfig {
         return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
                 .apiInfo(apiInfo())
 //	            .pathProvider(pathProvider)
-                .includePatterns("/es/.*");
+                .includePatterns("/image/.*");
     }
 
     private ApiInfo apiInfo() {

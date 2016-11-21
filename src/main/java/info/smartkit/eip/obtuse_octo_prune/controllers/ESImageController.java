@@ -3,15 +3,12 @@ package info.smartkit.eip.obtuse_octo_prune.controllers;
 import com.wordnik.swagger.annotations.ApiOperation;
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 import info.smartkit.eip.obtuse_octo_prune.services.ESImageService;
-import info.smartkit.eip.obtuse_octo_prune.services.OpenIMAJImageService;
 import info.smartkit.eip.obtuse_octo_prune.utils.ImageUtils;
 import info.smartkit.eip.obtuse_octo_prune.utils.LireFeatures;
 import info.smartkit.eip.obtuse_octo_prune.utils.LireHashs;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.NotBlank;
-import org.openimaj.image.feature.local.keypoints.Keypoint;
-import org.openimaj.util.pair.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,13 +17,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.core.MediaType;
 import java.io.*;
-import java.util.*;
 
 /**
  * Created by smartkit on 2016/10/28.
  */
 @RestController
-@RequestMapping("/es/image")
+@RequestMapping("/image/es")
 public class ESImageController {
 
     @Autowired
@@ -83,7 +79,7 @@ public class ESImageController {
         return indexResponseVO;
     }
 
-    private String getImageDataString(@RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file) {
+    private String getImageDataString(MultipartFile file) {
         String imageDataString = null;
         if (!file.isEmpty()) {
             LOG.info("uploaded file:"+file.toString());

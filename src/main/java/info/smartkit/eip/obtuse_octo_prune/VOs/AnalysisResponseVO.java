@@ -13,7 +13,7 @@ import org.openimaj.image.processing.face.detection.keypoints.KEDetectedFace;
  * Created by smartkit on 2016/11/20.
  */
 @JsonIgnoreProperties(ignoreUnknown=true)
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="@facePatch")
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="@facePatch")
 public class AnalysisResponseVO {
 //    @JsonManagedReference("parent")
     private DetectedFace detectedFace;
