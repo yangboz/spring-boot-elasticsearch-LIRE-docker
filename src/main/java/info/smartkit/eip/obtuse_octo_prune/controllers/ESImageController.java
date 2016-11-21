@@ -2,13 +2,16 @@ package info.smartkit.eip.obtuse_octo_prune.controllers;
 
 import com.wordnik.swagger.annotations.ApiOperation;
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
-import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
+import info.smartkit.eip.obtuse_octo_prune.services.ESImageService;
+import info.smartkit.eip.obtuse_octo_prune.services.OpenIMAJImageService;
 import info.smartkit.eip.obtuse_octo_prune.utils.ImageUtils;
 import info.smartkit.eip.obtuse_octo_prune.utils.LireFeatures;
 import info.smartkit.eip.obtuse_octo_prune.utils.LireHashs;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.NotBlank;
+import org.openimaj.image.feature.local.keypoints.Keypoint;
+import org.openimaj.util.pair.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,18 +20,19 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.core.MediaType;
 import java.io.*;
+import java.util.*;
 
 /**
  * Created by smartkit on 2016/10/28.
  */
 @RestController
 @RequestMapping("/es/image")
-public class ImageController {
+public class ESImageController {
 
     @Autowired
-private ImageService imageService;
+    private ESImageService imageService;
 
-    private static Logger LOG = LogManager.getLogger(ImageController.class);
+    private static Logger LOG = LogManager.getLogger(ESImageController.class);
 
     //
     @RequestMapping(value = "setting/{index}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON)
@@ -38,12 +42,6 @@ private ImageService imageService;
 
     }
 
-//    @RequestMapping(value = "mapping/{index}/item/{item}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON)
-//    @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the my_index/my_image_item  is successfully updated or not.",
-//            notes = "e.g.index: my_index,item: my_image_item,type: image,hash: BIT_SAMPLING,LSH,store: yes")
-//    public HttpResponseVO mapping(@PathVariable("index") String index,@PathVariable("item") String item, @RequestBody MappingVO value) {
-//         return imageService.mapping(index,item,value);
-//    }
 
     @RequestMapping(value = "mapping/{index}/item/{item}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON)
     @ApiOperation(httpMethod = "PUT", value = "Response a string describing if the my_index/my_image_item  is successfully updated or not.",
@@ -115,41 +113,6 @@ private ImageService imageService;
         return imageDataString;
     }
 
-    // @see: https://spring.io/guides/gs/uploading-files/
-    @RequestMapping(method = RequestMethod.POST, value = "/analysis", consumes = MediaType.MULTIPART_FORM_DATA)
-    @ApiOperation(httpMethod = "POST", value = "Response a AnalysisResponseVO describing picture is successfully uploaded and with face detections.")
-    public
-    @ResponseBody
-    AnalysisResVO openIMAJAnalysis(
-            @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file
-
-    )  {
-        AnalysisResVO analysisResponseVO = new AnalysisResVO();
-        if (!file.isEmpty()) {
-            LOG.info("uploaded file:"+file.toString());
-            try{
-                //multipartToFile
-                File imgFile = multipartToFile(file);
-                return imageService.analysis(imgFile);
-            } catch (FileNotFoundException e) {
-                LOG.error("Image not found" + e);
-            } catch (IOException ioe) {
-                LOG.error("Exception while reading the Image " + ioe);
-            }
-        } else {
-            LOG.error("You failed to upload " + file.getName() + " because the file was empty.");
-            //
-
-        }
-        return analysisResponseVO;
-    }
-
-    @RequestMapping(value = "query/{index}/{from}/{size}/{q}",method = RequestMethod.GET)
-    @ApiOperation(httpMethod = "GET", value = "Response a list describing all of es-image that is successfully get or not."
-            ,notes = "e.g. index: my_index,from: 0,size: 10,q: *:*")
-    public SearchResponseVO queryIndex(@PathVariable("index") String index,@PathVariable("from") int from,@PathVariable("size") int size,@PathVariable("q") String query) {
-        return imageService.query(index,from,size,query);
-    }
 
     private File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
         File tmpFile = new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") +
@@ -157,4 +120,5 @@ private ImageService imageService;
         multipart.transferTo(tmpFile);
         return tmpFile;
     }
+
 }

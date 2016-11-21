@@ -1,16 +1,9 @@
 package info.smartkit.eip.obtuse_octo_prune.services.impls;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 import info.smartkit.eip.obtuse_octo_prune.configs.ElasticSearchBean;
-import info.smartkit.eip.obtuse_octo_prune.services.ImageService;
+import info.smartkit.eip.obtuse_octo_prune.services.ESImageService;
 import org.apache.log4j.Logger;
-import org.openimaj.image.ImageUtilities;
-import org.openimaj.image.MBFImage;
-import org.openimaj.image.processing.face.detection.DetectedFace;
-import org.openimaj.image.processing.face.detection.HaarCascadeDetector;
-import org.openimaj.image.processing.face.util.SimpleDetectedFaceRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,8 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +22,7 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
  * TODO:https://github.com/kzwang/elasticsearch-image
  */
 @Service
-public class ImageServiceImpl implements ImageService {
+public class ESImageServiceImpl implements ESImageService {
 
 @Autowired
     ElasticSearchBean elasticSearchBean;
@@ -46,7 +37,7 @@ public class ImageServiceImpl implements ImageService {
 //        }
 //    }
 
-    private static Logger LOG = org.apache.log4j.LogManager.getLogger(ImageServiceImpl.class);
+    private static Logger LOG = org.apache.log4j.LogManager.getLogger(ESImageServiceImpl.class);
 
 //    curl -XPUT 'localhost:9200/my_index' -d '{
 //            "settings": {
@@ -290,38 +281,6 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
         return result;
     }
 
-    @Override
-    public AnalysisResVO analysis(File imgFile) throws IOException {
-        MBFImage mbf = ImageUtilities.readMBF(imgFile);
-        // A simple Haar-Cascade face detector
-        AnalysisResVO analysisResponseVO = new AnalysisResVO();
-        HaarCascadeDetector det1 = new HaarCascadeDetector();
-        DetectedFace face1 = det1.detectFaces(mbf.flatten()).get(0);
-        new SimpleDetectedFaceRenderer()
-                .drawDetectedFace(mbf,10,face1);
-        analysisResponseVO.setDetectedFace(face1);
-//// Get the facial keypoints
-//        FKEFaceDetector det2 = new FKEFaceDetector();
-//        KEDetectedFace face2 = det2.detectFaces(mbf.flatten()).get(0);
-//        new KEDetectedFaceRenderer()
-//                .drawDetectedFace(mbf,10,face2);
-//
-//        analysisResponseVO.setKeDetectedFace(face2);
-////// With the CLM Face Model
-//        CLMFaceDetector det3 = new CLMFaceDetector();
-//        CLMDetectedFace face3 = det3.detectFaces(mbf.flatten()).get(0);
-//        new CLMDetectedFaceRenderer()
-//                .drawDetectedFace(mbf,10,face3);
-//        analysisResponseVO.setClmDetectedFace(face3);
-//        DisplayUtilities.displayName(mbf, "OPenIMAJ Analysis");//for GUI testing.
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        // Jackson version 1.9 or earlier
-//        objectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-// Jackson 2.0 or later
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return analysisResponseVO;
-    }
 
 }

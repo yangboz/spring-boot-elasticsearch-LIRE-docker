@@ -1,5 +1,10 @@
 package info.smartkit.eip.obtuse_octo_prune.VOs;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.openimaj.image.processing.face.detection.CLMDetectedFace;
 import org.openimaj.image.processing.face.detection.DetectedFace;
 import org.openimaj.image.processing.face.detection.keypoints.KEDetectedFace;
@@ -7,18 +12,21 @@ import org.openimaj.image.processing.face.detection.keypoints.KEDetectedFace;
 /**
  * Created by smartkit on 2016/11/20.
  */
-public class AnalysisResVO {
+@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="@facePatch")
+public class AnalysisResponseVO {
+//    @JsonManagedReference("parent")
     private DetectedFace detectedFace;
     private KEDetectedFace keDetectedFace;
     private CLMDetectedFace clmDetectedFace;
 
-    public AnalysisResVO(DetectedFace detectedFace, KEDetectedFace keDetectedFace, CLMDetectedFace clmDetectedFace) {
+    public AnalysisResponseVO(DetectedFace detectedFace, KEDetectedFace keDetectedFace, CLMDetectedFace clmDetectedFace) {
         this.detectedFace = detectedFace;
         this.keDetectedFace = keDetectedFace;
         this.clmDetectedFace = clmDetectedFace;
     }
 
-    public AnalysisResVO() {
+    public AnalysisResponseVO() {
     }
 
     public DetectedFace getDetectedFace() {

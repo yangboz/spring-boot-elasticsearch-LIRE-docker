@@ -1,6 +1,6 @@
-/Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/controllers/ImageController.java
+/Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/controllers/OpenIMAJImageController.java
+/Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/controllers/ESImageController.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/SearchResponseVO.java
-/Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/AnalysisResVO.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/configs/ElasticSearchBean.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/MappingVO.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/configs/SimpleCORSFilter.java
@@ -9,8 +9,7 @@
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/IndexResponseVO.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/daos/MovieRepository.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/ImageSearchHitSourceVO.java
-/Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/impls/ImageServiceImpl.java
-/Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/ImageService.java
+/Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/OpenIMAJImageService.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/utils/LireFeatures.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/Feature_JCD.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/MetaDataVO.java
@@ -18,6 +17,7 @@
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/JpegImageVO.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/domains/Genre.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/configs/StaticResourceConfiguration.java
+/Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/AnalysisResponseVO.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/SearchQueryVO.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/SearchExistedQueryVO.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/impls/MovieServiceImpl.java
@@ -30,12 +30,15 @@
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/SearchQueryImageVO.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/SettingsVO.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/domains/Movie.java
+/Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/impls/ESImageServiceImpl.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/utils/ImageUtils.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/ImageSearchHitVO.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/HttpResponseVO.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/utils/LireHashs.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/SearchQueryELImageVO.java
+/Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/ESImageService.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/FeatureVO.java
+/Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/impls/OpenIMAJImageServiceImpl.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/IndexImageVO.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/SearchExistedQueryImageVO.java
 /Users/smartkit/git/spring-boot-elasticsearch-LIRE-docker/src/main/java/info/smartkit/eip/obtuse_octo_prune/VOs/MappingItemVO.java
