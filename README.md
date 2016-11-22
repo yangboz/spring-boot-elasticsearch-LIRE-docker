@@ -62,6 +62,9 @@ http://stackoverflow.com/questions/33544863/java-elasticsearch-client-always-nul
 
 https://github.com/spring-projects/spring-boot/issues/4341
 
+http://stackoverflow.com/questions/38937412/spring-boot-embedded-tomcat-not-starting
+
 # TODO
 
 1.Using Index/Mapping/SearchRequestBuilder(ElasticSearch API)/ImageQueryBuilder(ElasticSearch-image plugin) to re-factory.
+2.Using MicroService architecture to seperate openIMAJ and ElasticSearch services.
