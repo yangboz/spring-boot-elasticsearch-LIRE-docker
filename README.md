@@ -1,7 +1,7 @@
 # spring-boot-elasticsearch-LIRE-docker
-Walk through Spring-boot with ElasticSearch Restful.
+Walk through Spring-boot with ElasticSearch microservices RESTful.
 
-![Image of Architecture](https://github.com/yangboz/spring-boot-elasticsearch-LIRE-docker/blob/master/es-hadoop-diagram.png)
+![Image of Architecture](https://github.com/yangboz/spring-boot-elasticsearch-LIRE-docker/blob/master/es-hadoop-diagram.jpg)
 
 1.How to install ElasticSearch-2.4.1?
 
