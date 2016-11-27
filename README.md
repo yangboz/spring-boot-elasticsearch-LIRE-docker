@@ -28,6 +28,16 @@ Walk through Spring-boot with ElasticSearch microservices RESTful.
 
     http://localhost:8084/api/static/index.html
 
+6.Facial analysis(TODO)
+
+6.1.Face Detection
+
+6.2.Face Alignment
+
+6.3.Facial Feature Extraction
+
+6.4.Face Recognition/Classification
+
 # References:
 
 ElasticSearch: https://www.elastic.co/
@@ -49,6 +59,8 @@ Spring-boot-docker: https://spring.io/guides/gs/spring-boot-docker/
 ElasticSearch with Hadoop: https://www.elastic.co/products/hadoop
 
 https://db-blog.web.cern.ch/blog/prasanth-kothuri/2016-03-integrating-hadoop-and-elasticsearch-part-1-loading-and-querying
+
+Facial Analysis: http://openimaj.org/tutorial/pt07.html
 
 # Troubleshoots
 
