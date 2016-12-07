@@ -2,14 +2,24 @@ package info.smartkit.eip.obtuse_octo_prune;
 
 import info.smartkit.eip.obtuse_octo_prune.domains.Genre;
 import info.smartkit.eip.obtuse_octo_prune.domains.Movie;
+import info.smartkit.eip.obtuse_octo_prune.services.ESImageService;
 import info.smartkit.eip.obtuse_octo_prune.services.MovieServiceItf;
+import info.smartkit.eip.obtuse_octo_prune.utils.EsUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.index.query.SimpleQueryParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.event.ContextClosedEvent;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,9 +91,27 @@ public class BootElastic implements CommandLineRunner {
         //Lets query if we have a movie with rating between 6 and 9
         List<Movie> byRatingInterval = movieService.getByRatingInterval(6d, 9d);
         LOG.info("Content of Rating Interval query is {}" + byRatingInterval);
+        //@see: https://www.elastic.co/guide/en/elasticsearch/client/java-api/2.4/transport-client.html
+//        EsUtil.client = TransportClient.builder().build()
+//                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.0.8"), 9300));
+        Settings settings = Settings.settingsBuilder()
+                .put("cluster.name", "elasticsearch_smartkit").build();
+        EsUtil.client = TransportClient.builder().settings(settings)
+                .build().addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300));
+        LOG.info("EsClient:"+EsUtil.client);
+
     }
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(BootElastic.class, args);
+        ConfigurableApplicationContext cac = SpringApplication.run(BootElastic.class, args);
+        cac.addApplicationListener(new ApplicationListener<ContextClosedEvent>() {
+
+            @Override
+            public void onApplicationEvent(ContextClosedEvent event) {
+                // on shutdown
+                EsUtil.client.close();
+            }
+        });
+
     }
 }

@@ -3,15 +3,18 @@ package info.smartkit.eip.obtuse_octo_prune.services.impls;
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 import info.smartkit.eip.obtuse_octo_prune.configs.ElasticSearchBean;
 import info.smartkit.eip.obtuse_octo_prune.services.ESImageService;
+import info.smartkit.eip.obtuse_octo_prune.utils.EsUtil;
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.index.IndexResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -155,26 +158,18 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
 //    curl -XPOST 'localhost:9200/test/test' -d '{
 //            "my_img": "... base64 encoded image ..."
 //}'
-
+//@see: https://www.elastic.co/guide/en/elasticsearch/client/java-api/2.4/java-docs-index.html
     @Override
-    public IndexResponseVO index(String name, String item, IndexImageVO indexImageVO) {
+    public IndexResponse index(String name, String item, IndexImageVO indexImageVO) throws IOException {
 
-        final String uri = elasticSearchBean.getClusterUrl()+"/{name}/{item}";
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("name", name);//my_index
-        params.put("item", item);///my_image_item
-//        SettingsVO settingsVO = new SettingsVO();
-        RestTemplate restTemplate = new RestTemplate();
-
-        IndexResponseVO result = new IndexResponseVO();
-        try {
-            result = restTemplate.postForObject( uri, indexImageVO,IndexResponseVO.class, params);
-            LOG.info("restTemplate:"+restTemplate.toString());
-        } catch (HttpStatusCodeException exception) {
-//            result = exception.getStatusCode();
-            LOG.error(exception.toString());
-        }
-        return result;
+        IndexResponse response = EsUtil.client.prepareIndex(name, item)
+                .setSource(jsonBuilder()
+                        .startObject()
+                        .field("my_img", indexImageVO.getMy_img())
+                        .endObject()
+                )
+                .get();
+        return response;
     }
 
 //    curl -XPOST 'localhost:9200/test/test/_search' -d '{

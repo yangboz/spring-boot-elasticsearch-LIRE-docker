@@ -54,4 +54,14 @@ public class SearchResponseVO {
     public void setHits(Object hits) {
         this.hits = hits;
     }
+
+    @Override
+    public String toString() {
+        return "SearchResponseVO{" +
+                "took=" + took +
+                ", time_out='" + time_out + '\'' +
+                ", _shards=" + _shards +
+                ", hits=" + hits +
+                '}';
+    }
 }
