@@ -8,7 +8,7 @@ import org.elasticsearch.action.search.SearchRequestBuilder;
  */
 public class SearchVO {
     private int from = 0;
-    private int size = 3;
+    private int size = 100;
     private SearchQueryVO query = new SearchQueryVO();
 
     public SearchVO() {

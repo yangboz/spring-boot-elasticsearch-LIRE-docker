@@ -1,6 +1,8 @@
 package info.smartkit.eip.obtuse_octo_prune.VOs;
 
-import net.semanticmetadata.lire.ImageSearchHits;
+import net.semanticmetadata.lire.searchers.ImageSearchHits;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.internal.InternalSearchHit;
 
 import java.util.LinkedHashMap;
 
@@ -13,7 +15,7 @@ public class SearchResponseVO {
     private ResponseShardVO _shards;
     private Object hits;
 
-    public SearchResponseVO(float took, String time_out, ResponseShardVO _shards, Object hits) {
+    public SearchResponseVO(float took, String time_out, ResponseShardVO _shards, SearchHits hits) {
         this.took = took;
         this.time_out = time_out;
         this._shards = _shards;

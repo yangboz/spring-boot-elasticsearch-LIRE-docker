@@ -1,5 +1,6 @@
 package info.smartkit.eip.obtuse_octo_prune.controllers;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.wordnik.swagger.annotations.ApiOperation;
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 import info.smartkit.eip.obtuse_octo_prune.services.ESImageService;
@@ -13,9 +14,13 @@ import org.apache.log4j.Logger;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchResponse;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -24,6 +29,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 /**
  * Created by smartkit on 2016/10/28.
@@ -57,7 +63,7 @@ public class ESImageController {
     @RequestMapping(value = "search/{index}/{item}/", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA)
     @ApiOperation(httpMethod = "POST", value = "Response a string describing if the SearchVO is successfully created or not.", notes = "e.g. index: my_index,item: my_image_Item")
     public SearchResponseVO search(@PathVariable("index") String index, @PathVariable("item") String item,
-                                   @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file) {
+                                 @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file) throws IOException {
         SearchVO searchVO = new SearchVO();
         searchVO.getQuery().getImage().getMy_img().setFeature(LireFeatures.CEDD);
         searchVO.getQuery().getImage().getMy_img().setImage(this.getMultipartImageDataString(file));
@@ -69,7 +75,12 @@ public class ESImageController {
             notes = "e.g. database: test,table: test,index: AVhgkCmlo6Smc5eMO6E2 ,index: test ,type: test ,hash: BIT_SAMPLING")
     public SearchResponseVO searchExisted(@PathVariable("index") String index, @PathVariable("item") String item, @PathVariable("id") String id) {
         SearchExistedVO searchExistedVO = new SearchExistedVO(new SearchExistedQueryVO(new SearchExistedQueryImageVO(new SearchExistedQueryELImageVO(LireFeatures.CEDD, index, item, id, LireHashs.CEDD))));
-        return imageService.searchExisted(index, item, searchExistedVO);
+        SearchResponseVO response = imageService.searchExisted(index, item, searchExistedVO);
+        RestTemplate restTemplate = new RestTemplate();
+        MappingJackson2HttpMessageConverter jsonHttpMessageConverter = new MappingJackson2HttpMessageConverter();
+        jsonHttpMessageConverter.getObjectMapper().configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        restTemplate.getMessageConverters().add(jsonHttpMessageConverter);
+        return response;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "index/{name}/{item}/", consumes = MediaType.MULTIPART_FORM_DATA)
@@ -98,23 +109,23 @@ public class ESImageController {
             , notes = "e.g. name: my_index,item: my_image_item,key(fixed): my_img")
     public
     @ResponseBody
-    IndexResponse indexZip(
+    List<IndexResponse> indexZip(
             @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file,
             @PathVariable("name") String name, @PathVariable("item") String item) throws Exception {
         IndexImageVO indexImageVO = new IndexImageVO();
-        IndexResponse indexResponseVO = null;
+        List<IndexResponse>  indexResponses= new ArrayList<IndexResponse>();
         if (!file.isEmpty()) {
             ZipUploadVO zipResult = this.unZipIt(file, FileUtil.getUploads(false));
             LOG.info("upload zipResult:"+zipResult.toString());
             //for loop indexing detail files:
             for(File detailFile : zipResult.getDetails()) {
                 indexImageVO.setMy_img(this.getImageDataString(detailFile));
-                indexResponseVO = imageService.index(name, item, indexImageVO);
+                indexResponses.add( imageService.index(name, item, indexImageVO) );
             }
         } else {
             LOG.error("You failed to upload " + file.getName() + " because the file was empty.");
         }
-        return indexResponseVO;
+        return indexResponses;
     }
 
     private String getMultipartImageDataString(MultipartFile file) {

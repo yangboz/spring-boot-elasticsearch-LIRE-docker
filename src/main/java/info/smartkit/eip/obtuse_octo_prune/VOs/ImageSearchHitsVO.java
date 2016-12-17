@@ -1,6 +1,6 @@
 package info.smartkit.eip.obtuse_octo_prune.VOs;
 
-import net.semanticmetadata.lire.ImageSearchHits;
+import net.semanticmetadata.lire.searchers.ImageSearchHits;
 import org.apache.lucene.document.Document;
 
 import java.util.List;

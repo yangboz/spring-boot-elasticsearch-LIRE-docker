@@ -2,7 +2,7 @@ package info.smartkit.eip.obtuse_octo_prune.VOs;
 
 import info.smartkit.eip.obtuse_octo_prune.utils.LireFeatures;
 import info.smartkit.eip.obtuse_octo_prune.utils.LireHashs;
-import net.semanticmetadata.lire.imageanalysis.LireFeature;
+import net.semanticmetadata.lire.imageanalysis.features.LireFeature;
 
 /**
  * Created by smartkit on 2016/11/10.
