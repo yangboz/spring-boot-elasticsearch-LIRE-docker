@@ -351,5 +351,23 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.netflix.netflix-commons:netflix-statistics:0.1.1" level="project" />
     <orderEntry type="library" name="Maven: io.reactivex:rxjava:1.1.10" level="project" />
     <orderEntry type="library" name="Maven: com.netflix.ribbon:ribbon-eureka:2.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacv:1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:2.7.1-1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:ffmpeg:macosx-x86_64:2.7.1-1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:flycapture:2.7.3.19-1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:flycapture:macosx-x86_64:2.7.3.19-1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:libdc1394:2.2.3-1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:libdc1394:macosx-x86_64:2.2.3-1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:libfreenect:0.5.2-1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:libfreenect:macosx-x86_64:0.5.2-1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:videoinput:0.200-1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:videoinput:macosx-x86_64:0.200-1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:artoolkitplus:2.3.1-1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:artoolkitplus:macosx-x86_64:2.3.1-1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:flandmark:1.07-1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:flandmark:macosx-x86_64:1.07-1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:opencv:2.4.9-0.8" level="project" />
+    <orderEntry type="library" name="Maven: com.github.hoary.ffmpeg:FFmpeg-macosx-x86_64:2.0.1.1" level="project" />
   </component>
 </module>

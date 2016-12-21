@@ -234,6 +234,32 @@
             </exclusions>
         </dependency>
 
+        <!--Java OpenCV-->
+        <!-- https://mvnrepository.com/artifact/org.bytedeco/javacv -->
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacv</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.bytedeco/javacpp -->
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacpp</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.bytedeco.javacpp-presets/opencv -->
+        <dependency>
+            <groupId>org.bytedeco.javacpp-presets</groupId>
+            <artifactId>opencv</artifactId>
+            <version>2.4.9-0.8</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.hoary.ffmpeg/FFmpeg-macosx-x86_64 -->
+        <dependency>
+            <groupId>com.github.hoary.ffmpeg</groupId>
+            <artifactId>FFmpeg-macosx-x86_64</artifactId>
+            <version>2.0.1.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
