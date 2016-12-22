@@ -28,13 +28,11 @@ Walk through Spring-boot with ElasticSearch microservices RESTful.
 
     http://localhost:8084/api/static/index.html
 
-6.Facial analysis(TODO)
+6.Facial analysis(flandmark)
 
 6.1.Face Detection
 
-6.2.Face Alignment
-
-6.3.Facial Feature Extraction
+6.2.Facial Feature Extraction
 
 6.4.Face Recognition/Classification
 
