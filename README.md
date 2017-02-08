@@ -5,11 +5,34 @@ Walk through Spring-boot with ElasticSearch microservices RESTful.
 
 1.How to install ElasticSearch-2.4.1?
 
-    brew install elasticsearch
+   MacOSX: 
+   
+   `
+   brew install elasticsearch
+   `
+   
+   Ubuntu: 
+   
+ `
+   wget https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/2.4.1/elasticsearch-2.4.1.deb
+ `
+ 
+ `
+   dpkg -i elasticsearch-2.4.1.deb
+ `
 
 2.How to start up ElasticSearch?
 
-    elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml
+   MacOSX: 
+   
+   `
+   elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml
+   `
+    
+   Ubuntu: 
+   `
+   bin/elasticsearch -Des.insecure.allow.root=true -d
+   `
 
 3.How to start up Spring-boot?
 
