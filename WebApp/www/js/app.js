@@ -40,8 +40,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }])
 ///ENV_config
     .constant('CONFIG_ENV', {
-        'api_endpoint_base': 'http://192.168.0.11:8084/api/',
-        'api_endpoint': 'http://192.168.0.11:8084/api/image/es/',
+        'api_endpoint_base': 'http://http://118.190.3.169:8084/api/',
+        'api_endpoint': 'http://http://118.190.3.169:8084/api/image/es/',
         'api_version': '0.0.1',
         'debug': false
         , 'UPLOAD_FOLDER': 'uploads/'//for image file upload
