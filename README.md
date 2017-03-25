@@ -26,7 +26,7 @@ Walk through Spring-boot with ElasticSearch microservices RESTful.
    MacOSX: 
    
    `
-   elasticsearch --config=/usr/local/opt/elasticsearch/config/elasticsearch.yml
+   elasticsearch --config=/usr/local/opt/elasticsearch/libexec/config/elasticsearch.yml
    `
     
    Ubuntu: 
