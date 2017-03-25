@@ -1,29 +1,18 @@
 package info.smartkit.eip.obtuse_octo_prune.services.impls;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 import info.smartkit.eip.obtuse_octo_prune.configs.ElasticSearchBean;
 import info.smartkit.eip.obtuse_octo_prune.services.ESImageService;
-import info.smartkit.eip.obtuse_octo_prune.utils.EsUtil;
 import org.apache.log4j.Logger;
-import org.apache.lucene.queryparser.flexible.core.builders.QueryBuilder;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.QueryStringQueryBuilder;
-import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.index.query.image.ImageQueryBuilder;
-import org.elasticsearch.search.internal.InternalSearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
@@ -31,6 +20,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static info.smartkit.eip.obtuse_octo_prune.utils.EsUtil.client;
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 /**
@@ -185,7 +175,7 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
     @Override
     public IndexResponse index(String name, String item, IndexImageVO indexImageVO) throws IOException {
 
-        IndexResponse response = EsUtil.client.prepareIndex(name, item)
+        IndexResponse response = client.prepareIndex(name, item)
                 .setSource(jsonBuilder()
                         .startObject()
                         .field("my_img", indexImageVO.getMy_img())
@@ -213,6 +203,7 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
 //@see: https://www.elastic.co/guide/en/elasticsearch/client/java-api/2.4/java-search.html
     @Override
     public SearchResponseVO search(String index,String item, SearchVO searchVO) throws IOException {
+
         //indexing at first then get indexed ID
         IndexImageVO indexImageVO = new IndexImageVO();
         indexImageVO.setMy_img(searchVO.getQuery().getImage().getMy_img().getImage());
@@ -231,10 +222,10 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
                 .hash(myImage.getHash())
                 .lookupIndex(index)
                 .lookupType(item)
-                .boost((float)myImage.getBoost())
-                .lookupId(indexedID);
+                .boost((float)myImage.getBoost());
+//                .lookupId(indexedID);
 
-        SearchResponse response = EsUtil.client.prepareSearch(index)
+        SearchResponse response = client.prepareSearch(index)
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
                 .setTypes(item)
 //                .setFrom(0)
@@ -286,7 +277,7 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
 //}'
 
     @Override
-    public SearchResponseVO searchExisted(String index,String item,SearchExistedVO searchExistedVO) {
+    public SearchResponseVO searchExisted(String index, String item, SearchExistedVO searchExistedVO) {
         //@see: https://github.com/kiwionly/elasticsearch-image
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS);
@@ -300,21 +291,39 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
         .lookupType(item)
         .lookupId(myImage.getId());
 
-        SearchResponse response = EsUtil.client.prepareSearch(index)
+        SearchResponse response = client.prepareSearch(index)
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
                 .setTypes(item)
-//                .setFrom(0)
-//                .setSize(100)
                 .setQuery(queryBuilder)
 //                .setPostFilter(QueryBuilders.rangeQuery("age").from(12).to(18))     // Query Filter
-                .setFrom(searchExistedVO.getFrom()).setSize(searchExistedVO.getSize()).setExplain(false)
+                .setFrom(searchExistedVO.getFrom())
+                .setSize(searchExistedVO.getSize()).setExplain(false)
                 .execute()
                 .actionGet();
+//        Scroll response
+//        SearchResponse scrollResp = client.prepareSearch(index)
+//                .addSort(SortParseElement.DOC_FIELD_NAME, SortOrder.ASC)
+//                .setScroll(new TimeValue(60000))
+//                .setQuery(queryBuilder)
+//                .setSize(100).execute().actionGet(); //100 hits per shard will be returned for each scroll
+////Scroll until no hits are returned
+//        while (true) {
+//
+//            for (SearchHit hit : scrollResp.getHits().getHits()) {
+//                //Handle the hit...
+//            }
+//            scrollResp = EsUtil.client.prepareSearchScroll(scrollResp.getScrollId()).setScroll(new TimeValue(60000)).execute().actionGet();
+//            //Break condition: No hits are returned
+//            if (scrollResp.getHits().getHits().length == 0) {
+//                break;
+//            }
+//        }
         LOG.info("SearchResponse:"+response.toString());
         SearchResponseVO responseVO = new SearchResponseVO();
         responseVO.setHits(response.getHits());
-        LOG.info("SearchResponseVO:"+responseVO.toString());
+//        LOG.info("SearchResponseVO:"+responseVO.toString());
         return responseVO;
+
 //        final String uri = elasticSearchBean.getClusterUrl()+"/{index}/{item}/_search";
 //        Map<String, String> params = new HashMap<String, String>();
 //        params.put("index", index);//my_index
@@ -331,6 +340,40 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
 //        }
 //        return result;
 
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        String ID = searchExistedVO.getId();
+//        String requestJson = "{\"query\": { \"image\": {\"my_img\": {\"feature\": \"CEDD\",\"index\": \"my_index\",\"type\": \"my_image_item\",\"id\":" +"\""+ID+"\","
+//                +"\"hash\": \"BIT_SAMPLING\""+"\"limit\":2}}}}";
+//        HttpEntity<String> entity = new HttpEntity<String>(requestJson,headers);
+//        final String urlString = elasticSearchBean.getClusterUrl()+"/{index}/{item}/_search";
+//
+//        HttpClient httpClient = HttpClientBuilder.create().build();
+//        ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
+//        RestTemplate restTemplate = new RestTemplate(requestFactory);
+//
+//        HttpResponseVO result = new HttpResponseVO();
+//        Map<String, String> params = new HashMap<String, String>();
+//        params.put("index", index);//my_index
+//        params.put("item", item);//my_image_item
+//
+//        // send request and parse result
+//        ResponseEntity<String> response = null;
+//        try {
+//            response = restTemplate
+//                    .exchange(urlString, HttpMethod.POST, entity, String.class, params);
+//        }catch(Exception e) {
+//            LOG.debug(e);
+//        }
+//        if (response.getStatusCode() == HttpStatus.OK) {
+//            LOG.debug("response:"+response.toString());
+////            JSONObject userJson = new JSONObject(response.getBody());
+//        } else {
+//            // nono... bad credentials
+//            LOG.error(response);
+//        }
+////
+//        return result;
     }
 
     @Override

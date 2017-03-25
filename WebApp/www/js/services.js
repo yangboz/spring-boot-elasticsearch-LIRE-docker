@@ -50,6 +50,15 @@ angular.module('starter.services', [])
         return data;
     })
 
+//ESClientService
+.factory('ESClientService', function (esFactory) {
+    return esFactory({
+        host: 'http://localhost:9200',
+        apiVersion: '2.3',
+        log: 'trace'
+    });
+})
+
 //@see http://stackoverflow.com/questions/16627860/angular-js-and-ng-swith-when-emulating-enum
     .factory('Enum', [function () {
         var service = {

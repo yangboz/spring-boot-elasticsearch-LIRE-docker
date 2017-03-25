@@ -74,7 +74,7 @@ public class ESImageController {
     @ApiOperation(httpMethod = "POST", value = "Response a string describing if the SearchQueryVO is successfully created or not.",
             notes = "e.g. database: test,table: test,index: AVhgkCmlo6Smc5eMO6E2 ,index: test ,type: test ,hash: BIT_SAMPLING")
     public SearchResponseVO searchExisted(@PathVariable("index") String index, @PathVariable("item") String item, @PathVariable("id") String id) {
-        SearchExistedVO searchExistedVO = new SearchExistedVO(new SearchExistedQueryVO(new SearchExistedQueryImageVO(new SearchExistedQueryELImageVO(LireFeatures.CEDD, index, item, id, LireHashs.CEDD))));
+        SearchExistedVO searchExistedVO = new SearchExistedVO(new SearchExistedQueryVO(new SearchExistedQueryImageVO(new SearchExistedQueryELImageVO(LireFeatures.CEDD, index, item, id,"my_img", LireHashs.CEDD))));
         SearchResponseVO response = imageService.searchExisted(index, item, searchExistedVO);
         RestTemplate restTemplate = new RestTemplate();
         MappingJackson2HttpMessageConverter jsonHttpMessageConverter = new MappingJackson2HttpMessageConverter();

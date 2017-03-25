@@ -7,84 +7,63 @@ var DynamicEnvironment = DynamicEnvironment || {};
 var _environment;
 var _environments = {
     local: {
-        host: 'localhost:63342',
+        host: 'localhost',
         config: {
             /**
              * Add any config properties you want in here for this environment
              */
-            api_endpoint_base: 'http://92.168.0.8:8084/api/'
+            api_endpoint_base: 'http://localhost:8084/api/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
-            ,ldap_partition_base_on:'dc=www'
         }
     },
     dev: {
-        host: '192.168.0.8:8084',
+        host: '118.190.3.169',
         config: {
             /**
              * Add any config properties you want in here for this environment
              */
-            api_endpoint_base: 'http://92.168.0.8:8084/api/'
+            api_endpoint_base: 'http://118.190.3.169:8084/api/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
-            ,ldap_partition_base_on:'dc=www'
         }
     },
     test: {
-        host: '192.168.0.8:8084',
+        host: '118.190.96.120',
         config: {
             /**
              * Add any config properties you want in here for this environment
              */
-            api_endpoint_base: 'http://192.168.1.21:8084/api/'
+            api_endpoint_base: 'http://118.190.96.120:8084/api/'
             ,clientId:'clientApp'
             ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
-            ,ldap_partition_base_on:'dc=123,dc=57,dc=78,dc=65'
-        }
-    },
-    stage: {
-        host: '1.2.3.4:8082',
-        config: {
-            /**
-             * Add any config properties you want in here for this environment
-             */
-            api_endpoint_base: 'http://123.56.112.163:8082/api/'
-            ,clientId:'clientApp'
-            ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
-            ,ldap_partition_base_on:'dc=www'
-        }
-    },
-    prod: {
-        host: 'production.com',
-        config: {
-            /**
-             * Add any config properties you want in here for this environment
-             */
-            api_endpoint_base: 'http://localhost:8082/api/'
-            ,clientId:'clientApp'
-            ,clientSecret:'1NDgzZGY1OWViOWRmNjI5ZT'
-            ,ldap_partition_base_on:'dc=www'
         }
     }
 };
 _getEnvironment = function () {
+    var protocol = location.protocol;
+    var slashes = protocol.concat("//");
+    // var host = slashes.concat(window.location.hostname);
     var host = window.location.host;
-
+    console.log("host:"+host);
+    var hostname = window.location.hostname;
+    console.log("hostname:"+hostname);
     if (_environment) {
         return _environment;
     }
 
     for (var environment in _environments) {
-        if (typeof _environments[environment].host && _environments[environment].host == host) {
+        if (typeof _environments[environment].host && _environments[environment].host == hostname) {
             _environment = environment;
             return _environment;
         }
     }
 
-    return null;
+    return "local";//default
 };
 DynamicEnvironment.get = function (property) {
     var result = _environments[_getEnvironment()].config[property];
+    //var result = _environments["test"].config[property];
     console.log("DynamicEnvironment.get():",result);
     return result;
 };

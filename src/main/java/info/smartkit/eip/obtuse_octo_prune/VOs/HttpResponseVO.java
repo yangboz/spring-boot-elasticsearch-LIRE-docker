@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 /**
  * Created by smartkit on 2016/11/13.
  */
-public class HttpResponseVO {
+public class HttpResponseVO extends Throwable {
     private int  statusCode = 200;
     private String body="SUCCESS";
 

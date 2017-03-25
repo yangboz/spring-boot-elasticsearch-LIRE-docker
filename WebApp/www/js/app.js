@@ -23,7 +23,7 @@ angular.module('app.filter.similarity',[])
         };
     });
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'nvd3', 'ngCordova', 'angularFileUpload','ngResource','ionic-zoom-view','app.filter.similarity'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'nvd3', 'ngCordova', 'angularFileUpload','ngResource','ionic-zoom-view','app.filter.similarity','elasticsearch'])
     //Support RESTful PATCH
     //@see: http://stackoverflow.com/questions/20305615/configure-angularjs-module-to-send-patch-request
     .config(['$httpProvider', function ($httpProvider) {
@@ -40,8 +40,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }])
 ///ENV_config
     .constant('CONFIG_ENV', {
-        'api_endpoint_base': 'http://http://118.190.3.169:8084/api/',
-        'api_endpoint': 'http://http://118.190.3.169:8084/api/image/es/',
+        'api_endpoint_base': DynamicEnvironment.get('api_endpoint_base'),
+        'api_endpoint': DynamicEnvironment.get('api_endpoint_base')+'image/es/',
         'api_version': '0.0.1',
         'debug': false
         , 'UPLOAD_FOLDER': 'uploads/'//for image file upload

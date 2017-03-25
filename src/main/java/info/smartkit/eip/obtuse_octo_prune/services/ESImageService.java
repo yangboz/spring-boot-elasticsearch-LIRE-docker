@@ -2,16 +2,8 @@ package info.smartkit.eip.obtuse_octo_prune.services;
 
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.transport.TransportClient;
-import org.openimaj.image.feature.local.keypoints.Keypoint;
-import org.openimaj.util.pair.Pair;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 
 /**

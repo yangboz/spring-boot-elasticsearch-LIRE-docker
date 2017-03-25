@@ -43,4 +43,13 @@ public class ResponseShardVO {
     public void setSuccessful(int successful) {
         this.successful = successful;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseShardVO{" +
+                "total=" + total +
+                ", failed=" + failed +
+                ", successful=" + successful +
+                '}';
+    }
 }

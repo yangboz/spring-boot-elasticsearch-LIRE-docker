@@ -1,8 +1,5 @@
 package info.smartkit.eip.obtuse_octo_prune;
 
-import info.smartkit.eip.obtuse_octo_prune.domains.Genre;
-import info.smartkit.eip.obtuse_octo_prune.domains.Movie;
-import info.smartkit.eip.obtuse_octo_prune.services.MovieServiceItf;
 import info.smartkit.eip.obtuse_octo_prune.utils.EsUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -13,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
@@ -28,50 +27,8 @@ import java.util.List;
 @SpringBootApplication
 public class BootElastic implements CommandLineRunner {
 
-    @Autowired
-    private MovieServiceItf movieService;
-
     private static Logger LOG = LogManager.getLogger(BootElastic.class);
 
-    // add star wars and
-// princess bride as a movie
-// to elastic search
-    private void addSomeMovies() {
-        Movie starWars = getFirstMovie();
-        movieService.addMovie(starWars);
-
-        Movie princessBride = getSecondMovie();
-        movieService.addMovie(princessBride);
-    }
-
-    private Movie getSecondMovie() {
-        Movie secondMovie = new Movie();
-        secondMovie.setId(2);
-        secondMovie.setRating(8.4d);
-        secondMovie.setName("The Princess Bride");
-
-        List<Genre> princessPrideGenre = new ArrayList<Genre>();
-        princessPrideGenre.add(new Genre("ACTION"));
-        princessPrideGenre.add(new Genre("ROMANCE"));
-        secondMovie.setGenre(princessPrideGenre);
-
-        return secondMovie;
-    }
-
-
-    private Movie getFirstMovie() {
-        Movie firstMovie = new Movie();
-        firstMovie.setId(1);
-        firstMovie.setRating(9.6d);
-        firstMovie.setName("Star Wars");
-
-        List<Genre> starWarsGenre = new ArrayList<Genre>();
-        starWarsGenre.add(new Genre("ACTION"));
-        starWarsGenre.add(new Genre("SCI_FI"));
-        firstMovie.setGenre(starWarsGenre);
-
-        return firstMovie;
-    }
 
     //@see: http://docs.spring.io/spring-boot/docs/current/reference/html/howto-spring-mvc.html#howto-customize-the-jackson-objectmapper
     @Autowired
@@ -112,6 +69,7 @@ public class BootElastic implements CommandLineRunner {
 
     public static void main(String[] args) throws Exception {
         ConfigurableApplicationContext cac = SpringApplication.run(BootElastic.class, args);
+//        ApplicationContext ctx = new AnnotationConfigApplicationContext(BootElastic.class);
         cac.addApplicationListener(new ApplicationListener<ContextClosedEvent>() {
 
             @Override
@@ -120,6 +78,7 @@ public class BootElastic implements CommandLineRunner {
                 EsUtil.client.close();
             }
         });
+
 
     }
 }

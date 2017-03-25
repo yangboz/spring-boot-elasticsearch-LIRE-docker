@@ -6,7 +6,7 @@ package info.smartkit.eip.obtuse_octo_prune.VOs;
 public class SearchExistedVO
 {
         private int from = 0;
-        private int size = 100;
+        private int size = 1;
     private SearchExistedQueryVO query;
 
     public SearchExistedVO(SearchExistedQueryVO query) {
@@ -48,4 +48,8 @@ public class SearchExistedVO
                     ", query=" + query +
                     '}';
         }
+        public String getId(){
+            return getQuery().getImage().getMy_img().getId();
+        }
 }
+

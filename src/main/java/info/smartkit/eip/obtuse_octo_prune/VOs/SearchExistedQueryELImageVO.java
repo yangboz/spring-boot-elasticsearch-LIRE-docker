@@ -1,8 +1,27 @@
+/*
+ * Copyright (c) 2017. SMARTKIT.INFO reserved.
+ */
+
 package info.smartkit.eip.obtuse_octo_prune.VOs;
 
 /**
  * Created by smartkit on 2016/11/10.
  */
+//curl -XPOST 'localhost:9200/test/test/_search' -d '{
+//        "query": {
+//        "image": {
+//        "my_img": {
+//        "feature": "CEDD",
+//        "index": "test",
+//        "type": "test",
+//        "id": "image1",
+//        "path": "my_image",
+//        "hash": "BIT_SAMPLING"
+//        }
+//        }
+//        }
+//        }'
+
 public class SearchExistedQueryELImageVO {
 //    "feature": "CEDD",
 //            "index": "test",
@@ -13,14 +32,38 @@ public class SearchExistedQueryELImageVO {
     private String index;
     private String type;
     private String id;
-    private String hash;
 
-    public SearchExistedQueryELImageVO(String feature, String index, String type, String id, String hash) {
+    public SearchExistedQueryELImageVO(String feature, String index, String type, String id, String path, String hash) {
         this.feature = feature;
         this.index = index;
         this.type = type;
         this.id = id;
+        this.path = path;
         this.hash = hash;
+    }
+
+    public String getPath() {
+
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    private String path;
+    private String hash;
+
+    @Override
+    public String   toString() {
+        return "SearchExistedQueryELImageVO{" +
+                "feature='" + feature + '\'' +
+                ", index='" + index + '\'' +
+                ", type='" + type + '\'' +
+                ", id='" + id + '\'' +
+                ", path='" + path + '\'' +
+                ", hash='" + hash + '\'' +
+                '}';
     }
 
     public SearchExistedQueryELImageVO() {
