@@ -42,4 +42,14 @@ public class ImageUtils {
         return Base64.decodeBase64(imageDataString);
     }
 
+    /**
+     * Encodes the byte array into base64 string
+     *
+     * @param imageByteArray - byte array
+     * @return String a {@link java.lang.String}
+     */
+//    public static String encodeImage(byte[] imageByteArray) {
+//        return Base64.encodeBase64URLSafeString(imageByteArray);
+//    }
+
 }

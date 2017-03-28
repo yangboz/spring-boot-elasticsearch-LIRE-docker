@@ -38,12 +38,12 @@
             <ion-list>
                 <ion-item ng-repeat="searchResult in $root.searchResults | rangeFilter:'_score':$root.similarity">
                     <div class="item item-divider">
-                        {{$index}}.{{searchResult._id}}
+                        {{$index}}.{{searchResult.id}}
                     </div>
                     <a class="item item-thumbnail-left" href="#">
-                        <img ng-show="searchResult._source.my_img !=null" ng-src="data:image/gif;base64,{{searchResult._source.my_img}}" style="width: 64px;height: 64px;"  zoom-src="data:image/gif;base64,{{searchResult._source.my_img}}" zoom-view/>
+                        <img ng-show="searchResult.source.my_img !=null" ng-src="data:imageStr/gif;base64,{{searchResult.source.my_img}}" style="width: 64px;height: 64px;"  zoom-src="data:imageStr/gif;base64,{{searchResult._source.my_img}}" zoom-view/>
 
-                        <h2>score:{{searchResult._score}}</h2>
+                        <h2>score:{{searchResult.score}}</h2>
 
                         <p>FEATURE:CEDD</p>
                     </a>
@@ -63,7 +63,7 @@
                     <div class="item item-divider">
                         {{queryAll._id}}
                     </div>
-                    <img ng-show="queryAll._source.my_img !=null" ng-src="data:image/gif;base64,{{queryAll._source.my_img}}" style="width: 64px;height: 64px;" zoom-src="data:image/gif;base64,{{queryAll._source.my_img}}" zoom-view/>
+                    <img ng-show="queryAll._source.my_img !=null" ng-src="data:imageStr/gif;base64,{{queryAll._source.my_img}}" style="width: 64px;height: 64px;" zoom-src="data:imageStr/gif;base64,{{queryAll._source.my_img}}" zoom-view/>
                     <button class="button button-icon icon ion-link" ng-click="$root.searchExistedBtnClickHandler(queryAll._id)"></button>
                 </ion-item>
             </ion-list>

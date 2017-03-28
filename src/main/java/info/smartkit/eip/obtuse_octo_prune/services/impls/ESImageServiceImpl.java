@@ -3,6 +3,8 @@ package info.smartkit.eip.obtuse_octo_prune.services.impls;
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 import info.smartkit.eip.obtuse_octo_prune.configs.ElasticSearchBean;
 import info.smartkit.eip.obtuse_octo_prune.services.ESImageService;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.StringUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
@@ -15,12 +17,15 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
+import sun.misc.IOUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import static info.smartkit.eip.obtuse_octo_prune.utils.EsUtil.client;
+import static info.smartkit.eip.obtuse_octo_prune.utils.ImageUtils.decodeImage;
+import static info.smartkit.eip.obtuse_octo_prune.utils.ImageUtils.encodeImage;
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 /**
@@ -195,44 +200,45 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
 //                        "image": "... base64 encoded image to search ...",
 //                        "hash": "BIT_SAMPLING",
 //                        "boost": 2.1,
-//                        "limit": 100r
+//                        "limit": 100
 //            }
 //        }
 //    }
 //}'
 //@see: https://www.elastic.co/guide/en/elasticsearch/client/java-api/2.4/java-search.html
     @Override
-    public SearchResponseVO search(String index,String item, SearchVO searchVO) throws IOException {
+    public SearchResponseVO search(SimpleSearchVO simpleSearchVO,byte[] imageData) throws IOException {
 
-        //indexing at first then get indexed ID
+//        indexing at first then get indexed ID
         IndexImageVO indexImageVO = new IndexImageVO();
-        indexImageVO.setMy_img(searchVO.getQuery().getImage().getMy_img().getImage());
-        String indexedID = this.index(index,item,indexImageVO).getId();
-        LOG.info("indexedID:"+indexedID);
+        // Converting Image byte array into Base64 String
+        String imageStr = StringUtils.newStringUtf8(Base64.encodeBase64(imageData, false));
+        indexImageVO.setMy_img(imageStr);
+//        String indexedID = this.index(simpleSearchVO.getIndex(),simpleSearchVO.getItem(),indexImageVO).getId();
+//        LOG.info("indexedID:"+indexedID);
         // instance a json mapper
         ObjectMapper mapper = new ObjectMapper(); // create once, reuse
         // generate json
-        String json = mapper.writeValueAsString(searchVO);
+        String json = mapper.writeValueAsString(simpleSearchVO);
         // image byte
-        SearchQueryELImageVO myImage = searchVO.getQuery().getImage().getMy_img();
-        byte[] decodedImg = org.apache.commons.codec.binary.Base64.decodeBase64(myImage.getImage().getBytes());
+//        SearchQueryELImageVO myImage = searchVO.getQuery().getImage().getMy_img();
+//        byte[] decodedImg = org.apache.commons.codec.binary.Base64.decodeBase64(myImage.getImageStr().getBytes());
         ImageQueryBuilder queryBuilder = new ImageQueryBuilder("my_img")
+                .image(imageData)
                 .lookupField("my_img")
-                .feature(myImage.getFeature())
-                .hash(myImage.getHash())
-                .lookupIndex(index)
-                .lookupType(item)
-                .boost((float)myImage.getBoost());
-//                .lookupId(indexedID);
+                .feature(simpleSearchVO.getFeature())
+                .hash(simpleSearchVO.getHash())
+                .lookupIndex(simpleSearchVO.getIndex())
+                .lookupType(simpleSearchVO.getItem())
+                .lookupId("");
 
-        SearchResponse response = client.prepareSearch(index)
+        SearchResponse response = client.prepareSearch(simpleSearchVO.getIndex())
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-                .setTypes(item)
-//                .setFrom(0)
-//                .setSize(100)
+                .setTypes(simpleSearchVO.getItem())
                 .setQuery(queryBuilder)
 //                .setPostFilter(QueryBuilders.rangeQuery("age").from(12).to(18))     // Query Filter
-                .setFrom(searchVO.getFrom()).setSize(searchVO.getSize()).setExplain(false)
+                .setFrom(simpleSearchVO.getFrom())
+                .setSize(simpleSearchVO.getSize()).setExplain(false)
                 .execute()
                 .actionGet();
         LOG.info("SearchResponse:"+response.toString());

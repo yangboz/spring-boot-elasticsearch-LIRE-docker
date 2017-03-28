@@ -6,7 +6,7 @@ package info.smartkit.eip.obtuse_octo_prune.VOs;
 public class SearchExistedVO
 {
         private int from = 0;
-        private int size = 1;
+        private int size = 10;
     private SearchExistedQueryVO query;
 
     public SearchExistedVO(SearchExistedQueryVO query) {

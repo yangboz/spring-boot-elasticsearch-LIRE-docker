@@ -22,7 +22,7 @@
         <version.spring-social>1.1.2.RELEASE</version.spring-social>
         <version.spring-security>3.2.7.RELEASE</version.spring-security>
 
-        <docker.image.prefix>${env.USER}</docker.image.prefix>
+        <docker.imageStr.prefix>${env.USER}</docker.imageStr.prefix>
         <java.version>1.8</java.version>
         <jackson.version>2.7.0</jackson.version>
         <docker.plugin.version>0.4.11</docker.plugin.version>
@@ -292,7 +292,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <imageName>${docker.imageStr.prefix}/${project.artifactId}</imageName>
                     <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
                     <resources>
                         <resource>

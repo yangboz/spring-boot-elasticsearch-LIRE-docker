@@ -73,7 +73,7 @@ ElasticSearch-LIRE:
 
 https://www.elastic.co/blog/found-getting-started-with-lire-and-elasticsearch
 
-https://github.com/yangboz/elasticsearch-image
+https://github.com/yangboz/elasticsearch-imageStr
 
 Spring-boot-docker: https://spring.io/guides/gs/spring-boot-docker/
 
@@ -99,5 +99,5 @@ http://stackoverflow.com/questions/38937412/spring-boot-embedded-tomcat-not-star
 
 # TODO
 
-1.Using Index/Mapping/SearchRequestBuilder(ElasticSearch API)/ImageQueryBuilder(ElasticSearch-image plugin) to re-factory.
+1.Using Index/Mapping/SearchRequestBuilder(ElasticSearch API)/ImageQueryBuilder(ElasticSearch-imageStr plugin) to re-factory.
 2.Using MicroService architecture to seperate openIMAJ and ElasticSearch services.

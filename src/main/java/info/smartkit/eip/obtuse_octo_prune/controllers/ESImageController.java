@@ -5,19 +5,17 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 import info.smartkit.eip.obtuse_octo_prune.services.ESImageService;
 import info.smartkit.eip.obtuse_octo_prune.utils.FileUtil;
-import info.smartkit.eip.obtuse_octo_prune.utils.ImageUtils;
 import info.smartkit.eip.obtuse_octo_prune.utils.LireFeatures;
 import info.smartkit.eip.obtuse_octo_prune.utils.LireHashs;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipFile;
 import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.action.search.SearchResponse;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -27,9 +25,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.core.MediaType;
 import java.io.*;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import java.util.List;
+
+import static info.smartkit.eip.obtuse_octo_prune.utils.ImageUtils.decodeImage;
+import static info.smartkit.eip.obtuse_octo_prune.utils.ImageUtils.encodeImage;
 
 /**
  * Created by smartkit on 2016/10/28.
@@ -64,10 +66,11 @@ public class ESImageController {
     @ApiOperation(httpMethod = "POST", value = "Response a string describing if the SearchVO is successfully created or not.", notes = "e.g. index: my_index,item: my_image_Item")
     public SearchResponseVO search(@PathVariable("index") String index, @PathVariable("item") String item,
                                  @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file) throws IOException {
-        SearchVO searchVO = new SearchVO();
-        searchVO.getQuery().getImage().getMy_img().setFeature(LireFeatures.CEDD);
-        searchVO.getQuery().getImage().getMy_img().setImage(this.getMultipartImageDataString(file));
-        return imageService.search(index, item, searchVO);
+        SimpleSearchVO simpleSearchVO  = new SimpleSearchVO();
+        simpleSearchVO.setItem(item);
+        simpleSearchVO.setIndex(index);
+        byte[] imageData = decodeImage(this.getMultipartImageDataString(file));
+        return imageService.search(simpleSearchVO, imageData);
     }
 
     @RequestMapping(value = "searchExisted/{index}/{item}/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
@@ -81,6 +84,24 @@ public class ESImageController {
         jsonHttpMessageConverter.getObjectMapper().configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         restTemplate.getMessageConverters().add(jsonHttpMessageConverter);
         return response;
+    }
+
+    @RequestMapping(value = "searchUrl/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
+    @ApiOperation(httpMethod = "POST", value = "Response a string describing if the SearchQueryVO is successfully created or not.",
+            notes = "e.g. database: test,table: test,index: AVhgkCmlo6Smc5eMO6E2 ,index: test ,type: test ,hash: BIT_SAMPLING, url:http://xyz.com/a.jpg")
+    public SearchResponseVO searchUrl(@RequestBody @Valid SimpleSearchVO sSearchVO) throws IOException {
+        SimpleSearchVO simpleSearchVO  = new SimpleSearchVO();
+        simpleSearchVO.setItem(sSearchVO.getItem());
+        simpleSearchVO.setIndex(sSearchVO.getIndex());
+        //read image url.
+        URL imageUrl = new URL(sSearchVO.getUrl());
+        InputStream is = imageUrl.openStream();
+        byte[] imageData = IOUtils.toByteArray(is);
+        // Converting Image byte array into Base64 String
+//        String imageDataString = encodeImage(imageData);
+//       LOG.debug("imageDataString : " + imageDataString);
+        //
+        return imageService.search(simpleSearchVO,imageData);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "index/{name}/{item}/", consumes = MediaType.MULTIPART_FORM_DATA)
@@ -142,10 +163,10 @@ public class ESImageController {
                 imageInFile.read(imageData);
 
                 // Converting Image byte array into Base64 String
-                imageDataString = ImageUtils.encodeImage(imageData);
+                imageDataString = encodeImage(imageData);
                 LOG.debug("Image Successfully Manipulated!base64:" + imageDataString);
                 IndexImageVO indexImageVO = new IndexImageVO(imageDataString);
-                LOG.info("indexImageVO:" + indexImageVO.toString());
+                LOG.debug("indexImageVO:" + indexImageVO.toString());
             } catch (FileNotFoundException e) {
                 LOG.error("Image not found" + e);
             } catch (IOException ioe) {
@@ -167,7 +188,7 @@ public class ESImageController {
                 byte imageData[] = new byte[(int)file.length()];
                 imageInFile.read(imageData);
                 // Converting Image byte array into Base64 String
-                imageDataString = ImageUtils.encodeImage(imageData);
+                imageDataString = encodeImage(imageData);
                 LOG.info("Image Successfully Manipulated!base64:" + imageDataString);
                 IndexImageVO indexImageVO = new IndexImageVO(imageDataString);
                 LOG.info("indexImageVO:" + indexImageVO.toString());

@@ -20,7 +20,7 @@ public interface ESImageService {
 
     public SearchResponseVO query(String index, int from, int size, String query);
 
-    public SearchResponseVO search(String index, String item, SearchVO searchVO) throws IOException;
+    public SearchResponseVO search(SimpleSearchVO simpleSearchVO,byte[] imageData) throws IOException;
 
     public SearchResponseVO searchExisted(String index, String item, SearchExistedVO searchExistedVO);
 }

@@ -50,6 +50,19 @@ angular.module('starter.controllers', [])
         $rootScope.indexedIDs = [];//{id:0,img:"...base64..."}
         $rootScope.selectedIndexID={};
         $rootScope.similarity = 50;
+        //JSON object
+        $rootScope.searchResults = [{
+            // "_index": "my_index",
+            // "_type": "my_image_item",
+            // "_id": "AVhwraTmVlbP7cTwXwJg",
+            // "_version": "1",
+            // "created": true,
+            // "_shards": {
+            //     "total": 2,
+            //     "failed": 0,
+            //     "successful": 1
+            // }
+        }];
         // Common functions.
         // $scope.$watch('ui.max',function(nVal,oVal){
         //     $rootScope.newSearch.threshold = parseInt(nVal);
@@ -73,8 +86,12 @@ angular.module('starter.controllers', [])
         $rootScope.searchExistedBtnClickHandler = function ($id) {
             SearchExistedService.save({index:$rootScope.newSearch.index,item:$rootScope.newSearch.item,id:$id}, function (response) {
                 $log.debug("SearchExistedService.save() success!", response);
-                $rootScope.searchResults = response.hits.hits;
+                // empties an array
+                $rootScope.searchResults.length = 0;
+                angular.extend($rootScope.searchResults, response.hits.hits);
+                // $rootScope.searchResults = response.hits.hits;
                 $log.info("$rootScope.searchResults:", $rootScope.searchResults);
+
             }, function (error) {
                 // failure handler
                 $log.error("SearchExistedService.save() failed:", JSON.stringify(error));
@@ -89,19 +106,7 @@ angular.module('starter.controllers', [])
         $rootScope.newSearch.index = "my_index";
         $rootScope.newSearch.item = "my_image_item";
 
-        //JSON object
-        $rootScope.searchResults = {
-            // "_index": "my_index",
-            // "_type": "my_image_item",
-            // "_id": "AVhwraTmVlbP7cTwXwJg",
-            // "_version": "1",
-            // "created": true,
-            // "_shards": {
-            //     "total": 2,
-            //     "failed": 0,
-            //     "successful": 1
-            // }
-        }
+
         //
         $scope.searchBtnClickHandler = function () {
             var fdata = new FormData();
