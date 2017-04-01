@@ -20,7 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="obtuse-octo-prune" target="1.7" />
+      <module name="obtuse-octo-prune" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
