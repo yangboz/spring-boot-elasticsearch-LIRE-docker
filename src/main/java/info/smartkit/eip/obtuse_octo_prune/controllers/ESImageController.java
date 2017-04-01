@@ -7,6 +7,7 @@ import info.smartkit.eip.obtuse_octo_prune.services.ESImageService;
 import info.smartkit.eip.obtuse_octo_prune.utils.FileUtil;
 import info.smartkit.eip.obtuse_octo_prune.utils.LireFeatures;
 import info.smartkit.eip.obtuse_octo_prune.utils.LireHashs;
+import org.apache.commons.codec.binary.*;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.LogManager;
@@ -113,7 +114,9 @@ public class ESImageController {
             @RequestPart(value = "file") @Valid @NotNull @NotBlank MultipartFile file,
             @PathVariable("name") String name, @PathVariable("item") String item) throws IOException {
         IndexImageVO indexImageVO = new IndexImageVO();
-        indexImageVO.setMy_img(this.getMultipartImageDataString(file));
+        byte[] imageData = decodeImage(this.getMultipartImageDataString(file));
+        String imagebase64Str  = StringUtils.newStringUtf8(org.apache.commons.codec.binary.Base64.encodeBase64(imageData, false));
+        indexImageVO.setMy_img(imagebase64Str);
         IndexResponse indexResponseVO = imageService.index(name, item, indexImageVO);
         return indexResponseVO;
     }

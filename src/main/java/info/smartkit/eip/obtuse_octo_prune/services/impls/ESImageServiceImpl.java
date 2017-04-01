@@ -3,6 +3,8 @@ package info.smartkit.eip.obtuse_octo_prune.services.impls;
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
 import info.smartkit.eip.obtuse_octo_prune.configs.ElasticSearchBean;
 import info.smartkit.eip.obtuse_octo_prune.services.ESImageService;
+import info.smartkit.eip.obtuse_octo_prune.utils.LireFeatures;
+import net.semanticmetadata.lire.imageanalysis.features.LireFeature;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
 import org.apache.log4j.Logger;
@@ -212,8 +214,8 @@ public HttpResponseVO setting(String index, SettingsVO settingsVO) {
 //        indexing at first then get indexed ID
         IndexImageVO indexImageVO = new IndexImageVO();
         // Converting Image byte array into Base64 String
-        String imageStr = StringUtils.newStringUtf8(Base64.encodeBase64(imageData, false));
-        indexImageVO.setMy_img(imageStr);
+        String imageDataString = StringUtils.newStringUtf8(Base64.encodeBase64(imageData, false));
+        indexImageVO.setMy_img(imageDataString);
 //        String indexedID = this.index(simpleSearchVO.getIndex(),simpleSearchVO.getItem(),indexImageVO).getId();
 //        LOG.info("indexedID:"+indexedID);
         // instance a json mapper

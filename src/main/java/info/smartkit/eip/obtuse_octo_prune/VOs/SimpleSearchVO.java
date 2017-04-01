@@ -17,8 +17,8 @@ public class SimpleSearchVO {
     private String url;
     private String id;
 
-    private int from;
-    private int size;
+    private int from=0;
+    private int size=10;
 
     @Override
     public String toString() {

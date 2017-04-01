@@ -34,12 +34,12 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfo(
-                "Obtuse-Octo-Prune Restful API",
-                "API for Obtuse-Octo-Prune",
-                "Obtuse-Octo-Prune API terms of service",
-                "youngwelle@gmail.com",
-                "Obtuse-Octo-Prune API Licence Type",
-                "Obtuse-Octo-Prune API License URL"
+                "SMARTKIT.INFO COVIASv1 RESTful API",
+                "API for COVIASv1",
+                "SMARTKIT.INFO API terms of service",
+                "contact@smartkit.info",
+                "SMARTKIT.INFO API Licence Type",
+                "http://license.smartkit.info"
         );
         return apiInfo;
     }
