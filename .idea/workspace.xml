@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ed45defd-9979-4d55-9ef3-0879a161b1c4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.xml" afterPath="$PROJECT_DIR$/settings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
     </list>
     <ignored path="obtuse-octo-prune.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -70,21 +70,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="223" column="12" lean-forward="false" selection-start-line="223" selection-start-column="12" selection-end-line="223" selection-end-column="12" />
+            <state relative-caret-position="401">
+              <caret line="262" column="21" lean-forward="false" selection-start-line="262" selection-start-column="21" selection-end-line="262" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/settings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="41" column="64" lean-forward="false" selection-start-line="41" selection-start-column="64" selection-end-line="41" selection-end-column="64" />
+            <state relative-caret-position="476">
+              <caret line="146" column="16" lean-forward="true" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -212,8 +212,8 @@
         <option value="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/impls/OpenImajImageServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/OpenIMAJImageService.java" />
         <option value="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/impls/OpenIMAJImageServiceImpl.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/settings.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -912,12 +912,12 @@
       <workItem from="1490663594570" duration="26461000" />
       <workItem from="1490853549874" duration="41000" />
       <workItem from="1490853891283" duration="24280000" />
-      <workItem from="1491037390998" duration="547000" />
+      <workItem from="1491037390998" duration="1049000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129353000" />
+    <option name="totallyTimeSpent" value="129855000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1397,18 +1397,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/settings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="223" column="12" lean-forward="false" selection-start-line="223" selection-start-column="12" selection-end-line="223" selection-end-column="12" />
+        <state relative-caret-position="476">
+          <caret line="146" column="16" lean-forward="true" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/settings.xml">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="41" column="64" lean-forward="false" selection-start-line="41" selection-start-column="64" selection-end-line="41" selection-end-column="64" />
+        <state relative-caret-position="401">
+          <caret line="262" column="21" lean-forward="false" selection-start-line="262" selection-start-column="21" selection-end-line="262" selection-end-column="21" />
           <folding />
         </state>
       </provider>

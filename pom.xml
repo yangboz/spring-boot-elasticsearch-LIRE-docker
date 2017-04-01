@@ -223,6 +223,48 @@
         </plugins>
     </build>
 
+
+    <repositories>
+
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>central</id>
+            <url>http://central.maven.org/maven2/</url>
+        </repository>
+
+        <repository>
+            <id>spring-libs-snapshot</id>
+            <name>Spring</name>
+            <url>http://repo.spring.io/libs-snapshot</url>
+        </repository>
+
+        <repository>
+            <id>spring-snapshots</id>
+            <url>http://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>spring-milestones</id>
+            <url>http://repo.spring.io/milestone</url>
+        </repository>
+
+        <repository>
+            <id>oss-jfrog-artifactory</id>
+            <name>oss-jfrog-artifactory-releases</name>
+            <url>http://oss.jfrog.org/artifactory/oss-release-local</url>
+        </repository>
+
+    </repositories>
+
+
     <!--
      <build>
         <plugins>
