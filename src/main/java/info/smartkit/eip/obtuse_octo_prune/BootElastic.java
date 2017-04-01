@@ -1,5 +1,6 @@
 package info.smartkit.eip.obtuse_octo_prune;
 
+import info.smartkit.eip.obtuse_octo_prune.configs.ElasticSearchBean;
 import info.smartkit.eip.obtuse_octo_prune.utils.EsUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -39,6 +40,9 @@ public class BootElastic implements CommandLineRunner {
         jackson2ObjectMapperBuilder.failOnUnknownProperties(false);
     }
 
+    @Autowired
+    ElasticSearchBean elasticSearchBean;
+
     public void run(String... args) throws Exception {
 //        addSomeMovies();
         // We indexed star wars and pricess bride to our movie
@@ -60,9 +64,9 @@ public class BootElastic implements CommandLineRunner {
 //        EsUtil.client = TransportClient.builder().build()
 //                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300));
         Settings settings = Settings.settingsBuilder()
-                .put("cluster.name", "elasticsearch_smartkit").build();
+                .put("cluster.name", elasticSearchBean.getClusterName()).build();
         EsUtil.client = TransportClient.builder().settings(settings)
-                .build().addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("127.0.0.1"), 9300));
+                .build().addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(elasticSearchBean.getClusterNodeHost()), 9300));
         LOG.info("EsClient:"+EsUtil.client);
 
     }

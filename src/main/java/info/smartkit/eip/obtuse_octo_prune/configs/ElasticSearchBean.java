@@ -23,11 +23,27 @@ public class ElasticSearchBean {
     @Value("${spring.data.elasticsearch.cluster-url}")
     private String clusterUrl;
 
+    public String getClusterNodeHost() {
+        return clusterNodeHost;
+    }
+
+    @Value("${elasticsearch.cluster-nodes.1}")
+    private String clusterNodeHost;
+
+
+    public String getClusterName() {
+        return clusterName;
+    }
+
+    @Value("${spring.data.elasticsearch.cluster-name}")
+    private String clusterName;
+
     public ElasticSearchBean() {
     }
 
     @PostConstruct
     public void init() {
-        LOG.info("================== " + clusterUrl + " ================== ");
+        LOG.info("ES,clusterUrl================== " + clusterUrl + " ================== ");
+        LOG.info("ES,clusterNodeHost================== " + clusterNodeHost + " ================== ");
     }
 }
