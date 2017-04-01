@@ -1,7 +1,7 @@
 package info.smartkit.eip.obtuse_octo_prune.services.impls;
 
 import info.smartkit.eip.obtuse_octo_prune.VOs.AnalysisResponseVO;
-import info.smartkit.eip.obtuse_octo_prune.services.OpenIMAjImageService;
+import info.smartkit.eip.obtuse_octo_prune.services.OpenImajImageService;
 import org.apache.log4j.Logger;
 import org.openimaj.feature.FloatFV;
 import org.openimaj.feature.FloatFVComparison;
@@ -32,7 +32,6 @@ import org.openimaj.math.geometry.transforms.HomographyRefinement;
 import org.openimaj.math.geometry.transforms.estimation.RobustHomographyEstimator;
 import org.openimaj.math.model.fit.RANSAC;
 import org.openimaj.tools.faces.FaceSimilarityTool;
-import org.openimaj.tools.faces.PredefinedStrategy;
 import org.openimaj.util.pair.Pair;
 import org.springframework.stereotype.Service;
 
@@ -48,9 +47,9 @@ import java.util.Map;
  * Created by smartkit on 2016/11/21.
  */
 @Service
-public class OpenIMAjImageServiceImpl implements OpenIMAjImageService {
+public class OpenImajImageServiceImpl implements OpenImajImageService {
 
-    private static Logger LOG = org.apache.log4j.LogManager.getLogger(OpenIMAjImageServiceImpl.class);
+    private static Logger LOG = org.apache.log4j.LogManager.getLogger(OpenImajImageServiceImpl.class);
 
     @Override
     public AnalysisResponseVO analysis(File imgFile) throws IOException {

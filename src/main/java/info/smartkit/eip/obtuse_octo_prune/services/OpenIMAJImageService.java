@@ -14,9 +14,9 @@ import java.util.Map;
 
 /**
  * Created by smartkit on 2016/10/28.
- * @see:https://github.com/yangboz/elasticsearch-image
+ * @see:http://openimaj.org/
  */
-public interface OpenIMAjImageService {
+public interface OpenImajImageService {
     public AnalysisResponseVO analysis(File imgFile) throws IOException;
     public List<Pair<Keypoint>> matching(File input1, File input2) throws IOException;
     public Map<String,Map<String,Double>> similarity(File input1, File input2) throws IOException;
