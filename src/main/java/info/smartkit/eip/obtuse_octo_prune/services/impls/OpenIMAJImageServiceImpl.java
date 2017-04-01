@@ -1,7 +1,7 @@
 package info.smartkit.eip.obtuse_octo_prune.services.impls;
 
 import info.smartkit.eip.obtuse_octo_prune.VOs.AnalysisResponseVO;
-import info.smartkit.eip.obtuse_octo_prune.services.OpenImajImageService;
+import info.smartkit.eip.obtuse_octo_prune.services.OpenIMAJImageService;
 import org.apache.log4j.Logger;
 import org.openimaj.feature.FloatFV;
 import org.openimaj.feature.FloatFVComparison;
@@ -47,9 +47,9 @@ import java.util.Map;
  * Created by smartkit on 2016/11/21.
  */
 @Service
-public class OpenImajImageServiceImpl implements OpenImajImageService {
+public class OpenIMAJImageServiceImpl implements OpenIMAJImageService {
 
-    private static Logger LOG = org.apache.log4j.LogManager.getLogger(OpenImajImageServiceImpl.class);
+    private static Logger LOG = org.apache.log4j.LogManager.getLogger(OpenIMAJImageServiceImpl.class);
 
     @Override
     public AnalysisResponseVO analysis(File imgFile) throws IOException {

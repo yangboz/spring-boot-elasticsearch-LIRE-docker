@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ed45defd-9979-4d55-9ef3-0879a161b1c4" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/controllers/OpenIMAJImageController.java" afterPath="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/controllers/OpenImajImageController.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/controllers/OpenImajImageController.java" afterPath="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/controllers/OpenIMAJImageController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/OpenIMAJImageService.java" afterPath="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/OpenIMAJImageService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/impls/OpenIMAJImageServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/impls/OpenIMAJImageServiceImpl.java" />
@@ -52,8 +52,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OpenImajImageServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/impls/OpenImajImageServiceImpl.java">
+      <file leaf-file-name="OpenIMAJImageServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/impls/OpenIMAJImageServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="360">
               <caret line="66" column="36" lean-forward="false" selection-start-line="66" selection-start-column="36" selection-end-line="66" selection-end-column="36" />
@@ -69,8 +69,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OpenImajImageService.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/OpenImajImageService.java">
+      <file leaf-file-name="OpenIMAJImageService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/OpenIMAJImageService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
               <caret line="18" column="24" lean-forward="false" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
@@ -79,11 +79,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OpenImajImageController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/controllers/OpenImajImageController.java">
+      <file leaf-file-name="OpenIMAJImageController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/controllers/OpenIMAJImageController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
-              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -161,8 +161,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/microservice/services/openimaj/OpenIMAjServer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/microservice/services/elasticsearch/ElasticSearchServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/microservices/openImaj/elasticSearch/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/microservices/openImaj/elasticSearch/AccountsServer.java" />
         <option value="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/microservices/openImaj/elasticSearch/RegistrationServer.java" />
@@ -212,6 +210,8 @@
         <option value="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/OpenImajImageService.java" />
         <option value="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/controllers/OpenImajImageController.java" />
         <option value="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/impls/OpenImajImageServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/OpenIMAJImageService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/impls/OpenIMAJImageServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -1108,12 +1108,12 @@
       <workItem from="1490332892306" duration="26276000" />
       <workItem from="1490663594570" duration="26461000" />
       <workItem from="1490853549874" duration="41000" />
-      <workItem from="1490853891283" duration="9600000" />
+      <workItem from="1490853891283" duration="10476000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114126000" />
+    <option name="totallyTimeSpent" value="115002000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1147,9 +1147,9 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32953367" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3284974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32020727" sideWeight="0.4978308" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32020727" sideWeight="0.4978308" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39067358" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39067358" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28796095" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1658,15 +1658,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/controllers/OpenImajImageController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/impls/OpenImajImageServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/impls/OpenIMAJImageServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="66" column="36" lean-forward="false" selection-start-line="66" selection-start-column="36" selection-end-line="66" selection-end-column="36" />
@@ -1674,10 +1666,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/OpenImajImageService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/services/OpenIMAJImageService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="18" column="24" lean-forward="false" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/info/smartkit/eip/obtuse_octo_prune/controllers/OpenIMAJImageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding />
         </state>
       </provider>

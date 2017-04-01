@@ -2,7 +2,7 @@ package info.smartkit.eip.obtuse_octo_prune.controllers;
 
 import com.wordnik.swagger.annotations.ApiOperation;
 import info.smartkit.eip.obtuse_octo_prune.VOs.*;
-import info.smartkit.eip.obtuse_octo_prune.services.OpenImajImageService;
+import info.smartkit.eip.obtuse_octo_prune.services.OpenIMAJImageService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.NotBlank;
@@ -23,12 +23,12 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("image/openimaj")
-public class OpenImajImageController {
+public class OpenIMAJImageController {
 
     @Autowired
-    private OpenImajImageService imageService;
+    private OpenIMAJImageService imageService;
 
-    private static Logger LOG = LogManager.getLogger(OpenImajImageController.class);
+    private static Logger LOG = LogManager.getLogger(OpenIMAJImageController.class);
 
     // @see: https://spring.io/guides/gs/uploading-files/
     @RequestMapping(method = RequestMethod.POST, value = "/analysis", consumes = MediaType.MULTIPART_FORM_DATA)
