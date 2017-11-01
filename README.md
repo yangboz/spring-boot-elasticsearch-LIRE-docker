@@ -39,6 +39,12 @@ Walk through Spring-boot with ElasticSearch microservices RESTful.
    `
    bin/elasticsearch -Des.insecure.allow.root=true -d
    `
+   
+   Docker:
+  
+`
+   docker run smartkit/eip-ielk:s241_l240_k461
+`
 
 3.How to start up Spring-boot?
 
@@ -106,4 +112,5 @@ http://stackoverflow.com/questions/38937412/spring-boot-embedded-tomcat-not-star
 # TODO
 
 1.Using Index/Mapping/SearchRequestBuilder(ElasticSearch API)/ImageQueryBuilder(ElasticSearch-imageStr plugin) to re-factory.
+
 2.Using MicroService architecture to seperate openIMAJ and ElasticSearch services.
