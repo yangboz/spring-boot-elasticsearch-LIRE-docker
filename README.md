@@ -21,6 +21,13 @@ Walk through Spring-boot with ElasticSearch microservices RESTful.
    dpkg -i elasticsearch-2.4.1.deb
  `
 
+  Docker:
+  
+  `
+  docker pull smartkit/eip-ielk:s241_l240_k461
+   
+  `
+  
 2.How to start up ElasticSearch?
 
    MacOSX: 
