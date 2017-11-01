@@ -23,10 +23,9 @@ Walk through Spring-boot with ElasticSearch microservices RESTful.
 
   Docker:
   
-  `
-  docker pull smartkit/eip-ielk:s241_l240_k461
-   
-  `
+`
+   docker pull smartkit/eip-ielk:s241_l240_k461
+`
   
 2.How to start up ElasticSearch?
 
